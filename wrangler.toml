@@ -1,0 +1,13 @@
+name = "peacechurch"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-03-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "peacechurch-db"
+database_id = "4f7627c6-508e-48cb-a69a-256d25db5298"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "peacechurchr2"
