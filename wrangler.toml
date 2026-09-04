@@ -1,13 +1,13 @@
-name = "peacechurch"
+﻿name = "naumclinic"
 pages_build_output_dir = "dist"
 compatibility_date = "2024-03-20"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "peacechurch-db"
-database_id = "4f7627c6-508e-48cb-a69a-256d25db5298"
+database_name = "naum-db"
+database_id = "c48ec77a-7e6c-4af9-b6d0-52b14da1f07a"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "peacechurchr2"
+bucket_name = "naum-r2"
