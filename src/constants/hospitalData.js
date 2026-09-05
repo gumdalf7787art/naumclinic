@@ -1,37 +1,43 @@
 export const HOSPITAL_MENUS = [
   {
-    id: 'intro', name: '병원소개', path: '/intro/ceo', is_active: 1,
+    id: 'about', name: '나음 소개', path: '/about/philosophy', is_active: 1,
     children: [
-      { id: 'intro-ceo', name: '병원장 인사말', path: '/intro/ceo', is_active: 1 },
-      { id: 'intro-doctors', name: '의료진 소개', path: '/intro/doctors', is_active: 1 },
-      { id: 'intro-facility', name: '시설 및 장비안내', path: '/intro/facility', is_active: 1 },
-      { id: 'intro-location', name: '오시는 길', path: '/intro/location', is_active: 1 }
+      { id: 'about-philosophy', name: '원장님 인사말', path: '/about/philosophy', is_active: 1 },
+      { id: 'about-doctor', name: '의료진 소개', path: '/about/doctor', is_active: 1 },
+      { id: 'about-facility', name: '병원 둘러보기', path: '/about/facility', is_active: 1 },
+      { id: 'about-location', name: '오시는 길', path: '/about/location', is_active: 1 }
     ]
   },
   {
-    id: 'info', name: '진료안내', path: '/info/hours', is_active: 1,
+    id: 'pain', name: '비수술 통증 클리닉', path: '/pain/spine', is_active: 1,
     children: [
-      { id: 'info-hours', name: '진료시간안내', path: '/info/hours', is_active: 1 },
-      { id: 'info-depts', name: '진료과목', path: '/info/departments', is_active: 1 },
-      { id: 'info-certs', name: '제증명발급안내', path: '/info/certificates', is_active: 1 },
-      { id: 'info-nonpay', name: '비급여진료비', path: '/info/non-payment', is_active: 1 }
+      { id: 'pain-spine', name: '목·허리 척추 클리닉', path: '/pain/spine', is_active: 1 },
+      { id: 'pain-joint', name: '어깨·관절 클리닉', path: '/pain/joint', is_active: 1 },
+      { id: 'pain-ultrasound', name: '초음파 유도하 주사치료', path: '/pain/ultrasound', is_active: 1 }
     ]
   },
   {
-    id: 'center', name: '전문센터', path: '/center/specialty', is_active: 1,
+    id: 'rehab', name: '맞춤 재활 / 도수치료', path: '/rehab/manual', is_active: 1,
     children: [
-      { id: 'center-special', name: '특화진료센터', path: '/center/specialty', is_active: 1 },
-      { id: 'center-manual', name: '도수치료 센터', path: '/center/manual', is_active: 1 },
-      { id: 'center-checkup', name: '건강검진센터', path: '/center/checkup', is_active: 1 },
-      { id: 'center-surgery', name: '수술센터', path: '/center/surgery', is_active: 1 }
+      { id: 'rehab-manual', name: '체형 교정 도수치료', path: '/rehab/manual', is_active: 1 },
+      { id: 'rehab-postop', name: '수술 후 재활치료', path: '/rehab/post-op', is_active: 1 },
+      { id: 'rehab-shockwave', name: '특수 물리치료', path: '/rehab/shockwave', is_active: 1 }
     ]
   },
   {
-    id: 'community', name: '커뮤니티', path: '/community/notice', is_active: 1,
+    id: 'special', name: '특수 클리닉', path: '/special/equipment', is_active: 1,
     children: [
-      { id: 'comm-notice', name: '병원소식', path: '/community/notice', is_active: 1 },
-      { id: 'comm-consult', name: '건강상담', path: '/community/consult', is_active: 1 },
-      { id: 'comm-reviews', name: '진료후기', path: '/community/reviews', is_active: 1 }
+      { id: 'special-equipment', name: '최신 하이엔드 장비 치료', path: '/special/equipment', is_active: 1 },
+      { id: 'special-chronic', name: '난치성 만성통증 클리닉', path: '/special/chronic', is_active: 1 },
+      { id: 'special-iv', name: '프리미엄 수액/영양 클리닉', path: '/special/iv', is_active: 1 }
+    ]
+  },
+  {
+    id: 'community', name: '나음 커뮤니티', path: '/community/notice', is_active: 1,
+    children: [
+      { id: 'comm-notice', name: '공지사항', path: '/community/notice', is_active: 1 },
+      { id: 'comm-reviews', name: '치료 사례 / 후기', path: '/community/reviews', is_active: 1 },
+      { id: 'comm-faq', name: '자주 묻는 질문', path: '/community/faq', is_active: 1 }
     ]
   }
 ];
@@ -79,12 +85,12 @@ export const QUICK_SECTION = {
 };
 
 export const QUICK_LINKS = [
-  { id: 1, name: '지긋지긋한 목·허리 통증', tag: '비수술 통증치료', sub: '디스크, 협착증 등 근본적인 원인을 찾아 치료합니다.', path: '/center/specialty', image: '/card1-opt.webp' },
-  { id: 2, name: '손목터널증후군 & 관절염', tag: '관절·인대 치료', sub: '초기 정확한 진단이 필요한 손목과 팔꿈치 통증.', path: '/center/specialty', image: '/card2-opt.webp' },
-  { id: 3, name: '체형 교정 도수치료', tag: '1:1 집중 치료', sub: '틀어진 척추를 바로잡고 근육 밸런스를 회복시킵니다.', path: '/center/manual', image: '/card3-opt.webp' },
-  { id: 4, name: '초음파 유도하 주사치료', tag: '프리미엄 진료', sub: '실시간 초음파 영상을 통해 병변에 정확히 투여합니다.', path: '/center/specialty', image: '/card4-opt.webp' },
-  { id: 5, name: '체외충격파 치료 (ESWT)', tag: '조직 재생 치료', sub: '강력한 파동으로 손상된 조직과 염증을 치료합니다.', path: '/center/specialty', image: '/card5-opt.webp' },
-  { id: 6, name: '수술 후 재활치료', tag: '일상 회복 프로그램', sub: '빠른 일상 복귀를 위한 맞춤형 단계별 재활 솔루션.', path: '/center/manual', image: '/card6-opt.webp' }
+  { id: 1, name: '지긋지긋한 목·허리 통증', tag: '비수술 통증치료', sub: '디스크, 협착증 등 근본적인 원인을 찾아 치료합니다.', path: '/pain/spine', image: '/card1-opt.webp' },
+  { id: 2, name: '손목터널증후군 & 관절염', tag: '관절·인대 치료', sub: '초기 정확한 진단이 필요한 손목과 팔꿈치 통증.', path: '/pain/joint', image: '/card2-opt.webp' },
+  { id: 3, name: '체형 교정 도수치료', tag: '1:1 집중 치료', sub: '틀어진 척추를 바로잡고 근육 밸런스를 회복시킵니다.', path: '/rehab/manual', image: '/card3-opt.webp' },
+  { id: 4, name: '초음파 유도하 주사치료', tag: '프리미엄 진료', sub: '실시간 초음파 영상을 통해 병변에 정확히 투여합니다.', path: '/pain/ultrasound', image: '/card4-opt.webp' },
+  { id: 5, name: '체외충격파 치료 (ESWT)', tag: '조직 재생 치료', sub: '강력한 파동으로 손상된 조직과 염증을 치료합니다.', path: '/rehab/shockwave', image: '/card5-opt.webp' },
+  { id: 6, name: '수술 후 재활치료', tag: '일상 회복 프로그램', sub: '빠른 일상 복귀를 위한 맞춤형 단계별 재활 솔루션.', path: '/rehab/post-op', image: '/card6-opt.webp' }
 ];
 
 export const MEDIA_SECTION = {

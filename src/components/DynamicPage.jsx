@@ -55,7 +55,7 @@ export default function DynamicPage() {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Banner Section */}
-      <section className="relative w-full h-[300px] md:h-[400px] bg-black overflow-hidden flex items-center justify-center">
+      <section className="relative w-full h-[300px] md:h-[400px] bg-black overflow-hidden flex items-center justify-center pt-[72px]">
         {pageData.banner_image && (
           <img 
             src={pageData.banner_image} 

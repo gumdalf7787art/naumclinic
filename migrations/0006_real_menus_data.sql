@@ -10,32 +10,33 @@ CREATE TABLE menus (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- 1. 교회소개 (id: 1)
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (1, '교회소개', '/about', NULL, 1, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (2, '교회비전과 목표', '/about/vision', 1, 1, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (3, '담임목사 소개', '/about/pastor', 1, 2, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (4, '섬기는 분', '/about/staff', 1, 3, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (5, '예배안내', '/about/worship', 1, 4, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (6, '교회주보', '/about/bulletin', 1, 5, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (7, '온라인헌금', '/about/offering', 1, 6, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (8, '시설안내', '/about/facility', 1, 7, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (9, '찾아오시는 길', '/about/location', 1, 8, 1);
+-- 1. 나음 소개 (id: 1)
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (1, '나음 소개', '/about', NULL, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (2, '인사말 및 진료철학', '/about/philosophy', 1, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (3, '의료진 소개', '/about/doctor', 1, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (4, '병원 둘러보기', '/about/facility', 1, 3, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (5, '오시는 길', '/about/location', 1, 4, 1);
 
--- 2. 예배와찬양 (id: 10)
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (10, '예배와찬양', '/worship', NULL, 2, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (11, '예배와말씀', '/worship/word', 10, 1, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (12, '찬양단', '/worship/choir', 10, 2, 1);
+-- 2. 비수술 통증 클리닉 (id: 10)
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (10, '비수술 통증 클리닉', '/pain', NULL, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (11, '목·허리 척추 클리닉', '/pain/spine', 10, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (12, '어깨·관절 클리닉', '/pain/joint', 10, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (13, '초음파 유도하 주사치료', '/pain/ultrasound', 10, 3, 1);
 
--- 3. 교육과선교 (id: 13)
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (13, '교육과선교', '/education', NULL, 3, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (14, '유초등부', '/education/kids', 13, 1, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (15, '중고등부', '/education/youth', 13, 2, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (16, '청년부', '/education/young-adult', 13, 3, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (17, '여선교회', '/education/womens', 13, 4, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (18, '남선교회', '/education/mens', 13, 5, 1);
+-- 3. 맞춤 재활 / 도수치료 (id: 14)
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (14, '맞춤 재활 / 도수치료', '/rehab', NULL, 3, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (15, '체형 교정 도수치료', '/rehab/manual', 14, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (16, '수술 후 재활치료', '/rehab/post-op', 14, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (17, '특수 물리치료', '/rehab/shockwave', 14, 3, 1);
 
--- 4. 나눔과교제 (id: 19)
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (19, '나눔과교제', '/fellowship', NULL, 4, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (20, '은혜의글', '/fellowship/grace', 19, 1, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (21, '갤러리', '/fellowship/gallery', 19, 2, 1);
-INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (22, '교우사업장소개', '/fellowship/business', 19, 3, 1);
+-- 4. 특수 클리닉 (id: 18)
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (18, '특수 클리닉', '/special', NULL, 4, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (19, '최신 하이엔드 장비 치료', '/special/equipment', 18, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (20, '난치성 만성통증 클리닉', '/special/chronic', 18, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (21, '프리미엄 수액/영양 클리닉', '/special/iv', 18, 3, 1);
+
+-- 5. 커뮤니티 (id: 22)
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (22, '나음 커뮤니티', '/community', NULL, 5, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (23, '공지사항', '/community/notice', 22, 1, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (24, '치료 사례 / 후기', '/community/reviews', 22, 2, 1);
+INSERT INTO menus (id, name, path, parent_id, sort_order, is_active) VALUES (25, '자주 묻는 질문', '/community/faq', 22, 3, 1);

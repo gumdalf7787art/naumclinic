@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { BookOpen, Flame, Users, Heart, Globe, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BookOpen, Flame, Users, Heart, Globe, Image as ImageIcon, Plus, Trash2, Search, Shield, Activity, ChevronLeft, ChevronRight, MapPin, Phone, Clock, Bus, Train, Car } from 'lucide-react';
 
 // -------------------------------------------------------------
 // ICON MAP
@@ -11,7 +11,16 @@ export const IconMap = {
   Users: <Users className="w-8 h-8" />,
   Heart: <Heart className="w-8 h-8" />,
   Globe: <Globe className="w-8 h-8" />,
-  ImageIcon: <ImageIcon className="w-8 h-8" />
+  ImageIcon: <ImageIcon className="w-8 h-8" />,
+  Search: <Search className="w-8 h-8" />,
+  Shield: <Shield className="w-8 h-8" />,
+  Activity: <Activity className="w-8 h-8" />,
+  'map-pin': MapPin,
+  'phone': Phone,
+  'clock': Clock,
+  'bus': Bus,
+  'train': Train,
+  'car': Car
 };
 
 // -------------------------------------------------------------
@@ -866,7 +875,15 @@ const BLOCK_REGISTRY = {
   PastorGreeting: PastorGreetingBlock,
   VisionHero: VisionHeroBlock,
   VisionGoals: VisionGoalsBlock,
-  VisionOutro: VisionOutroBlock
+  VisionOutro: VisionOutroBlock,
+  FacilityGallery: FacilityGalleryBlock,
+  LocationBlock: LocationBlock,
+  PhilosophyHero: PhilosophyHeroBlock,
+  PhilosophyGreeting: PhilosophyGreetingBlock,
+  PhilosophyPrinciples: PhilosophyPrinciplesBlock,
+  PhilosophyPromise: PhilosophyPromiseBlock,
+  PhilosophyCTA: PhilosophyCTABlock,
+  Empty: EmptyBlock
 };
 
 export function BlockRenderer({ blocks, isEditMode = false, onChange }) {
@@ -1033,6 +1050,33 @@ export const BLOCK_DEFINITIONS = [
     defaultData: {
       title: '교회 주보',
       bulletins: []
+    }
+  },
+  {
+    type: 'FacilityGallery',
+    label: '갤러리 (병원 둘러보기)',
+    icon: <ImageIcon size={16} />,
+    defaultData: {
+      title: '나음재활의학과의원 둘러보기',
+      desc: '쾌적하고 편안한 진료 환경을 소개합니다.',
+      images: [
+        { src: '', title: '로비 및 대기실' }
+      ]
+    }
+  },
+  {
+    type: 'LocationBlock',
+    label: '오시는 길',
+    icon: <MapPin size={16} />,
+    defaultData: {
+      title: '오시는 길',
+      desc: '나음재활의학과의원에 오시는 길을 상세히 안내해 드립니다.',
+      address: { main: '서울 중랑구 봉화산로 120', sub: '(지번: 서울 중랑구 신내동 613)' },
+      phone: '02-000-0000',
+      mapPlaceholder: '지도 영역 (추후 연동)',
+      transport: [
+        { icon: 'train', title: '지하철', details: ['1호선 3번 출구'] }
+      ]
     }
   }
 ];
@@ -1298,6 +1342,554 @@ export function BulletinBoardBlock({ data, isEditMode, onChange }) {
         )}
       </div>
 
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// 11. FacilityGallery Block
+// -------------------------------------------------------------
+export function FacilityGalleryBlock({ data, isEditMode, onChange }) {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const images = data.images || [];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const currentImage = images[currentIndex] || {};
+
+  return (
+    <section className="py-20 md:py-32 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-6">
+        
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="갤러리 제목 (예: 나음재활의학과의원 둘러보기)"
+            className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4"
+          />
+          <EditableText
+            tag="p"
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="갤러리 설명 (예: 쾌적하고 편안한 진료 환경을 소개합니다.)"
+            className="text-lg text-gray-500 font-light"
+          />
+        </motion.div>
+
+        {images.length > 0 ? (
+          <div className="flex flex-col gap-6">
+            {/* Main Large Image */}
+            <div className="relative w-full aspect-video md:aspect-[21/9] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl group">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full"
+                >
+                  <EditableImage
+                    src={currentImage.src || ''}
+                    onChange={(val) => {
+                      const newImages = [...images];
+                      newImages[currentIndex] = { ...currentImage, src: val };
+                      onChange({ images: newImages });
+                    }}
+                    isEditMode={isEditMode}
+                    placeholder={<div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50"><ImageIcon className="mb-4 w-12 h-12" />큰 이미지 등록</div>}
+                    imageClassName="w-full h-full object-cover"
+                    className="w-full h-full"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Navigation Arrows */}
+              <button onClick={handlePrev} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button onClick={handleNext} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              
+              {/* Image Title / Caption */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-black/80 to-transparent">
+                <EditableText
+                  tag="h3"
+                  value={currentImage.title || ''}
+                  onChange={(val) => {
+                    const newImages = [...images];
+                    newImages[currentIndex] = { ...currentImage, title: val };
+                    onChange({ images: newImages });
+                  }}
+                  isEditMode={isEditMode}
+                  placeholder="이미지 설명 (예: 쾌적한 로비 전경)"
+                  className="text-xl md:text-2xl font-bold text-white drop-shadow-md"
+                />
+              </div>
+            </div>
+
+            {/* Thumbnails (1 row of 4, grid) */}
+            <div className="grid grid-cols-4 gap-4">
+              {images.map((img, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`relative aspect-video rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border-2 ${currentIndex === idx ? 'border-[#8DC63F] shadow-lg opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                >
+                  <EditableImage
+                    src={img.src || ''}
+                    onChange={(val) => {
+                      const newImages = [...images];
+                      newImages[idx] = { ...img, src: val };
+                      onChange({ images: newImages });
+                    }}
+                    isEditMode={isEditMode}
+                    placeholder={<div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-100 text-xs text-center p-2"><ImageIcon className="mb-1 w-5 h-5" />썸네일</div>}
+                    imageClassName="w-full h-full object-cover"
+                    className="w-full h-full"
+                  />
+                  {currentIndex === idx && (
+                    <div className="absolute inset-0 bg-[#8DC63F]/10 pointer-events-none"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {/* Add/Remove functionality for Edit Mode */}
+            {isEditMode && (
+              <div className="mt-8 flex justify-center gap-4">
+                <button onClick={() => onChange({ images: [...images, { src: '', title: '새 이미지' }] })} className="px-6 py-2 bg-blue-500 text-white rounded-full flex items-center gap-2 hover:bg-blue-600 transition-colors">
+                  <Plus className="w-4 h-4" /> 이미지 추가
+                </button>
+                {images.length > 0 && (
+                  <button onClick={() => {
+                    const newImages = [...images];
+                    newImages.splice(currentIndex, 1);
+                    onChange({ images: newImages });
+                    setCurrentIndex(0);
+                  }} className="px-6 py-2 bg-red-500 text-white rounded-full flex items-center gap-2 hover:bg-red-600 transition-colors">
+                    <Trash2 className="w-4 h-4" /> 현재 이미지 삭제
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-gray-100 rounded-2xl text-gray-500">
+            등록된 이미지가 없습니다.
+            {isEditMode && (
+              <button onClick={() => onChange({ images: [{ src: '', title: '첫 번째 이미지' }] })} className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full inline-flex items-center gap-2 hover:bg-blue-600 transition-colors mx-auto">
+                <Plus className="w-4 h-4" /> 갤러리 시작하기
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// 12. Location Block
+// -------------------------------------------------------------
+export function LocationBlock({ data, onChange }) {
+  const { title, desc, address, phone, mapPlaceholder, transport } = data;
+
+  return (
+    <div className="w-full py-16 md:py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
+        
+        {/* Title Section */}
+        <div className="text-center mb-16">
+          <span className="text-[#0369A1] text-[13px] md:text-[14px] font-bold tracking-[0.2em] uppercase mb-3 block">LOCATION</span>
+          <h2 className="text-[32px] md:text-[42px] font-bold text-[#404b5c] tracking-tight mb-4">{title}</h2>
+          <p className="text-[15px] md:text-[16px] text-gray-500 font-medium break-keep">{desc}</p>
+        </div>
+
+        {/* Map Placeholder */}
+        <div className="w-full h-[350px] md:h-[450px] bg-[#f8f9fa] rounded-2xl border border-gray-200 flex flex-col items-center justify-center mb-12 shadow-inner relative overflow-hidden group">
+          <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+          <MapPin size={48} className="text-[#0369A1] mb-4 opacity-50 group-hover:scale-110 transition-transform duration-500" />
+          <h3 className="text-[18px] md:text-[22px] font-bold text-gray-700 z-10">{mapPlaceholder || '지도 영역 (추후 연동)'}</h3>
+          <p className="text-[14px] text-gray-400 mt-2 z-10">이곳에 카카오맵 또는 네이버지도가 연동될 예정입니다.</p>
+        </div>
+
+        {/* Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          
+          {/* Left: Contact & Address */}
+          <div className="md:col-span-2 flex flex-col justify-center bg-[#0369A1] rounded-2xl p-8 md:p-10 text-white shadow-lg relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+            
+            <div className="mb-10 relative z-10">
+              <div className="flex items-center mb-4 text-white/80">
+                <MapPin size={20} className="mr-2" />
+                <span className="font-semibold tracking-wide text-[14px]">병원 주소</span>
+              </div>
+              <p className="text-[20px] md:text-[24px] font-bold leading-snug break-keep mb-2">
+                {address?.main}
+              </p>
+              <p className="text-[14px] md:text-[15px] text-white/70">
+                {address?.sub}
+              </p>
+            </div>
+
+            <div className="relative z-10">
+              <div className="flex items-center mb-4 text-white/80">
+                <Phone size={20} className="mr-2" />
+                <span className="font-semibold tracking-wide text-[14px]">상담 및 예약문의</span>
+              </div>
+              <p className="text-[32px] md:text-[40px] font-extrabold tracking-tight">
+                {phone}
+              </p>
+            </div>
+          </div>
+
+          {/* Right: Transport Methods */}
+          <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            {transport?.map((item, idx) => {
+              const IconComp = IconMap[item.icon] || MapPin;
+              return (
+                <div key={idx} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-[#0369A1] mb-5">
+                    <IconComp size={24} />
+                  </div>
+                  <h4 className="text-[17px] font-bold text-[#404b5c] mb-3">{item.title}</h4>
+                  <ul className="text-[14px] text-gray-600 leading-relaxed space-y-1.5 break-keep">
+                    {item.details?.map((detail, dIdx) => (
+                      <li key={dIdx} className="flex items-start">
+                        <span className="text-[#0369A1] mr-2 mt-0.5">•</span>
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+// -------------------------------------------------------------
+// EmptyBlock
+// -------------------------------------------------------------
+export function EmptyBlock() {
+  return (
+    <div className="w-full py-20 bg-gray-50 flex items-center justify-center border border-dashed border-gray-200 text-gray-500 rounded-2xl">
+      블록이 없습니다. 새로운 블록을 추가해주세요.
+    </div>
+  );
+}
+
+// -------------------------------------------------------------
+// PhilosophyHero Block
+// -------------------------------------------------------------
+export function PhilosophyHeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-gray-50">
+      {/* Soft blurred gradient background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-[#f0f5ed] blur-[100px] opacity-80"></div>
+        <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-[#e8ecef] blur-[100px] opacity-80"></div>
+      </div>
+      
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-6 md:space-y-10"
+        >
+          <EditableText
+            tag="h1"
+            value={data.mainCopy || ''}
+            onChange={(val) => onChange({ mainCopy: val })}
+            isEditMode={isEditMode}
+            placeholder="메인 카피 (예: 통증을 지우고, 일상을 그리다.)"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.2]"
+          />
+          <div className="w-12 h-[2px] bg-gray-300 mx-auto"></div>
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.subCopy || ''}
+            onChange={(val) => onChange({ subCopy: val })}
+            isEditMode={isEditMode}
+            placeholder="서브 카피"
+            className="text-lg md:text-2xl text-gray-600 font-light leading-[1.6] md:leading-[1.8] break-keep max-w-3xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// PhilosophyGreeting Block
+// -------------------------------------------------------------
+export function PhilosophyGreetingBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-32 bg-white">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center md:items-start">
+          
+          {/* Left: Image */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full md:w-[45%] flex-shrink-0"
+          >
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl bg-gray-100 aspect-[3/4] md:aspect-[4/5]">
+              <EditableImage
+                src={data.image || ''}
+                onChange={(val) => onChange({ image: val })}
+                isEditMode={isEditMode}
+                placeholder={<div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">대표원장 사진</div>}
+                imageClassName="w-full h-full object-cover"
+                className="w-full h-full"
+              />
+            </div>
+          </motion.div>
+          
+          {/* Right: Text */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full md:w-[55%] flex flex-col justify-center"
+          >
+            <div className="mb-10 md:mb-12">
+              <span className="text-[#8DC63F] font-semibold tracking-widest text-sm mb-4 block uppercase">CEO's Greeting</span>
+              <EditableText
+                tag="h2"
+                multiline={true}
+                value={data.quote || ''}
+                onChange={(val) => onChange({ quote: val })}
+                isEditMode={isEditMode}
+                placeholder="인용구 (예: 환자의 아픔은 몸에만 머물지 않습니다...)"
+                className="text-2xl md:text-4xl font-bold text-gray-900 leading-[1.4] tracking-tight break-keep"
+              />
+            </div>
+            
+            <div className="space-y-6 text-[16px] md:text-lg text-gray-600 leading-[1.8] font-light break-keep">
+              {isEditMode ? (
+                <EditableText
+                  tag="div"
+                  multiline={true}
+                  value={(data.paragraphs || []).join('\n\n')}
+                  onChange={(val) => onChange({ paragraphs: val.split('\n\n') })}
+                  isEditMode={true}
+                  placeholder="단락을 두 번 엔터로 구분하여 입력하세요"
+                />
+              ) : (
+                data.paragraphs?.map((p, idx) => (
+                  <p key={idx} dangerouslySetInnerHTML={{ __html: p.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 font-semibold">$1</strong>') }} />
+                ))
+              )}
+            </div>
+            
+            <div className="mt-12 flex items-center gap-4">
+              <EditableText
+                tag="div"
+                value={data.signature || ''}
+                onChange={(val) => onChange({ signature: val })}
+                isEditMode={isEditMode}
+                placeholder="대표원장 홍길동"
+                className="text-xl font-bold text-gray-900"
+              />
+            </div>
+          </motion.div>
+          
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// PhilosophyPrinciples Block
+// -------------------------------------------------------------
+export function PhilosophyPrinciplesBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-32 bg-[#f5f5f7]">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16 md:mb-24"
+        >
+          <EditableText
+            tag="span"
+            value={data.badge || ''}
+            onChange={(val) => onChange({ badge: val })}
+            isEditMode={isEditMode}
+            placeholder="배지 (예: CORE PHILOSOPHY)"
+            className="text-[#8DC63F] font-bold tracking-widest text-sm mb-4 block uppercase"
+          />
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="나음의 3대 진료 철학"
+            className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight"
+          />
+        </motion.div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {data.principles?.map((item, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.15, duration: 0.6 }}
+              className="bg-white/70 backdrop-blur-md border border-white/40 p-10 md:p-12 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group flex flex-col"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-8 group-hover:bg-[#8DC63F] group-hover:text-white transition-colors duration-500 text-gray-400 shadow-sm border border-gray-100">
+                {/* Icon mapping would go here, omitting for simplicity */}
+                <div className="w-8 h-8 rounded-full bg-current"></div>
+              </div>
+              
+              <div className="text-[#8DC63F] font-semibold text-sm mb-2">{`PRINCIPLE 0${idx + 1}`}</div>
+              <EditableText
+                tag="h3"
+                value={item.title || ''}
+                onChange={(val) => {
+                  const newVals = [...data.principles];
+                  newVals[idx] = { ...item, title: val };
+                  onChange({ principles: newVals });
+                }}
+                isEditMode={isEditMode}
+                placeholder="철학 제목"
+                className="text-xl md:text-2xl font-bold text-gray-900 mb-4 tracking-tight break-keep"
+              />
+              <EditableText
+                tag="p"
+                multiline={true}
+                value={item.desc || ''}
+                onChange={(val) => {
+                  const newVals = [...data.principles];
+                  newVals[idx] = { ...item, desc: val };
+                  onChange({ principles: newVals });
+                }}
+                isEditMode={isEditMode}
+                placeholder="철학 설명"
+                className="text-gray-500 leading-[1.8] font-light break-keep text-[16px]"
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// PhilosophyPromise Block
+// -------------------------------------------------------------
+export function PhilosophyPromiseBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#111111] text-center text-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="max-w-4xl mx-auto px-6 relative z-10"
+      >
+        <EditableText
+          tag="h2"
+          multiline={true}
+          value={data.title || ''}
+          onChange={(val) => onChange({ title: val })}
+          isEditMode={isEditMode}
+          placeholder="가장 건강했던 순간으로..."
+          className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 leading-[1.4] tracking-tight mb-8 break-keep"
+        />
+        <EditableText
+          tag="p"
+          multiline={true}
+          value={data.desc || ''}
+          onChange={(val) => onChange({ desc: val })}
+          isEditMode={isEditMode}
+          placeholder="서브 약속"
+          className="text-lg md:text-xl text-gray-400 font-light break-keep"
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+// -------------------------------------------------------------
+// PhilosophyCTA Block
+// -------------------------------------------------------------
+export function PhilosophyCTABlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-20 md:py-32 bg-white text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto px-6"
+      >
+        <EditableText
+          tag="h2"
+          value={data.title || ''}
+          onChange={(val) => onChange({ title: val })}
+          isEditMode={isEditMode}
+          placeholder="이제, 통증과 이별할 시간입니다."
+          className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight mb-10"
+        />
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <a href={data.btn1Link || "#"} onClick={e => isEditMode && e.preventDefault()} className="inline-block px-8 py-4 bg-gray-900 text-white font-medium rounded-full hover:bg-black transition-colors hover:shadow-lg">
+            <EditableText
+              tag="span"
+              value={data.btn1Text || ''}
+              onChange={(val) => onChange({ btn1Text: val })}
+              isEditMode={isEditMode}
+              placeholder="버튼 1 텍스트"
+            />
+          </a>
+          <a href={data.btn2Link || "#"} onClick={e => isEditMode && e.preventDefault()} className="inline-block px-8 py-4 bg-white text-gray-900 border border-gray-200 font-medium rounded-full hover:bg-gray-50 transition-colors hover:shadow-sm">
+            <EditableText
+              tag="span"
+              value={data.btn2Text || ''}
+              onChange={(val) => onChange({ btn2Text: val })}
+              isEditMode={isEditMode}
+              placeholder="버튼 2 텍스트"
+            />
+          </a>
+        </div>
+      </motion.div>
     </section>
   );
 }

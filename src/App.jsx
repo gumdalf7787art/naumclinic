@@ -39,12 +39,14 @@ function Navbar({ isLoggedIn }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [dynamicMenus, setDynamicMenus] = useState([]);
 
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
   });
 
-  const isHome = pathname === '/';
-  const isTransparent = isHome && !isScrolled;
+  const isTransparent = !isScrolled && !isHeaderHovered && !isMenuHovered;
 
   const defaultHospitalMenus = C.HOSPITAL_MENUS;
 
@@ -78,8 +80,15 @@ function Navbar({ isLoggedIn }) {
   }, [isLoggedIn]);
 
   return (
-    <header className={`z-50 flex justify-center w-full transition-colors duration-300 ${isHome ? 'fixed top-0 left-0' : 'sticky top-0'} ${isTransparent ? 'bg-transparent border-b border-white/30' : 'bg-white border-b border-gray-200 shadow-sm'}`}>
+    <header 
+      className={`z-50 flex justify-center w-full transition-colors duration-300 fixed top-0 left-0 ${isTransparent ? 'bg-transparent border-b border-white/30' : 'bg-white/90 backdrop-blur-xl border-b border-gray-200/50 shadow-sm'}`}
+      onMouseEnter={() => setIsHeaderHovered(true)}
+      onMouseLeave={() => setIsHeaderHovered(false)}
+    >
       <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-8 h-[72px]">
+        {/* Mega Menu Background */}
+        <div className={`fixed top-[72px] left-0 w-full bg-white/90 backdrop-blur-xl shadow-xl transition-all duration-300 ease-in-out border-t border-gray-200/50 ${isMenuHovered ? 'h-[280px] opacity-100 visible' : 'h-0 opacity-0 invisible border-t-0'}`}></div>
+
         {/* Logo */}
         <Link 
           to="/"
@@ -89,31 +98,35 @@ function Navbar({ isLoggedIn }) {
           <div className="flex items-center justify-center">
             <img src="/logo-mark.png" alt="나음재활의학과" className="h-8 w-auto object-contain" />
           </div>
-          <span className={`font-extrabold text-[20px] tracking-tight transition-colors ${isTransparent ? 'text-white' : 'text-[#0369A1]'}`}>나음재활의학과의원</span>
+          <span className={`font-extrabold text-[20px] tracking-tight transition-colors z-10 ${isTransparent ? 'text-white' : 'text-[#0369A1]'}`}>나음재활의학과의원</span>
         </Link>
         
         {/* Links */}
-        <div className={`hidden md:flex items-center h-full space-x-10 text-[16px] font-semibold relative transition-colors ${isTransparent ? 'text-white/90' : 'text-[#404b5c]'}`}>
-          
-          {/* 메뉴목록 */}
+        <div 
+          className={`hidden md:flex items-center h-full space-x-10 text-[16px] font-semibold transition-colors z-10 ${isTransparent ? 'text-white/90' : 'text-[#404b5c]'}`}
+          onMouseEnter={() => setIsMenuHovered(true)}
+          onMouseLeave={() => setIsMenuHovered(false)}
+        >
+          {/* Main Menus */}
           {dynamicMenus.length > 0 ? dynamicMenus.map((menu) => (
-            <div key={menu.id} className="relative group h-full flex items-center">
-              <Link to={menu.path || '#'} className={`transition-colors py-4 px-2 ${isTransparent ? 'hover:text-white' : 'hover:text-[#404b5c]'}`}>{menu.name}</Link>
-              {menu.children && menu.children.length > 0 && (
-                <div className="absolute top-[56px] left-1/2 -translate-x-1/2 w-[170px] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <div className="bg-white/95 backdrop-blur-xl border border-gray-100 shadow-lg rounded-[8px] p-1.5 relative">
-                    <div className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white border-t border-l border-gray-100 rotate-45 rounded-tl-[2px] z-0"></div>
-                    <div className="flex flex-col space-y-0.5 relative z-10">
-                      {menu.children.map(child => (
-                        <Link key={child.id} to={child.path || '#'} className="flex items-center justify-between px-3 py-1.5 text-[13.5px] text-[#475569] hover:text-[#0369A1] hover:bg-[#0369A1]/5 rounded-md transition-all duration-200 font-medium group/item">
-                          <span>{child.name}</span>
-                          <ChevronRight size={13} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-200" />
-                        </Link>
-          ))}
-                    </div>
+            <div key={menu.id} className="relative h-full flex items-center">
+              <Link to={menu.path || '#'} className={`transition-colors py-4 px-2 h-full flex items-center relative ${isTransparent ? 'hover:text-white' : 'hover:text-[#0369A1]'}`}>
+                {menu.name}
+              </Link>
+              
+              {/* Sub Menu Column */}
+              <div className={`absolute top-[72px] left-2 w-[200px] pt-8 pb-8 transition-all duration-300 ease-in-out ${isMenuHovered ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+                {menu.children && menu.children.length > 0 && (
+                  <div className="flex flex-col space-y-4">
+                    {menu.children.map(child => (
+                      <Link key={child.id} to={child.path || '#'} className="text-[14px] text-gray-600 font-medium hover:text-[#0284C7] transition-colors flex items-center group/item">
+                        <span className="w-1 h-1 rounded-full bg-gray-300 mr-2.5 group-hover/item:bg-[#0284C7] group-hover/item:scale-125 transition-all"></span>
+                        {child.name}
+                      </Link>
+                    ))}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           )) : (
             <div className="animate-pulse w-48 h-6 bg-gray-100 rounded-md"></div>
@@ -215,37 +228,44 @@ function Navbar({ isLoggedIn }) {
                 </div>
                 
                 <div>
-                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">병원소개</h3>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">나음 소개</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/intro/ceo" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">병원장 인사말</Link>
-                    <Link to="/intro/doctors" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">의료진 소개</Link>
-                    <Link to="/intro/facility" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">시설 및 장비안내</Link>
-                    <Link to="/intro/location" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">오시는 길</Link>
+                    <Link to="/about/philosophy" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">원장님 인사말</Link>
+                    <Link to="/about/doctor" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">의료진 소개</Link>
+                    <Link to="/about/facility" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">병원 둘러보기</Link>
+                    <Link to="/about/location" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">오시는 길</Link>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">진료안내</h3>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">비수술 통증 클리닉</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/info/hours" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">진료시간안내</Link>
-                    <Link to="/info/departments" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">진료과목</Link>
-                    <Link to="/info/certificates" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">제증명발급안내</Link>
-                    <Link to="/info/non-payment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">비급여진료비</Link>
+                    <Link to="/pain/spine" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">목·허리 척추 클리닉</Link>
+                    <Link to="/pain/joint" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">어깨·관절 클리닉</Link>
+                    <Link to="/pain/ultrasound" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">초음파 유도하 주사치료</Link>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">전문센터</h3>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">맞춤 재활 / 도수치료</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/center/specialty" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">특화진료센터</Link>
-                    <Link to="/center/checkup" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">건강검진센터</Link>
-                    <Link to="/center/surgery" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">수술센터</Link>
+                    <Link to="/rehab/manual" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">체형 교정 도수치료</Link>
+                    <Link to="/rehab/post-op" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">수술 후 재활치료</Link>
+                    <Link to="/rehab/shockwave" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">특수 물리치료</Link>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">커뮤니티</h3>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">특수 클리닉</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/community/notice" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">병원소식</Link>
-                    <Link to="/community/consult" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">건강상담</Link>
-                    <Link to="/community/reviews" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">진료후기</Link>
+                    <Link to="/special/equipment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">최신 장비 치료</Link>
+                    <Link to="/special/chronic" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">난치성 만성통증 클리닉</Link>
+                    <Link to="/special/iv" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">프리미엄 수액/영양 클리닉</Link>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">나음 커뮤니티</h3>
+                  <div className="grid grid-cols-2 gap-y-2.5 pl-1">
+                    <Link to="/community/notice" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">공지사항</Link>
+                    <Link to="/community/reviews" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">치료 사례 / 후기</Link>
+                    <Link to="/community/faq" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">자주 묻는 질문</Link>
                   </div>
                 </div>
               </div>
@@ -1166,31 +1186,38 @@ function App() {
             <Footer />
           </>
         } />
-        <Route path="/intro/*" element={
+        <Route path="/about/*" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <SubPageLayout title="병원소개" parentPath="/intro" />
+            <SubPageLayout title="나음 소개" engTitle="ABOUT US" parentPath="/about" />
             <Footer />
           </>
         } />
-        <Route path="/info/*" element={
+        <Route path="/pain/*" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <SubPageLayout title="진료안내" parentPath="/info" />
+            <SubPageLayout title="비수술 통증 클리닉" engTitle="PAIN CLINIC" parentPath="/pain" />
             <Footer />
           </>
         } />
-        <Route path="/center/*" element={
+        <Route path="/rehab/*" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <SubPageLayout title="전문센터" parentPath="/center" />
+            <SubPageLayout title="맞춤 재활 / 도수치료" engTitle="REHABILITATION" parentPath="/rehab" />
+            <Footer />
+          </>
+        } />
+        <Route path="/special/*" element={
+          <>
+            <Navbar isLoggedIn={isLoggedIn} />
+            <SubPageLayout title="특수 클리닉" engTitle="SPECIAL CLINIC" parentPath="/special" />
             <Footer />
           </>
         } />
         <Route path="/community/*" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <SubPageLayout title="커뮤니티" parentPath="/community" />
+            <SubPageLayout title="나음 커뮤니티" engTitle="COMMUNITY" parentPath="/community" />
             <Footer />
           </>
         } />
