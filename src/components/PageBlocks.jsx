@@ -1927,13 +1927,14 @@ export function PhilosophyCTABlock({ data, isEditMode, onChange }) {
 // -------------------------------------------------------------
 export function SpineHeroBlock({ data, isEditMode, onChange }) {
   return (
-    <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center bg-black overflow-hidden selection:bg-white/20">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a] to-black pointer-events-none"></div>
+    <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center bg-white overflow-hidden selection:bg-black/10">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50 pointer-events-none"></div>
       
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 text-center flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-8"
         >
@@ -1943,12 +1944,13 @@ export function SpineHeroBlock({ data, isEditMode, onChange }) {
             onChange={(val) => onChange({ mainCopy: val })}
             isEditMode={isEditMode}
             placeholder="수술 없이. 다시 곧게."
-            className="text-5xl md:text-7xl lg:text-[100px] font-extrabold text-white tracking-tighter leading-[1.1]"
+            className="text-5xl md:text-7xl lg:text-[100px] font-extrabold text-[#0369A1] tracking-tighter leading-[1.1]"
           />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <EditableText
               tag="p"
@@ -1957,7 +1959,7 @@ export function SpineHeroBlock({ data, isEditMode, onChange }) {
               onChange={(val) => onChange({ subCopy: val })}
               isEditMode={isEditMode}
               placeholder="서브 카피"
-              className="text-lg md:text-2xl text-gray-400 font-light leading-[1.6] md:leading-[1.8] break-keep max-w-3xl mx-auto tracking-tight"
+              className="text-lg md:text-2xl text-gray-600 font-light leading-[1.6] md:leading-[1.8] break-keep max-w-3xl mx-auto tracking-tight"
             />
           </motion.div>
         </motion.div>
@@ -1965,12 +1967,13 @@ export function SpineHeroBlock({ data, isEditMode, onChange }) {
       
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500"
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false }}
+        transition={{ delay: 0.8, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-400"
       >
         <span className="text-[11px] uppercase tracking-[0.2em] mb-2 font-medium">Scroll to explore</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-gray-500 to-transparent"></div>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"></div>
       </motion.div>
     </section>
   );
@@ -1983,7 +1986,7 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
   const containerRef = useRef(null);
   
   return (
-    <section ref={containerRef} className="relative py-24 md:py-40 bg-white">
+    <section ref={containerRef} className="relative py-24 md:py-40 bg-[#1e2024]">
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24 relative">
           
@@ -1993,7 +1996,7 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <EditableText
@@ -2003,7 +2006,7 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                   onChange={(val) => onChange({ title: val })}
                   isEditMode={isEditMode}
                   placeholder="척추가 보내는 조용한 경고."
-                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.25] break-keep"
+                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.25] break-keep"
                 />
                 <div className="w-16 h-1 bg-[#8DC63F] mt-8 mb-6 rounded-full"></div>
                 <EditableText
@@ -2013,16 +2016,16 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                   onChange={(val) => onChange({ desc: val })}
                   isEditMode={isEditMode}
                   placeholder="증상 설명"
-                  className="text-lg md:text-xl text-gray-500 font-light leading-[1.7] break-keep"
+                  className="text-lg md:text-xl text-gray-300 font-light leading-[1.7] break-keep"
                 />
                 
-                <div className="mt-12 rounded-[2rem] overflow-hidden shadow-2xl relative aspect-[4/3] group hidden md:block">
+                <div className="mt-12 rounded-[2rem] overflow-hidden shadow-2xl relative aspect-[4/3] group hidden md:block border border-gray-700/50">
                   <img 
                     src={data.image || "/spine-symptoms.webp"} 
                     alt="척추 통증" 
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out"
                   />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-1000"></div>
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-1000"></div>
                 </div>
               </motion.div>
             </div>
@@ -2035,11 +2038,11 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                 key={idx}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-50px" }}
                 transition={{ duration: 0.7, delay: idx * 0.1, ease: "easeOut" }}
-                className="bg-[#f8f9fa] rounded-[2rem] p-8 md:p-10 hover:shadow-xl transition-shadow duration-500 border border-gray-100/50"
+                className="bg-[#2a2d32] rounded-[2rem] p-8 md:p-10 hover:shadow-2xl transition-shadow duration-500 border border-gray-700/50"
               >
-                <div className="text-gray-300 font-bold text-5xl md:text-6xl mb-6 opacity-30">
+                <div className="text-gray-500/30 font-bold text-5xl md:text-6xl mb-6">
                   {String(idx + 1).padStart(2, '0')}
                 </div>
                 <EditableText
@@ -2052,7 +2055,7 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                   }}
                   isEditMode={isEditMode}
                   placeholder="증상"
-                  className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight leading-[1.4] break-keep"
+                  className="text-2xl md:text-3xl font-bold text-gray-100 tracking-tight leading-[1.4] break-keep"
                 />
               </motion.div>
             ))}
