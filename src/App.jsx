@@ -87,7 +87,44 @@ function Navbar({ isLoggedIn }) {
     >
       <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-8 h-[72px]">
         {/* Mega Menu Background */}
-        <div className={`fixed top-[72px] left-0 w-full bg-white/90 backdrop-blur-xl shadow-xl transition-all duration-300 ease-in-out border-t border-gray-200/50 ${isMenuHovered ? 'h-[280px] opacity-100 visible' : 'h-0 opacity-0 invisible border-t-0'}`}></div>
+        <div 
+          className={`fixed top-[72px] left-0 w-full bg-white/95 backdrop-blur-xl shadow-xl transition-all duration-300 ease-in-out border-t border-gray-200/50 overflow-hidden ${isMenuHovered ? 'h-[320px] opacity-100 visible' : 'h-0 opacity-0 invisible border-t-0'}`}
+          onMouseEnter={() => setIsMenuHovered(true)}
+          onMouseLeave={() => setIsMenuHovered(false)}
+        >
+          <div className="w-full max-w-7xl mx-auto px-8 h-full flex">
+            {/* Left Info Block (Clinic Hours) - Underneath the logo */}
+            <div className={`w-[280px] h-full pt-10 pb-8 border-r border-gray-100 pr-8 transition-all duration-500 delay-100 ${isMenuHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <h4 className="text-[#0369A1] font-bold mb-4 flex items-center tracking-tight text-[15px]">
+                <Clock size={16} className="mr-2" />
+                진료 시간 안내
+              </h4>
+              <ul className="space-y-2.5 text-[13px] text-gray-600">
+                <li className="flex justify-between items-center">
+                  <span className="font-medium text-gray-500">평일</span>
+                  <span className="font-bold text-gray-800">09:00 - 19:00</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium text-[#0369A1]">수·금 (야간진료)</span>
+                  <span className="font-bold text-[#0369A1]">09:00 - 20:00</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium text-gray-500">토요일</span>
+                  <span className="font-bold text-gray-800">09:00 - 14:00</span>
+                </li>
+                <li className="flex justify-between items-center pt-2.5 mt-2.5 border-t border-gray-100/70">
+                  <span className="font-medium text-gray-500">점심시간</span>
+                  <span className="text-gray-600 font-medium">13:00 - 14:00</span>
+                </li>
+              </ul>
+              <div className="mt-5 text-[12px] font-medium text-gray-400 bg-gray-50 rounded-md py-2.5 px-3 text-center border border-gray-100">
+                토요일 점심시간 없음 / 일·공휴일 휴진
+              </div>
+            </div>
+            
+            {/* Right side is intentionally left blank because the sub-menus from nav will overlay perfectly on top of it */}
+          </div>
+        </div>
 
         {/* Logo */}
         <Link 
