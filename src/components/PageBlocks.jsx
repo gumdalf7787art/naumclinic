@@ -1932,29 +1932,33 @@ export function SpineHeroBlock({ data, isEditMode, onChange }) {
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div 
           animate={{
-            x: [0, 100, -50, 0],
-            y: [0, -50, 100, 0],
+            x: [0, 150, -100, 0],
+            y: [0, -100, 150, 0],
+            scale: [1, 1.2, 0.9, 1],
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 -left-20 w-[40rem] h-[40rem] bg-blue-100/40 rounded-full mix-blend-multiply filter blur-3xl opacity-60"
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-[40rem] h-[40rem] bg-blue-300/40 rounded-full mix-blend-multiply filter blur-[80px]"
         />
         <motion.div 
           animate={{
-            x: [0, -100, 50, 0],
+            x: [0, -150, 100, 0],
+            y: [0, 150, -100, 0],
+            scale: [1, 0.9, 1.2, 1],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 right-0 w-[35rem] h-[35rem] bg-green-300/40 rounded-full mix-blend-multiply filter blur-[80px]"
+        />
+        <motion.div 
+          animate={{
+            x: [0, 100, -150, 0],
             y: [0, 100, -50, 0],
+            scale: [1, 1.3, 0.8, 1],
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 right-0 w-[35rem] h-[35rem] bg-green-100/30 rounded-full mix-blend-multiply filter blur-3xl opacity-60"
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-32 left-1/4 w-[45rem] h-[45rem] bg-sky-300/40 rounded-full mix-blend-multiply filter blur-[80px]"
         />
-        <motion.div 
-          animate={{
-            x: [0, 50, -100, 0],
-            y: [0, 50, -50, 0],
-          }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-32 left-1/4 w-[45rem] h-[45rem] bg-sky-50/50 rounded-full mix-blend-multiply filter blur-3xl opacity-50"
-        />
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-[100px]"></div>
+        {/* Reduce overlay opacity so colors pop through more */}
+        <div className="absolute inset-0 bg-white/20 backdrop-blur-[60px]"></div>
       </div>
       
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 text-center flex flex-col items-center">
