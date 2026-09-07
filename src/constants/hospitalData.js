@@ -19,9 +19,8 @@ export const HOSPITAL_MENUS = [
   {
     id: 'rehab', name: '맞춤 재활 / 도수치료', path: '/rehab/manual', is_active: 1,
     children: [
-      { id: 'rehab-manual', name: '체형 교정 도수치료', path: '/rehab/manual', is_active: 1 },
-      { id: 'rehab-postop', name: '수술 후 재활치료', path: '/rehab/post-op', is_active: 1 },
-      { id: 'rehab-shockwave', name: '특수 물리치료', path: '/rehab/shockwave', is_active: 1 }
+      { id: 'rehab-manual', name: '통증 교정 도수치료', path: '/rehab/manual', is_active: 1 },
+      { id: 'rehab-postop', name: '수술 후 재활치료', path: '/rehab/post-op', is_active: 1 }
     ]
   },
   {
@@ -87,7 +86,7 @@ export const QUICK_SECTION = {
 export const QUICK_LINKS = [
   { id: 1, name: '지긋지긋한 목·허리 통증', tag: '비수술 통증치료', sub: '디스크, 협착증 등 근본적인 원인을 찾아 치료합니다.', path: '/pain/spine', image: '/card1-opt.webp' },
   { id: 2, name: '손목터널증후군 & 관절염', tag: '관절·인대 치료', sub: '초기 정확한 진단이 필요한 손목과 팔꿈치 통증.', path: '/pain/joint', image: '/card2-opt.webp' },
-  { id: 3, name: '체형 교정 도수치료', tag: '1:1 집중 치료', sub: '틀어진 척추를 바로잡고 근육 밸런스를 회복시킵니다.', path: '/rehab/manual', image: '/card3-opt.webp' },
+  { id: 3, name: '통증 교정 도수치료', tag: '1:1 집중 치료', sub: '틀어진 척추를 바로잡고 근육 밸런스를 회복시킵니다.', path: '/rehab/manual', image: '/card3-opt.webp' },
   { id: 4, name: '초음파 유도하 주사치료', tag: '프리미엄 진료', sub: '실시간 초음파 영상을 통해 병변에 정확히 투여합니다.', path: '/pain/ultrasound', image: '/card4-opt.webp' },
   { id: 5, name: '체외충격파 치료 (ESWT)', tag: '조직 재생 치료', sub: '강력한 파동으로 손상된 조직과 염증을 치료합니다.', path: '/rehab/shockwave', image: '/card5-opt.webp' },
   { id: 6, name: '수술 후 재활치료', tag: '일상 회복 프로그램', sub: '빠른 일상 복귀를 위한 맞춤형 단계별 재활 솔루션.', path: '/rehab/post-op', image: '/card6-opt.webp' }

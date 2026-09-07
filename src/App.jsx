@@ -284,9 +284,8 @@ function Navbar({ isLoggedIn }) {
                 <div>
                   <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">맞춤 재활 / 도수치료</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/rehab/manual" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">체형 교정 도수치료</Link>
+                    <Link to="/rehab/manual" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">통증 교정 도수치료</Link>
                     <Link to="/rehab/post-op" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">수술 후 재활치료</Link>
-                    <Link to="/rehab/shockwave" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">특수 물리치료</Link>
                   </div>
                 </div>
                 <div>

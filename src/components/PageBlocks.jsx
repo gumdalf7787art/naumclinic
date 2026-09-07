@@ -1360,7 +1360,7 @@ export function ManualHeroBlock({ data, isEditMode, onChange }) {
             value={data.subCopy || ''}
             onChange={(val) => onChange({ subCopy: val })}
             isEditMode={isEditMode}
-            placeholder="숙련된 치료사의 손길로 굳어진 근육을 풀고, 틀어진 체형을 바로잡아 통증의 근본 원인을 해결하는 1:1 맞춤 치료입니다."
+            placeholder="숙련된 치료사의 손길로 굳어진 근육을 풀고, 원인 모를 통증을 바로잡아 통증의 근본 원인을 해결하는 1:1 맞춤 치료입니다."
             className="text-lg md:text-xl text-[#6D6863] font-medium leading-[1.8] break-keep max-w-2xl mx-auto"
           />
         </motion.div>
@@ -1519,7 +1519,7 @@ export function ManualOutroBlock({ data, isEditMode, onChange }) {
             value={data.title || ''}
             onChange={(val) => onChange({ title: val })}
             isEditMode={isEditMode}
-            placeholder="바른 체형이\n바른 일상을 만듭니다."
+            placeholder="통증 없는 몸이\n바른 일상을 만듭니다."
             className="text-4xl md:text-6xl font-extrabold text-[#2C2926] tracking-tighter leading-[1.4] break-keep whitespace-pre-line"
           />
         </motion.div>
@@ -2126,25 +2126,25 @@ export const BLOCK_DEFINITIONS = [
     type: 'ManualHero',
     label: '도수치료 헤로',
     icon: <ImageIcon size={16} />,
-    defaultData: { mainCopy: '손끝에서 시작되는 척추의 바른 균형', subCopy: '숙련된 치료사의 손길로 굳어진 근육을 풀고, 틀어진 체형을 바로잡아 통증의 근본 원인을 해결하는 1:1 맞춤 치료입니다.' }
+    defaultData: { mainCopy: '손끝에서 시작되는 척추의 바른 균형', subCopy: '숙련된 치료사의 손길로 굳어진 근육을 풀고, 원인 모를 통증을 바로잡아 통증의 근본 원인을 해결하는 1:1 맞춤 치료입니다.' }
   },
   {
     type: 'ManualTarget',
     label: '도수치료 대상 (Bento)',
     icon: <Users size={16} />,
-    defaultData: { title: '이런 분들께 필요합니다', targets: [{title: '거북목 / 일자목', desc: '스마트폰과 PC 사용으로 목과 어깨가 항상 뭉쳐있는 분'}, {title: '만성 통증', desc: '목, 허리 디스크나 협착증으로 고생하시는 분'}, {title: '체형 불균형', desc: '골반이 틀어지거나 양쪽 어깨 높이가 달라 교정이 필요한 분'}, {title: '수술 후 재활', desc: '척추/관절 수술 후 굳어진 관절의 가동 범위를 회복해야 하는 분'}] }
+    defaultData: { title: '이런 분들께 필요합니다', targets: [{title: '거북목 / 일자목', desc: '스마트폰과 PC 사용으로 목과 어깨가 항상 뭉쳐있는 분'}, {title: '만성 통증', desc: '목, 허리 디스크나 협착증으로 고생하시는 분'}, {title: '신체 불균형 및 통증', desc: '골반이 틀어지거나 양쪽 어깨 높이가 달라 통증 관리가 필요한 분'}, {title: '수술 후 재활', desc: '척추/관절 수술 후 굳어진 관절의 가동 범위를 회복해야 하는 분'}] }
   },
   {
     type: 'ManualProcess',
     label: '도수치료 프로세스 (타임라인)',
     icon: <Activity size={16} />,
-    defaultData: { title: '나음만의 4단계 도수치료 시스템', steps: [{title: '정밀 진단', desc: '전문의의 X-ray 및 체형 분석을 통한 1:1 처방'}, {title: '근막 이완', desc: '긴장되고 굳어진 근육과 근막을 부드럽게 이완'}, {title: '체형 교정', desc: '척추와 관절의 미세한 틀어짐을 본래 자리로 회복'}, {title: '기능 강화', desc: '약해진 심부 근육을 강화하여 통증 재발을 방지'}] }
+    defaultData: { title: '나음만의 4단계 도수치료 시스템', steps: [{title: '정밀 진단', desc: '전문의의 X-ray 및 통증 분석을 통한 1:1 처방'}, {title: '근막 이완', desc: '긴장되고 굳어진 근육과 근막을 부드럽게 이완'}, {title: '통증 교정', desc: '척추와 관절의 미세한 틀어짐을 본래 자리로 회복'}, {title: '기능 강화', desc: '약해진 심부 근육을 강화하여 통증 재발을 방지'}] }
   },
   {
     type: 'ManualOutro',
     label: '도수치료 아웃트로',
     icon: <Heart size={16} />,
-    defaultData: { title: '바른 체형이\n바른 일상을 만듭니다.' }
+    defaultData: { title: '통증 없는 몸이\n바른 일상을 만듭니다.' }
   },
   {
     type: 'PostOpHero',
