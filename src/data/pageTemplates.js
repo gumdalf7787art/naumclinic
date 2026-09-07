@@ -256,6 +256,49 @@ export const PAGE_TEMPLATES = {
       }
     }
   ],
+  'rehab/manual': [
+    {
+      "id": "blk_manual_hero_1",
+      "type": "ManualHero",
+      "data": {
+        "mainCopy": "손끝에서 시작되는 척추의 바른 균형",
+        "subCopy": "숙련된 치료사의 손길로 굳어진 근육을 풀고, 틀어진 체형을 바로잡아 통증의 근본 원인을 해결하는 1:1 맞춤 치료입니다."
+      }
+    },
+    {
+      "id": "blk_manual_target_1",
+      "type": "ManualTarget",
+      "data": {
+        "title": "이런 분들께 필요합니다",
+        "targets": [
+          { "title": "거북목 / 일자목", "desc": "스마트폰과 PC 사용으로 목과 어깨가 항상 뭉쳐있는 분" },
+          { "title": "만성 척추/관절 통증", "desc": "목, 허리 디스크나 협착증으로 고생하시는 분" },
+          { "title": "체형 불균형", "desc": "골반이 틀어지거나 양쪽 어깨 높이가 달라 교정이 필요한 분" },
+          { "title": "수술 후 재활", "desc": "척추/관절 수술 후 굳어진 관절의 가동 범위를 회복해야 하는 분" }
+        ]
+      }
+    },
+    {
+      "id": "blk_manual_process_1",
+      "type": "ManualProcess",
+      "data": {
+        "title": "나음만의 4단계 도수치료 시스템",
+        "steps": [
+          { "title": "정밀 진단", "desc": "전문의의 X-ray 및 체형 분석을 통한 1:1 처방" },
+          { "title": "근막 이완", "desc": "긴장되고 굳어진 근육과 근막을 부드럽게 이완" },
+          { "title": "체형 교정", "desc": "척추와 관절의 미세한 틀어짐을 본래 자리로 회복" },
+          { "title": "기능 강화", "desc": "약해진 심부 근육을 강화하여 통증 재발을 방지" }
+        ]
+      }
+    },
+    {
+      "id": "blk_manual_outro_1",
+      "type": "ManualOutro",
+      "data": {
+        "title": "바른 체형이\n바른 일상을 만듭니다."
+      }
+    }
+  ],
   'about/location': [
     {
       id: 'loc-1',
