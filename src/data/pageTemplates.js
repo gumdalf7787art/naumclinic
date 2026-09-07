@@ -190,19 +190,19 @@ export const PAGE_TEMPLATES = {
             "tabName": "염증 치료",
             "title": "체외충격파 (ESWT)",
             "desc": "강력한 파동을 병변 부위에 전달하여 염증을 제거하고 혈관 재생을 촉진합니다.",
-            "image": "/eswt.webp"
+            "image": "/card5-opt.webp"
           },
           {
             "tabName": "인대 강화",
             "title": "프롤로 주사 치료",
             "desc": "약해진 어깨 힘줄과 인대에 증식제를 투여하여 스스로 튼튼하게 재생되도록 돕습니다.",
-            "image": "/prolo.webp"
+            "image": "/hero-3-bg.webp"
           },
           {
             "tabName": "기능 회복",
             "title": "맞춤 재활 도수치료",
             "desc": "굳어진 어깨 관절의 가동 범위를 회복하고 주변 근육을 강화하여 재발을 방지합니다.",
-            "image": "/rehab.webp"
+            "image": "/card3-opt.webp"
           }
         ]
       }
