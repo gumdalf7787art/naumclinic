@@ -152,6 +152,69 @@ export const PAGE_TEMPLATES = {
       }
     }
   ],
+  'pain/joint': [
+    {
+      "id": "blk_joint_hero_1",
+      "type": "JointHero",
+      "data": {
+        "mainCopy": "움직임의 자유를 되찾다.",
+        "subCopy": "어깨를 움직이는 것조차 두렵다면, 이제 어깨 관절을 위한 맞춤형 회복 솔루션이 필요합니다."
+      }
+    },
+    {
+      "id": "blk_joint_symp_1",
+      "type": "JointSymptoms",
+      "data": {
+        "title": "관절이 보내는 경고",
+        "symptoms": [
+          { "title": "오십견 (유착성 관절낭염): 어깨가 굳어 팔을 올리기 힘들고 야간통증이 심함" },
+          { "title": "회전근개 파열: 팔을 들어올릴 때 특정 각도에서 통증이 발생하고 힘이 빠짐" },
+          { "title": "석회성 건염: 갑작스럽게 극심한 통증이 발생해 응급실을 찾을 정도" },
+          { "title": "어깨 충돌증후군: 팔을 머리 위로 올리거나 뒤로 젖힐 때 걸리는 느낌과 통증" }
+        ]
+      }
+    },
+    {
+      "id": "blk_joint_sol_1",
+      "type": "JointSolutions",
+      "data": {
+        "title": "맞춤형 회복 솔루션",
+        "solutions": [
+          {
+            "tabName": "정밀 진단",
+            "title": "정밀 초음파 진단",
+            "desc": "어깨 관절과 인대의 손상 정도를 실시간으로 정확하게 파악하여 원인을 진단합니다.",
+            "image": "/ultrasound.webp"
+          },
+          {
+            "tabName": "염증 치료",
+            "title": "체외충격파 (ESWT)",
+            "desc": "강력한 파동을 병변 부위에 전달하여 염증을 제거하고 혈관 재생을 촉진합니다.",
+            "image": "/eswt.webp"
+          },
+          {
+            "tabName": "인대 강화",
+            "title": "프롤로 주사 치료",
+            "desc": "약해진 어깨 힘줄과 인대에 증식제를 투여하여 스스로 튼튼하게 재생되도록 돕습니다.",
+            "image": "/prolo.webp"
+          },
+          {
+            "tabName": "기능 회복",
+            "title": "맞춤 재활 도수치료",
+            "desc": "굳어진 어깨 관절의 가동 범위를 회복하고 주변 근육을 강화하여 재발을 방지합니다.",
+            "image": "/rehab.webp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blk_joint_outro_1",
+      "type": "JointOutro",
+      "data": {
+        "title": "다시 가벼워진 어깨로 맞이하는 내일."
+      }
+    }
+  ],
   'about/location': [
     {
       id: 'loc-1',
