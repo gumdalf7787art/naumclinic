@@ -2015,6 +2015,15 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                   placeholder="증상 설명"
                   className="text-lg md:text-xl text-gray-500 font-light leading-[1.7] break-keep"
                 />
+                
+                <div className="mt-12 rounded-[2rem] overflow-hidden shadow-2xl relative aspect-[4/3] group hidden md:block">
+                  <img 
+                    src={data.image || "/hero-3-bg.webp"} 
+                    alt="척추 통증" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-1000"></div>
+                </div>
               </motion.div>
             </div>
           </div>
