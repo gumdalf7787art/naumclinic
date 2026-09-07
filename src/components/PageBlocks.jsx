@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { BookOpen, Flame, Users, Heart, Globe, Image as ImageIcon, Plus, Trash2, Search, Shield, Activity, ChevronLeft, ChevronRight, MapPin, Phone, Clock, Bus, Train, Car } from 'lucide-react';
+import { BookOpen, Flame, Users, Heart, Globe, Image as ImageIcon, Plus, Trash2, Search, Shield, Activity, ChevronLeft, ChevronRight, MapPin, Phone, Clock, Bus, Train, Car, Star } from 'lucide-react';
 
 // -------------------------------------------------------------
 // ICON MAP
