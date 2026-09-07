@@ -1749,13 +1749,20 @@ export function PostOpStagesBlock({ data, isEditMode, onChange }) {
                 0{idx + 1}
               </div>
               
+              {stage.bgImage && (
+                <div className="absolute inset-0 z-0 opacity-30 group-hover:opacity-100 transition-opacity duration-700">
+                  <img src={stage.bgImage} alt={stage.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                </div>
+              )}
+              
               <div className="relative z-10 p-8 md:p-10 h-full flex flex-col">
-                <div className="text-[#0369A1] font-bold text-sm tracking-widest uppercase mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                <div className={`font-bold text-sm tracking-widest uppercase mb-4 opacity-70 group-hover:opacity-100 transition-opacity ${stage.bgImage ? 'text-[#0369A1] group-hover:text-blue-300' : 'text-[#0369A1]'}`}>
                   Phase {idx + 1}
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{stage.title}</h3>
+                <h3 className={`text-2xl md:text-3xl font-bold mb-6 transition-colors ${stage.bgImage ? 'text-gray-900 group-hover:text-white' : 'text-gray-900'}`}>{stage.title}</h3>
                 
-                <p className="text-gray-600 leading-relaxed text-lg break-keep opacity-80 group-hover:opacity-100 transition-opacity mt-auto">
+                <p className={`leading-relaxed text-lg break-keep opacity-80 group-hover:opacity-100 transition-opacity mt-auto ${stage.bgImage ? 'text-gray-600 group-hover:text-gray-200' : 'text-gray-600'}`}>
                   {stage.desc}
                 </p>
               </div>
