@@ -184,7 +184,7 @@ export const PAGE_TEMPLATES = {
             "tabName": "정밀 진단",
             "title": "정밀 초음파 진단",
             "desc": "어깨 관절과 인대의 손상 정도를 실시간으로 정확하게 파악하여 원인을 진단합니다.",
-            "image": "/ultrasound.webp"
+            "image": "/card4-opt.webp"
           },
           {
             "tabName": "염증 치료",
