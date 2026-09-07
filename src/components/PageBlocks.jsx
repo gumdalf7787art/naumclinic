@@ -933,9 +933,9 @@ export function JointSymptomsBlock({ data, isEditMode, onChange }) {
 
   return (
     <section ref={containerRef} className="relative h-[250vh] bg-[#f2f4f7]">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-20">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-32 pb-10">
         
-        <div className="max-w-[1200px] w-full mx-auto px-6 mb-12 flex-shrink-0">
+        <div className="max-w-[1200px] w-full mx-auto px-6 mb-6 md:mb-8 flex-shrink-0">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -954,11 +954,11 @@ export function JointSymptomsBlock({ data, isEditMode, onChange }) {
           </motion.div>
         </div>
 
-        <motion.div style={{ x }} className="flex gap-8 px-6 md:px-[max(24px,calc((100vw-1200px)/2))] w-max">
+        <motion.div style={{ x }} className="flex gap-6 md:gap-8 px-6 md:px-[max(24px,calc((100vw-1200px)/2))] w-max items-center h-full max-h-[350px]">
           {data.symptoms?.map((item, idx) => (
             <div 
               key={idx} 
-              className="w-[300px] md:w-[450px] h-[400px] md:h-[450px] bg-white rounded-[2rem] p-10 shadow-[0_20px_40px_rgb(0,0,0,0.05)] border border-gray-100 flex flex-col justify-between"
+              className="w-[280px] md:w-[350px] h-full bg-white rounded-[2rem] p-8 shadow-[0_20px_40px_rgb(0,0,0,0.05)] border border-gray-100 flex flex-col justify-between"
             >
               <div>
                 <div className="text-6xl font-light text-[#0369A1]/20 mb-6">
@@ -994,10 +994,10 @@ export function JointSolutionsBlock({ data, isEditMode, onChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
   
   return (
-    <section className="py-32 bg-white">
+    <section className="py-24 md:py-32 bg-white">
       <div className="max-w-[1200px] mx-auto px-6">
         
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-12 md:mb-16">
           <EditableText
             tag="h2"
             value={data.title || ''}
@@ -1008,13 +1008,16 @@ export function JointSolutionsBlock({ data, isEditMode, onChange }) {
           />
         </div>
 
-        <div className="flex flex-col md:flex-row gap-12 md:gap-20">
-          {/* Left: Tab List */}
-          <div className="w-full md:w-1/3 flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
+        <div className="flex flex-col md:flex-row gap-12 md:gap-20 relative items-start">
+          {/* Left: Sticky Tab List */}
+          <div className="w-full md:w-1/3 md:sticky md:top-[120px] flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 h-max z-10 bg-white md:bg-transparent">
             {data.solutions?.map((sol, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveTab(idx)}
+                onClick={() => {
+                  setActiveTab(idx);
+                  // Optional: smooth scroll to that element could be added here if we gave them IDs
+                }}
                 className={`flex-shrink-0 text-left px-6 py-5 rounded-2xl transition-all duration-300 font-bold text-xl md:text-2xl border-l-4 ${
                   activeTab === idx 
                     ? 'bg-gray-50 text-[#0369A1] border-[#0369A1] shadow-sm' 
@@ -1026,36 +1029,36 @@ export function JointSolutionsBlock({ data, isEditMode, onChange }) {
             ))}
           </div>
 
-          {/* Right: Active Content */}
-          <div className="w-full md:w-2/3">
-            <AnimatePresence mode="wait">
-              {data.solutions?.map((sol, idx) => (
-                activeTab === idx && (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="bg-gray-50 rounded-[2rem] p-8 md:p-12 h-full border border-gray-100"
-                  >
-                    <div className="text-[#8DC63F] mb-4">
-                      <Shield className="w-10 h-10" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-6">{sol.title}</h3>
-                    <p className="text-lg text-gray-600 leading-[1.7] break-keep">{sol.desc}</p>
-                    
-                    <div className="mt-12 aspect-video rounded-xl overflow-hidden bg-gray-200">
-                      {sol.image ? (
-                        <img src={sol.image} alt={sol.title} className="w-full h-full object-cover" />
+          {/* Right: Scrolling Content */}
+          <div className="w-full md:w-2/3 space-y-16 md:space-y-32 pb-20">
+            {data.solutions?.map((sol, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-40% 0px -40% 0px" }}
+                onViewportEnter={() => setActiveTab(idx)}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="bg-gray-50 rounded-[2rem] p-6 md:p-10 border border-gray-100 scroll-mt-32"
+                id={`solution-${idx}`}
+              >
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                  <div className="text-[#8DC63F]">
+                    <Shield className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900">{sol.title}</h3>
+                </div>
+                <p className="text-base md:text-lg text-gray-600 leading-[1.7] break-keep mb-6 md:mb-8">{sol.desc}</p>
+                
+                <div className="aspect-video rounded-xl overflow-hidden bg-gray-200">
+                  {sol.image ? (
+                    <img src={sol.image} alt={sol.title} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400">Image Area</div>
-                      )}
-                    </div>
-                  </motion.div>
-                )
-              ))}
-            </AnimatePresence>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
         
