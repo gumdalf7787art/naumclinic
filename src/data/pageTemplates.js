@@ -215,6 +215,47 @@ export const PAGE_TEMPLATES = {
       }
     }
   ],
+  'pain/ultrasound': [
+    {
+      "id": "blk_ultra_hero_1",
+      "type": "UltraHero",
+      "data": {
+        "mainCopy": "보이지 않던 통증의 뿌리를 찾다.",
+        "subCopy": "감각에 의존하지 않고, 직접 보면서 치료합니다."
+      }
+    },
+    {
+      "id": "blk_ultra_features_1",
+      "type": "UltraFeatures",
+      "data": {
+        "title": "왜 초음파 유도하 주사인가?",
+        "features": [
+          { "title": "정밀 타겟팅", "desc": "뼈, 근육, 신경, 혈관을 실시간으로 확인하며 오차율 0%에 도전합니다." },
+          { "title": "안전성 극대화", "desc": "주변 정상 조직이나 신경 손상 위험을 차단하여 안전하게 치료합니다." },
+          { "title": "높은 치료율", "desc": "정확한 위치에 적정량의 약물이 투여되어 1회 치료만으로도 높은 통증 감소 효과를 기대할 수 있습니다." }
+        ]
+      }
+    },
+    {
+      "id": "blk_ultra_target_1",
+      "type": "UltraTarget",
+      "data": {
+        "title": "머리부터 발끝까지",
+        "targets": [
+          { "part": "어깨", "title": "어깨 관절 질환", "desc": "오십견, 회전근개파열, 석회성건염 등 어깨 통증의 원인을 정확히 찾아 치료합니다." },
+          { "part": "팔꿈치", "title": "엘보 및 수부 질환", "desc": "테니스엘보, 골프엘보, 손목터널증후군 등 미세한 힘줄과 신경 부위를 타겟팅합니다." },
+          { "part": "무릎", "title": "무릎 및 족부 질환", "desc": "퇴행성 관절염, 연골 손상, 족저근막염 등 체중 부하가 많은 하지 관절을 회복시킵니다." }
+        ]
+      }
+    },
+    {
+      "id": "blk_ultra_outro_1",
+      "type": "UltraOutro",
+      "data": {
+        "title": "정확한 진단이\n정확한 치료를 만듭니다."
+      }
+    }
+  ],
   'about/location': [
     {
       id: 'loc-1',
