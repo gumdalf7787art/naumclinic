@@ -1630,10 +1630,10 @@ export function PostOpNeedsBlock({ data, isEditMode, onChange }) {
 }
 
 // -------------------------------------------------------------
-// PostOpTypes Block (Interactive Tabs)
+// PostOpTypes Block (Interactive Sticky Scroll)
 // -------------------------------------------------------------
 export function PostOpTypesBlock({ data, isEditMode, onChange }) {
-  const [activeTab, setActiveTab] = React.useState(0);
+  const [activeSection, setActiveSection] = React.useState(0);
 
   return (
     <section className="py-24 md:py-32 bg-[#050B14] text-white">
@@ -1653,44 +1653,53 @@ export function PostOpTypesBlock({ data, isEditMode, onChange }) {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
-          {/* Tabs Menu */}
-          <div className="w-full lg:w-1/3 flex flex-col gap-4">
-            {data.types?.map((type, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTab(idx)}
-                className={`text-left px-8 py-6 rounded-2xl transition-all duration-300 font-bold text-xl md:text-2xl border-l-4 ${
-                  activeTab === idx 
-                    ? 'bg-white/10 text-white border-[#0369A1]' 
-                    : 'text-gray-500 border-transparent hover:text-gray-300 hover:bg-white/5'
-                }`}
-              >
-                {type.category}
-              </button>
-            ))}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 relative">
+          {/* Sticky Sidebar Menu */}
+          <div className="w-full lg:w-1/3 relative">
+            <div className="lg:sticky lg:top-[160px] flex flex-col gap-4">
+              {data.types?.map((type, idx) => (
+                <a
+                  key={idx}
+                  href={`#postop-type-${idx}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(`postop-type-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setActiveSection(idx);
+                  }}
+                  className={`text-left px-8 py-6 rounded-2xl transition-all duration-300 font-bold text-xl md:text-2xl border-l-4 ${
+                    activeSection === idx 
+                      ? 'bg-white/10 text-white border-[#0369A1]' 
+                      : 'text-gray-500 border-transparent hover:text-gray-300 hover:bg-white/5'
+                  }`}
+                >
+                  {type.category}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="w-full lg:w-2/3">
-            <AnimatePresence mode="wait">
+          {/* Stacking Content */}
+          <div className="w-full lg:w-2/3 space-y-12 md:space-y-16">
+            {data.types?.map((type, idx) => (
               <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white/5 border border-white/10 rounded-[2rem] p-8 md:p-12 h-full"
+                key={idx}
+                id={`postop-type-${idx}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.3 }}
+                onViewportEnter={() => setActiveSection(idx)}
+                transition={{ duration: 0.6 }}
+                className="bg-white/5 border border-white/10 rounded-[2rem] p-8 md:p-12 scroll-mt-[160px]"
               >
                 <div className="flex items-center gap-4 mb-8 text-[#0369A1]">
                   <Crosshair className="w-8 h-8" />
                   <h3 className="text-3xl md:text-4xl font-bold text-white">
-                    {data.types?.[activeTab]?.category} 재활
+                    {type.category} 재활
                   </h3>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {data.types?.[activeTab]?.items?.map((item, i) => (
+                  {type.items?.map((item, i) => (
                     <div key={i} className="bg-black/20 p-6 rounded-xl border border-white/5">
                       <h4 className="text-xl font-bold text-gray-200 mb-3">{item.name}</h4>
                       <p className="text-gray-400 leading-relaxed break-keep">{item.desc}</p>
@@ -1698,7 +1707,7 @@ export function PostOpTypesBlock({ data, isEditMode, onChange }) {
                   ))}
                 </div>
               </motion.div>
-            </AnimatePresence>
+            ))}
           </div>
         </div>
         
