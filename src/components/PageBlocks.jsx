@@ -1639,7 +1639,7 @@ export function PostOpTypesBlock({ data, isEditMode, onChange }) {
     <section className="py-24 md:py-32 bg-[#050B14] text-white">
       <div className="max-w-[1200px] mx-auto px-6">
         
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8 flex-wrap">
           <EditableText
             tag="h2"
             value={data.title || ''}
@@ -1648,7 +1648,7 @@ export function PostOpTypesBlock({ data, isEditMode, onChange }) {
             placeholder="모든 수술에 대한 해답"
             className="text-4xl md:text-5xl font-extrabold tracking-tight"
           />
-          <p className="text-gray-400 text-lg md:text-xl max-w-md break-keep">
+          <p className="text-gray-400 text-lg md:text-xl max-w-sm lg:max-w-md break-keep text-left md:text-right">
             어떤 부위의 수술이든, 나음의 숙련된 치료팀이 맞춤형 솔루션을 제공합니다.
           </p>
         </div>
