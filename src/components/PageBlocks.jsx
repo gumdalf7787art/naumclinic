@@ -883,6 +883,10 @@ const BLOCK_REGISTRY = {
   PhilosophyPrinciples: PhilosophyPrinciplesBlock,
   PhilosophyPromise: PhilosophyPromiseBlock,
   PhilosophyCTA: PhilosophyCTABlock,
+  SpineHero: SpineHeroBlock,
+  SpineSymptoms: SpineSymptomsBlock,
+  SpineBento: SpineBentoBlock,
+  SpineOutro: SpineOutroBlock,
   Empty: EmptyBlock
 };
 
