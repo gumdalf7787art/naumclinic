@@ -1927,8 +1927,35 @@ export function PhilosophyCTABlock({ data, isEditMode, onChange }) {
 // -------------------------------------------------------------
 export function SpineHeroBlock({ data, isEditMode, onChange }) {
   return (
-    <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center bg-white overflow-hidden selection:bg-black/10">
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50 pointer-events-none"></div>
+    <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center bg-[#fafafa] overflow-hidden selection:bg-black/10">
+      {/* Subtle Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <motion.div 
+          animate={{
+            x: [0, 100, -50, 0],
+            y: [0, -50, 100, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-[40rem] h-[40rem] bg-blue-100/40 rounded-full mix-blend-multiply filter blur-3xl opacity-60"
+        />
+        <motion.div 
+          animate={{
+            x: [0, -100, 50, 0],
+            y: [0, 100, -50, 0],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 right-0 w-[35rem] h-[35rem] bg-green-100/30 rounded-full mix-blend-multiply filter blur-3xl opacity-60"
+        />
+        <motion.div 
+          animate={{
+            x: [0, 50, -100, 0],
+            y: [0, 50, -50, 0],
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-32 left-1/4 w-[45rem] h-[45rem] bg-sky-50/50 rounded-full mix-blend-multiply filter blur-3xl opacity-50"
+        />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[100px]"></div>
+      </div>
       
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 text-center flex flex-col items-center">
         <motion.div
