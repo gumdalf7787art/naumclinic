@@ -2018,9 +2018,9 @@ export function SpineSymptomsBlock({ data, isEditMode, onChange }) {
                 
                 <div className="mt-12 rounded-[2rem] overflow-hidden shadow-2xl relative aspect-[4/3] group hidden md:block">
                   <img 
-                    src={data.image || "/hero-3-bg.webp"} 
+                    src={data.image || "/spine-symptoms.webp"} 
                     alt="척추 통증" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out"
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-1000"></div>
                 </div>
