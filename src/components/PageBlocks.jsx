@@ -997,21 +997,22 @@ export function JointSolutionsBlock({ data, isEditMode, onChange }) {
     <section className="py-24 md:py-32 bg-white">
       <div className="max-w-[1200px] mx-auto px-6">
         
-        <div className="text-center mb-12 md:mb-16">
-          <EditableText
-            tag="h2"
-            value={data.title || ''}
-            onChange={(val) => onChange({ title: val })}
-            isEditMode={isEditMode}
-            placeholder="맞춤형 회복 솔루션"
-            className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight"
-          />
-        </div>
-
         <div className="flex flex-col md:flex-row gap-12 md:gap-20 relative items-start">
-          {/* Left: Sticky Tab List */}
-          <div className="w-full md:w-1/3 md:sticky md:top-[120px] flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 h-max z-10 bg-white md:bg-transparent">
-            {data.solutions?.map((sol, idx) => (
+          {/* Left: Sticky Tab List & Title */}
+          <div className="w-full md:w-1/3 md:sticky md:top-[120px] flex flex-col gap-8 md:gap-12 h-max z-10 bg-white md:bg-transparent pt-4 md:pt-0">
+            <div>
+              <EditableText
+                tag="h2"
+                value={data.title || ''}
+                onChange={(val) => onChange({ title: val })}
+                isEditMode={isEditMode}
+                placeholder="맞춤형 회복 솔루션"
+                className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-[1.3] break-keep"
+              />
+            </div>
+            
+            <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
+              {data.solutions?.map((sol, idx) => (
               <button
                 key={idx}
                 onClick={() => {
@@ -1027,6 +1028,7 @@ export function JointSolutionsBlock({ data, isEditMode, onChange }) {
                 {sol.tabName}
               </button>
             ))}
+            </div>
           </div>
 
           {/* Right: Scrolling Content */}
