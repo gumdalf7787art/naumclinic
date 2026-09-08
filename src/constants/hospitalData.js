@@ -35,8 +35,7 @@ export const HOSPITAL_MENUS = [
     id: 'community', name: '나음 커뮤니티', path: '/community/notice', is_active: 1,
     children: [
       { id: 'comm-notice', name: '공지사항', path: '/community/notice', is_active: 1 },
-      { id: 'comm-reviews', name: '치료 사례 / 후기', path: '/community/reviews', is_active: 1 },
-      { id: 'comm-faq', name: '자주 묻는 질문', path: '/community/faq', is_active: 1 }
+      { id: 'comm-noncovered', name: '비급여 고지', path: '/community/non-covered', is_active: 1 }
     ]
   }
 ];

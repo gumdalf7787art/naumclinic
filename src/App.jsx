@@ -300,8 +300,7 @@ function Navbar({ isLoggedIn }) {
                   <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">나음 커뮤니티</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
                     <Link to="/community/notice" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">공지사항</Link>
-                    <Link to="/community/reviews" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">치료 사례 / 후기</Link>
-                    <Link to="/community/faq" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">자주 묻는 질문</Link>
+                    <Link to="/community/non-covered" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">비급여 고지</Link>
                   </div>
                 </div>
               </div>

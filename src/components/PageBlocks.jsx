@@ -2854,6 +2854,157 @@ export function SportsV2OutroBlock({ data, isEditMode, onChange }) {
   );
 }
 
+// -------------------------------------------------------------
+// Community Blocks (Notice & Non-Covered)
+// -------------------------------------------------------------
+export function CommunityHeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative w-full h-[35vh] md:h-[45vh] flex items-center justify-center bg-[#0f172a] text-white overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0284c7]/30 to-transparent" />
+      <div className="relative z-10 text-center px-6 mt-16">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <EditableText
+            tag="h1"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="나음 커뮤니티"
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+          />
+          <EditableText
+            tag="p"
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="나음재활의학과의 다양한 소식을 전해드립니다."
+            className="text-lg text-gray-300 font-light"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-20 bg-gray-50 min-h-[60vh]">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data.notices?.map((notice, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="px-3 py-1 bg-[#0284c7]/10 text-[#0284c7] text-[11px] font-bold rounded-full">{notice.category}</span>
+                <span className="text-sm text-gray-400 font-mono">{notice.date}</span>
+              </div>
+              <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-[#0284c7] transition-colors line-clamp-2 leading-snug">{notice.title}</h3>
+              <p className="text-gray-500 text-sm mt-auto">{notice.author}</p>
+            </motion.div>
+          ))}
+        </div>
+        {(!data.notices || data.notices.length === 0) && (
+          <div className="text-center py-20 text-gray-400">등록된 공지사항이 없습니다.</div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export function CommunityNonCoveredBlock({ data, isEditMode, onChange }) {
+  const [activeTab, setActiveTab] = React.useState(0);
+  const categories = data.categories || [];
+
+  return (
+    <section className="py-20 bg-white min-h-[60vh]">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="비급여 진료비 안내"
+            className="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
+          />
+          <EditableText
+            tag="p"
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="의료법 제45조에 의거하여 비급여 진료비용을 고지합니다."
+            className="text-gray-500"
+          />
+        </div>
+
+        {categories.length > 0 && (
+          <div className="mb-10 flex flex-wrap justify-center gap-2 md:gap-3">
+            {categories.map((cat, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveTab(idx)}
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-colors ${
+                  activeTab === idx
+                    ? 'bg-[#0284c7] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {categories.length > 0 && categories[activeTab] && (
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
+          >
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[600px]">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 text-[13px] uppercase tracking-wider">
+                    <th className="px-6 py-4 font-semibold w-1/4">분류</th>
+                    <th className="px-6 py-4 font-semibold w-1/2">항목명 / 상세설명</th>
+                    <th className="px-6 py-4 font-semibold w-1/4 text-right">비용 (원)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {categories[activeTab].items?.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
+                      <td className="px-6 py-5 text-sm text-gray-500 align-top">{item.code || '-'}</td>
+                      <td className="px-6 py-5">
+                        <div className="font-bold text-gray-800 text-[15px]">{item.name}</div>
+                        {item.desc && <div className="text-sm text-gray-500 mt-1.5 leading-snug">{item.desc}</div>}
+                      </td>
+                      <td className="px-6 py-5 text-right font-bold text-[#0284c7] align-top text-[15px]">
+                        {parseInt(item.price).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                  {(!categories[activeTab].items || categories[activeTab].items.length === 0) && (
+                    <tr>
+                      <td colSpan="3" className="px-6 py-10 text-center text-gray-400">등록된 비급여 항목이 없습니다.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // Block Renderer Registry
 // -------------------------------------------------------------
 const BLOCK_REGISTRY = {
@@ -2921,6 +3072,9 @@ const BLOCK_REGISTRY = {
   SportsV2Solutions: SportsV2SolutionsBlock,
   SportsV2Process: SportsV2ProcessBlock,
   SportsV2Outro: SportsV2OutroBlock,
+  CommunityHero: CommunityHeroBlock,
+  CommunityNotice: CommunityNoticeBlock,
+  CommunityNonCovered: CommunityNonCoveredBlock,
   Empty: EmptyBlock
 };
 
@@ -3481,6 +3635,76 @@ export const BLOCK_DEFINITIONS = [
     label: '스포츠 V2 아웃트로',
     icon: <Activity size={16} />,
     defaultData: { title: '당신의 가장 빛나는 필드를 위해,\n나음이 든든한 페이스메이커가 되겠습니다.' }
+  },
+  {
+    type: 'CommunityHero',
+    label: '커뮤니티 상단배너',
+    icon: <Search size={16} />,
+    defaultData: { title: '나음 커뮤니티', desc: '나음재활의학과의 다양한 소식을 전해드립니다.' }
+  },
+  {
+    type: 'CommunityNotice',
+    label: '공지사항 목록',
+    icon: <Search size={16} />,
+    defaultData: {
+      notices: [
+        { category: '공지', title: '나음재활의학과의원 개원 안내', date: '2026.09.01', author: '관리자' },
+        { category: '휴진', title: '추석 연휴 휴진 안내', date: '2026.09.05', author: '관리자' },
+        { category: '이벤트', title: '개원 기념 맞춤 수액 할인 안내', date: '2026.09.08', author: '관리자' }
+      ]
+    }
+  },
+  {
+    type: 'CommunityNonCovered',
+    label: '비급여 고지표',
+    icon: <List size={16} />,
+    defaultData: {
+      title: '비급여 진료비 안내',
+      desc: '의료법 제45조 및 동법 시행규칙 제42조의 2에 의거하여 비급여 진료비용을 고지합니다.',
+      categories: [
+        {
+          name: '도수/운동치료',
+          items: [
+            { code: '도수치료', name: '일반 도수치료 (40분)', desc: '통증 완화 및 근골격계 교정', price: '120000' },
+            { code: '도수치료', name: '특수 도수치료 (60분)', desc: '집중 부위 심층 교정 및 재활', price: '160000' },
+            { code: '운동치료', name: '재활 운동치료 (30분)', desc: '1:1 맞춤형 기구 필라테스 및 소도구 운동', price: '80000' }
+          ]
+        },
+        {
+          name: '물리치료/기타장비',
+          items: [
+            { code: '체외충격파', name: '집중형 체외충격파 (ESWT) 1부위', desc: '관절 및 힘줄 심부 염증 치료 (Wolf / Piezo)', price: '90000' },
+            { code: '체외충격파', name: '방사형 체외충격파 (RSWT) 1부위', desc: '근막 통증 증후군 및 근육 이완', price: '70000' },
+            { code: '고주파치료', name: '심부 고주파 치료 (WINBACK)', desc: '심부열 발생을 통한 빠른 재생 유도', price: '80000' }
+          ]
+        },
+        {
+          name: '주사치료',
+          items: [
+            { code: '증식치료', name: '프롤로테라피 (1부위)', desc: '인대 및 힘줄 재생 주사 (초음파 유도)', price: '80000' },
+            { code: '증식치료', name: 'DNA 주사 (PDRN)', desc: '조직 재생 촉진 (연어 주사)', price: '100000' },
+            { code: '신경차단술', name: '초음파 유도하 미세 신경 차단술', desc: '척추, 관절 신경 통증 차단', price: '50000' },
+            { code: '관절강내주사', name: '콘쥬란 주사', desc: '무릎 관절 연골 마찰 감소 및 통증 완화', price: '120000' }
+          ]
+        },
+        {
+          name: '수액치료',
+          items: [
+            { code: '영양수액', name: '마늘주사 (푸르설타민)', desc: '만성 피로 회복 및 면역력 증진', price: '50000' },
+            { code: '영양수액', name: '백옥주사 (글루타치온)', desc: '항산화 효과, 간 해독 및 피부 미백', price: '60000' },
+            { code: '영양수액', name: '신데렐라주사 (알파리포산)', desc: '항산화 및 체지방 감소 보조', price: '50000' },
+            { code: '프리미엄수액', name: '나음 VIP 종합 칵테일 주사', desc: '아미노산, 고용량 비타민, 미네랄 종합 처방', price: '150000' }
+          ]
+        },
+        {
+          name: '진단검사',
+          items: [
+            { code: '초음파검사', name: '근골격계 초음파 (관절, 인대, 근육)', desc: '어깨, 무릎, 발목 등 관절 세밀 진단', price: '80000' },
+            { code: '초음파검사', name: '말초신경 초음파', desc: '손목터널증후군 등 신경 포착 진단', price: '70000' }
+          ]
+        }
+      ]
+    }
   }];
 
 // -------------------------------------------------------------
