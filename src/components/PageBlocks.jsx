@@ -2041,7 +2041,7 @@ export function BlockRenderer({ blocks, isEditMode = false, onChange }) {
   }
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col">
       {blocks.map((block) => {
         const Component = BLOCK_REGISTRY[block.type];
         if (!Component) return <div key={block.id} className="text-red-500 p-4">Unknown block type: {block.type}</div>;
