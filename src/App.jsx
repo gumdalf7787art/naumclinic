@@ -18,6 +18,7 @@ import GoogleCallback from './components/GoogleCallback';
 import Admin from './components/Admin';
 import SubPageLayout from './components/SubPageLayout';
 import DynamicPage from './components/DynamicPage';
+import NoticeDetail from './components/NoticeDetail';
 import SEO from './components/SEO';
 
 function ScrollToTop() {
@@ -1246,6 +1247,15 @@ function App() {
           <>
             <Navbar isLoggedIn={isLoggedIn} />
             <SubPageLayout title="나음 특화 클리닉" engTitle="NAUM SPECIAL CLINIC" parentPath="/special" />
+            <Footer />
+          </>
+        } />
+        <Route path="/community/notice/:id" element={
+          <>
+            <Navbar isLoggedIn={isLoggedIn} />
+            <SubPageLayout title="나음 커뮤니티" engTitle="COMMUNITY" parentPath="/community">
+              <NoticeDetail />
+            </SubPageLayout>
             <Footer />
           </>
         } />

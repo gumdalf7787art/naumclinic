@@ -4,7 +4,7 @@ import { Home, ChevronDown } from 'lucide-react';
 import { HOSPITAL_MENUS } from '../constants/hospitalData';
 import DynamicSubPage from './DynamicSubPage';
 
-const SubPageLayout = ({ title, engTitle, parentPath }) => {
+const SubPageLayout = ({ title, engTitle, parentPath, children }) => {
   const { pathname } = useLocation();
 
   // Find current main category
@@ -83,8 +83,8 @@ const SubPageLayout = ({ title, engTitle, parentPath }) => {
         </div>
       </div>
       
-      {/* Dynamic SubPage Content */}
-      <DynamicSubPage parentPath={parentPath} />
+      {/* Dynamic SubPage Content or Custom Children */}
+      {children || <DynamicSubPage parentPath={parentPath} />}
     </div>
   );
 };
