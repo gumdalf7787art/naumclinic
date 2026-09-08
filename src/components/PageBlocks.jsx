@@ -2889,7 +2889,7 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
   return (
     <section className="py-20 bg-gray-50 min-h-[60vh]">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.notices?.map((notice, idx) => (
             <motion.div
               key={idx}
@@ -2897,14 +2897,27 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer"
+              className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col h-full"
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 bg-[#0284c7]/10 text-[#0284c7] text-[11px] font-bold rounded-full">{notice.category}</span>
-                <span className="text-sm text-gray-400 font-mono">{notice.date}</span>
+              {/* Thumbnail Area */}
+              <div className="w-full h-48 relative overflow-hidden bg-gray-100">
+                {notice.image ? (
+                  <img src={notice.image} alt={notice.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#0284c7] to-[#0f172a] flex items-center justify-center relative group-hover:scale-110 transition-transform duration-700 ease-out">
+                    <span className="text-white text-4xl font-extrabold tracking-[0.2em] opacity-20">NAUM</span>
+                  </div>
+                )}
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-[#0284c7] transition-colors line-clamp-2 leading-snug">{notice.title}</h3>
-              <p className="text-gray-500 text-sm mt-auto">{notice.author}</p>
+              {/* Content Area */}
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="px-3 py-1 bg-[#0284c7]/10 text-[#0284c7] text-[11px] font-bold rounded-full">{notice.category}</span>
+                  <span className="text-sm text-gray-400 font-mono">{notice.date}</span>
+                </div>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 group-hover:text-[#0284c7] transition-colors line-clamp-2 leading-snug">{notice.title}</h3>
+                <p className="text-gray-500 text-sm mt-auto font-medium">{notice.author}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -3656,9 +3669,9 @@ export const BLOCK_DEFINITIONS = [
     icon: <Search size={16} />,
     defaultData: {
       notices: [
-        { category: '공지', title: '나음재활의학과의원 개원 안내', date: '2026.09.01', author: '관리자' },
-        { category: '휴진', title: '추석 연휴 휴진 안내', date: '2026.09.05', author: '관리자' },
-        { category: '이벤트', title: '개원 기념 맞춤 수액 할인 안내', date: '2026.09.08', author: '관리자' }
+        { category: '공지', title: '나음재활의학과의원 개원 안내', date: '2026.09.01', author: '관리자', image: '' },
+        { category: '휴진', title: '추석 연휴 휴진 안내', date: '2026.09.05', author: '관리자', image: '' },
+        { category: '이벤트', title: '개원 기념 맞춤 수액 할인 안내', date: '2026.09.08', author: '관리자', image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600&auto=format&fit=crop' }
       ]
     }
   },
