@@ -43,7 +43,7 @@ export default function NoticeWrite() {
 
   return (
     <div className="bg-gray-50 min-h-[80vh] py-16">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         
         {/* Page Title */}
         <div className="mb-8 text-center">
@@ -57,7 +57,7 @@ export default function NoticeWrite() {
           className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden min-h-[700px] flex flex-col"
         >
           {/* Editor Header (Toolbar) */}
-          <div className="bg-white border-b border-gray-100 sticky top-[72px] z-40">
+          <div className="bg-white border-b border-gray-100 relative z-30">
             {/* Top Toolbar - Block Elements */}
             <div className="flex items-center px-6 py-3 gap-1 overflow-x-auto border-b border-gray-50 scrollbar-hide">
               <ToolbarButton icon={<ImageIcon size={22} strokeWidth={1.5} />} label="사진" />
