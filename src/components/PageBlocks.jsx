@@ -1810,6 +1810,181 @@ export function PostOpOutroBlock({ data, isEditMode, onChange }) {
   );
 }
 
+// -------------------------------------------------------------
+// Apple-Style Blocks (Sports Clinic)
+// -------------------------------------------------------------
+export function AppleHeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative w-full h-[80vh] md:h-screen flex items-center justify-center overflow-hidden bg-black text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+        style={{ backgroundImage: `url(${data.bgImage || '/sports-bg.webp'})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black" />
+      
+      <div className="relative z-10 max-w-7xl w-full px-6 flex flex-col items-center text-center mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="h1"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="스포츠 손상 클리닉"
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter leading-none mb-8 drop-shadow-2xl"
+          />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="다시 뛰는 당신을 위해,\n나음이 완벽한 복귀를 돕습니다."
+            className="text-xl md:text-3xl text-gray-300 font-medium tracking-tight leading-snug whitespace-pre-line"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function AppleBentoBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-black text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-16 md:mb-24 text-center"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="이런 증상이 있다면 치료가 필요합니다"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {data.targets?.map((target, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="bg-[#111] rounded-3xl p-8 md:p-10 border border-white/5 hover:border-white/20 transition-all duration-500 group flex flex-col justify-between aspect-square md:aspect-auto lg:aspect-square"
+            >
+              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+                <div className="w-4 h-4 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8)]" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4 tracking-tight">{target.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed break-keep">{target.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function AppleProcessBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-black text-white border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
+          
+          <div className="w-full lg:w-1/3">
+            <div className="lg:sticky lg:top-40">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <EditableText
+                  tag="h2"
+                  value={data.title || ''}
+                  onChange={(val) => onChange({ title: val })}
+                  isEditMode={isEditMode}
+                  placeholder="스포츠 특화 치료 프로세스"
+                  className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight break-keep"
+                />
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-2/3 flex flex-col gap-12 md:gap-24">
+            {data.steps?.map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true, margin: '-100px' }}
+                className="flex flex-col md:flex-row gap-6 md:gap-12 items-start"
+              >
+                <div className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/80 to-white/10 shrink-0">
+                  0{idx + 1}
+                </div>
+                <div className="pt-2 md:pt-4">
+                  <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">{step.title}</h3>
+                  <p className="text-xl md:text-2xl text-gray-400 leading-relaxed break-keep">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function AppleOutroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-64 bg-black text-white overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0284C7]/20 via-black to-black opacity-50" />
+      <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다."
+            className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-tight whitespace-pre-line text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-600 drop-shadow-xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Block Renderer Registry
 // -------------------------------------------------------------
 const BLOCK_REGISTRY = {
@@ -1853,6 +2028,10 @@ const BLOCK_REGISTRY = {
   PostOpTypes: PostOpTypesBlock,
   PostOpStages: PostOpStagesBlock,
   PostOpOutro: PostOpOutroBlock,
+  AppleHero: AppleHeroBlock,
+  AppleBento: AppleBentoBlock,
+  AppleProcess: AppleProcessBlock,
+  AppleOutro: AppleOutroBlock,
   Empty: EmptyBlock
 };
 
@@ -2175,6 +2354,44 @@ export const BLOCK_DEFINITIONS = [
     label: '수술후재활 아웃트로',
     icon: <Heart size={16} />,
     defaultData: { title: '혼자서는 힘든 재활,\n나음이 끝까지 함께합니다.' }
+  },
+  {
+    type: 'AppleHero',
+    label: '애플 히어로 (스포츠 클리닉)',
+    icon: <Flame size={16} />,
+    defaultData: { title: '스포츠 손상 클리닉', desc: '다시 뛰는 당신을 위해,\n나음이 완벽한 복귀를 돕습니다.', bgImage: '/sports-bg.webp' }
+  },
+  {
+    type: 'AppleBento',
+    label: '애플 벤토 (증상 타겟)',
+    icon: <Heart size={16} />,
+    defaultData: { 
+      title: '이런 증상이 있다면 치료가 필요합니다',
+      targets: [
+        { title: '골프/테니스 엘보', desc: '팔꿈치 통증' },
+        { title: '회전근개 및 어깨 손상', desc: '어깨 통증' },
+        { title: '무릎/발목 염좌', desc: '관절 부종 및 통증' },
+        { title: '족저근막염', desc: '발바닥 통증' }
+      ]
+    }
+  },
+  {
+    type: 'AppleProcess',
+    label: '애플 프로세스 (치료 단계)',
+    icon: <List size={16} />,
+    defaultData: {
+      title: '스포츠 특화 치료 프로세스',
+      steps: [
+        { title: '정확한 원인 진단', desc: '정밀 검사' },
+        { title: '급성기 통증/염증 제어', desc: '특수 치료' }
+      ]
+    }
+  },
+  {
+    type: 'AppleOutro',
+    label: '애플 아웃트로',
+    icon: <Globe size={16} />,
+    defaultData: { title: '단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다.' }
   }];
 
 // -------------------------------------------------------------

@@ -424,7 +424,7 @@ export const PAGE_TEMPLATES = {
   'special/sports': [
     {
       "id": "blk_sports_hero_1",
-      "type": "HeroSection",
+      "type": "AppleHero",
       "data": {
         "title": "스포츠 손상 클리닉",
         "desc": "다시 뛰는 당신을 위해,\n나음이 완벽한 복귀를 돕습니다.",
@@ -433,7 +433,7 @@ export const PAGE_TEMPLATES = {
     },
     {
       "id": "blk_sports_target_1",
-      "type": "ManualTarget",
+      "type": "AppleBento",
       "data": {
         "title": "이런 증상이 있다면 치료가 필요합니다",
         "targets": [
@@ -446,7 +446,7 @@ export const PAGE_TEMPLATES = {
     },
     {
       "id": "blk_sports_process_1",
-      "type": "ManualProcess",
+      "type": "AppleProcess",
       "data": {
         "title": "스포츠 특화 치료 프로세스",
         "steps": [
@@ -459,7 +459,7 @@ export const PAGE_TEMPLATES = {
     },
     {
       "id": "blk_sports_outro_1",
-      "type": "ManualOutro",
+      "type": "AppleOutro",
       "data": {
         "title": "단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다."
       }
