@@ -1985,6 +1985,250 @@ export function AppleOutroBlock({ data, isEditMode, onChange }) {
   );
 }
 
+// -------------------------------------------------------------
+// Neuro-Style Blocks (Refractory Neuropathy Clinic)
+// -------------------------------------------------------------
+export function NeuroHeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative w-full h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-[#050510] text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-screen"
+        style={{ backgroundImage: `url(${data.bgImage || '/neuro-bg.webp'})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050510]/10 via-[#050510]/60 to-[#050510]" />
+      
+      <div className="relative z-10 max-w-5xl w-full px-6 flex flex-col items-center text-center mt-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+        >
+          <EditableText
+            tag="h1"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="끝나지 않는 통증의 사슬,\n나음이 끊어냅니다."
+            multiline={true}
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[1.1] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-purple-400 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)] whitespace-pre-line"
+          />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+        >
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="어디를 가도 낫지 않던 지독한 신경통,\n이제 대학병원급 미세 신경 치료로 근본적인 평안을 되찾으세요."
+            className="text-lg md:text-2xl text-purple-100/70 font-light tracking-tight leading-relaxed whitespace-pre-line max-w-3xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function NeuroEmpathyBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#050510] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-20 text-center"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="당신을 괴롭히는 지독한 통증들"
+            className="text-4xl md:text-6xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {data.targets?.map((target, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="bg-gradient-to-br from-[#1a1525] to-[#0a0815] rounded-3xl p-8 md:p-12 border border-purple-500/10 hover:border-purple-500/30 transition-colors group relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-purple-600/20 rounded-full blur-[50px] group-hover:bg-purple-500/40 transition-colors" />
+              <div className="relative z-10">
+                <div className="text-purple-400 font-mono text-sm mb-4 tracking-widest uppercase">Target 0{idx + 1}</div>
+                <h3 className="text-3xl font-bold mb-4 tracking-tight text-white">{target.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed break-keep">{target.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function NeuroPhilosophyBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-48 bg-[#020205] text-white flex items-center justify-center border-y border-white/5">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          <div className="text-purple-500 mb-8 opacity-50">
+            <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          </div>
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="진통제로 덮어두는 임시방편이 아닙니다.\n변성된 신경의 뿌리를 치료합니다."
+            className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.3] whitespace-pre-line text-gray-200"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function NeuroSolutionsBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#050510] text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-20"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="최상위 비수술 시술 라인업"
+            className="text-4xl md:text-6xl font-bold tracking-tighter text-white"
+          />
+        </motion.div>
+
+        <div className="flex flex-col gap-8">
+          {data.solutions?.map((sol, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? 50 : -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center p-8 md:p-12 rounded-3xl bg-gradient-to-r ${idx % 2 === 0 ? 'from-[#0e1022] to-[#0a0815]' : 'from-[#0a0815] to-[#0e1022]'} border border-white/5`}
+            >
+              <div className="w-20 h-20 md:w-32 md:h-32 shrink-0 rounded-full bg-purple-900/30 border border-purple-500/20 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                <span className="text-3xl md:text-5xl font-black text-purple-400 opacity-50">0{idx + 1}</span>
+              </div>
+              <div>
+                <h3 className="text-2xl md:text-4xl font-bold mb-4 tracking-tight">{sol.title}</h3>
+                <p className="text-lg md:text-xl text-gray-400 leading-relaxed break-keep">{sol.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function NeuroProcessBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#020205] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-24"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="3단계 신경 리셋 프로세스"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="relative">
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500/0 via-purple-500/50 to-purple-500/0 md:-translate-x-1/2" />
+          <div className="space-y-16 md:space-y-32">
+            {data.steps?.map((step, idx) => (
+              <div key={idx} className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-24 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                <div className="w-full md:w-1/2" />
+                <motion.div 
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  className="w-full md:w-1/2 pl-16 md:pl-0"
+                >
+                  <div className={`flex flex-col ${idx % 2 === 0 ? 'md:items-end md:text-right' : 'md:items-start md:text-left'}`}>
+                    <div className="text-purple-500 font-bold tracking-widest uppercase mb-2">Step 0{idx + 1}</div>
+                    <h3 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white">{step.title}</h3>
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed break-keep">{step.desc}</p>
+                  </div>
+                </motion.div>
+                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-black border-2 border-purple-500 rounded-full transform -translate-x-1/2 mt-1 md:mt-0 shadow-[0_0_15px_rgba(168,85,247,0.8)]" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function NeuroOutroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-64 bg-[#050510] text-white overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-purple-900/5 to-[#050510]" />
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="포기하지 마세요.\n통증 없는 평범한 아침을 돌려드리겠습니다."
+            className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight whitespace-pre-line text-white drop-shadow-xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Block Renderer Registry
 // -------------------------------------------------------------
 const BLOCK_REGISTRY = {
@@ -2032,6 +2276,12 @@ const BLOCK_REGISTRY = {
   AppleBento: AppleBentoBlock,
   AppleProcess: AppleProcessBlock,
   AppleOutro: AppleOutroBlock,
+  NeuroHero: NeuroHeroBlock,
+  NeuroEmpathy: NeuroEmpathyBlock,
+  NeuroPhilosophy: NeuroPhilosophyBlock,
+  NeuroSolutions: NeuroSolutionsBlock,
+  NeuroProcess: NeuroProcessBlock,
+  NeuroOutro: NeuroOutroBlock,
   Empty: EmptyBlock
 };
 
@@ -2392,6 +2642,64 @@ export const BLOCK_DEFINITIONS = [
     label: '애플 아웃트로',
     icon: <Globe size={16} />,
     defaultData: { title: '단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다.' }
+  },
+  {
+    type: 'NeuroHero',
+    label: '신경 히어로 (신경통 클리닉)',
+    icon: <Flame size={16} />,
+    defaultData: { title: '끝나지 않는 통증의 사슬,\n나음이 끊어냅니다.', desc: '어디를 가도 낫지 않던 지독한 신경통,\n이제 대학병원급 미세 신경 치료로 근본적인 평안을 되찾으세요.', bgImage: '/neuro-bg.webp' }
+  },
+  {
+    type: 'NeuroEmpathy',
+    label: '신경 공감 (대상 질환)',
+    icon: <Heart size={16} />,
+    defaultData: { 
+      title: '당신을 괴롭히는 지독한 통증들',
+      targets: [
+        { title: '대상포진 후 신경통', desc: '피부가 스치기만 해도 칼로 베는 듯한 극심한 고통' },
+        { title: '삼차신경통', desc: '얼굴 한쪽이 번쩍거리며 전기에 감전된 듯 찌릿한 통증' },
+        { title: '척추수술 후 통증증후군', desc: '수술 후에도 다리가 저리고 허리가 끊어질 듯한 만성 통증' },
+        { title: '복합부위통증증후군', desc: '외상 후 불균형적인 통증과 부종, 피부색 변화' }
+      ]
+    }
+  },
+  {
+    type: 'NeuroPhilosophy',
+    label: '신경 철학 (원장 메시지)',
+    icon: <Globe size={16} />,
+    defaultData: { title: '진통제로 덮어두는 임시방편이 아닙니다.\n변성된 신경의 뿌리를 치료합니다.' }
+  },
+  {
+    type: 'NeuroSolutions',
+    label: '신경 솔루션 (치료법)',
+    icon: <Shield size={16} />,
+    defaultData: {
+      title: '최상위 비수술 시술 라인업',
+      solutions: [
+        { title: '초정밀 신경차단술', desc: '1mm의 오차도 허용하지 않는 표적 신경 치료' },
+        { title: '고주파 신경 열응고술', desc: '통증을 전달하는 신경만을 선택적으로 차단해 장기적인 효과 도모' },
+        { title: '신경 영양 주사 및 프롤로테라피', desc: '손상된 신경 주변의 조직을 재생시키고 영양을 공급하여 회복력 극대화' }
+      ]
+    }
+  },
+  {
+    type: 'NeuroProcess',
+    label: '신경 프로세스 (3단계 회복)',
+    icon: <List size={16} />,
+    defaultData: {
+      title: '3단계 신경 리셋 프로세스',
+      steps: [
+        { title: '정확한 원인 진단', desc: '미세한 신경 손상 부위까지 찾아내는 초음파 정밀 진단' },
+        { title: '통증 및 염증 제어', desc: '통증 신호를 차단하고 과흥분된 신경의 스위치를 끄는 처치' },
+        { title: '신경 세포 재생', desc: '신경막 회복을 돕는 수액 요법 및 심부조직 재생 치료' }
+      ]
+    }
+  },
+  {
+    type: 'NeuroOutro',
+    label: '신경 아웃트로',
+    icon: <Heart size={16} />,
+    defaultData: { title: '포기하지 마세요.\n통증 없는 평범한 아침을 돌려드리겠습니다.' }
   }];
 
 // -------------------------------------------------------------

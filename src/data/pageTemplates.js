@@ -464,5 +464,67 @@ export const PAGE_TEMPLATES = {
         "title": "단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다."
       }
     }
+  ],
+  'special/chronic': [
+    {
+      "id": "blk_neuro_hero_1",
+      "type": "NeuroHero",
+      "data": {
+        "title": "끝나지 않는 통증의 사슬,\n나음이 끊어냅니다.",
+        "desc": "어디를 가도 낫지 않던 지독한 신경통,\n이제 대학병원급 미세 신경 치료로 근본적인 평안을 되찾으세요.",
+        "bgImage": "/neuro-bg.webp"
+      }
+    },
+    {
+      "id": "blk_neuro_empathy_1",
+      "type": "NeuroEmpathy",
+      "data": {
+        "title": "당신을 괴롭히는 지독한 통증들",
+        "targets": [
+          { "title": "대상포진 후 신경통", "desc": "피부가 스치기만 해도 칼로 베는 듯한 극심한 고통" },
+          { "title": "삼차신경통", "desc": "얼굴 한쪽이 번쩍거리며 전기에 감전된 듯 찌릿한 통증" },
+          { "title": "척추수술 후 통증증후군", "desc": "수술 후에도 다리가 저리고 허리가 끊어질 듯한 만성 통증" },
+          { "title": "복합부위통증증후군", "desc": "외상 후 불균형적인 통증과 부종, 피부색 변화" }
+        ]
+      }
+    },
+    {
+      "id": "blk_neuro_philosophy_1",
+      "type": "NeuroPhilosophy",
+      "data": {
+        "title": "진통제로 덮어두는 임시방편이 아닙니다.\n변성된 신경의 뿌리를 치료합니다."
+      }
+    },
+    {
+      "id": "blk_neuro_solutions_1",
+      "type": "NeuroSolutions",
+      "data": {
+        "title": "최상위 비수술 시술 라인업",
+        "solutions": [
+          { "title": "초정밀 신경차단술", "desc": "1mm의 오차도 허용하지 않는 표적 신경 치료" },
+          { "title": "고주파 신경 열응고술", "desc": "통증을 전달하는 신경만을 선택적으로 차단해 장기적인 효과 도모" },
+          { "title": "신경 영양 주사 및 프롤로테라피", "desc": "손상된 신경 주변의 조직을 재생시키고 영양을 공급하여 회복력 극대화" }
+        ]
+      }
+    },
+    {
+      "id": "blk_neuro_process_1",
+      "type": "NeuroProcess",
+      "data": {
+        "title": "3단계 신경 리셋 프로세스",
+        "steps": [
+          { "title": "정확한 원인 진단", "desc": "미세한 신경 손상 부위까지 찾아내는 초음파 정밀 진단" },
+          { "title": "통증 및 염증 제어", "desc": "통증 신호를 차단하고 과흥분된 신경의 스위치를 끄는 처치" },
+          { "title": "신경 세포 재생", "desc": "신경막 회복을 돕는 수액 요법 및 심부조직 재생 치료" }
+        ]
+      }
+    },
+    {
+      "id": "blk_neuro_outro_1",
+      "type": "NeuroOutro",
+      "data": {
+        "title": "포기하지 마세요.\n통증 없는 평범한 아침을 돌려드리겠습니다."
+      }
+    }
   ]
 };
