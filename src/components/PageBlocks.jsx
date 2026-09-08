@@ -2891,6 +2891,15 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
   return (
     <section className="py-20 bg-gray-50 min-h-[60vh]">
       <div className="max-w-5xl mx-auto px-6">
+        <div className="flex justify-end mb-6">
+          <button 
+            onClick={() => navigate('/community/notice/write')}
+            className="flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white font-bold rounded-lg hover:bg-[#0284c7] transition-colors shadow-sm text-sm"
+          >
+            <Plus size={16} />
+            글쓰기
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.notices?.map((notice, idx) => (
             <motion.div
