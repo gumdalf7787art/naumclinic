@@ -2544,48 +2544,46 @@ export function IVOutroBlock({ data, isEditMode, onChange }) {
 // -------------------------------------------------------------
 export function SportsV2HeroBlock({ data, isEditMode, onChange }) {
   return (
-    <section className="relative w-full h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-[#050505] text-white">
+    <section className="relative w-full h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-[#020813] text-white">
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 mix-blend-screen"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 mix-blend-screen"
         style={{ backgroundImage: `url(${data.bgImage || '/sports-v2-bg.webp'})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020813]/10 via-[#020813]/50 to-[#020813]" />
       
-      <div className="relative z-10 max-w-5xl w-full px-6 flex flex-col md:flex-row items-center justify-between text-left mt-10">
-        <div className="w-full md:w-2/3">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          >
-            <div className="text-cyan-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">Return To Play</div>
-            <EditableText
-              tag="h1"
-              value={data.title || ''}
-              onChange={(val) => onChange({ title: val })}
-              isEditMode={isEditMode}
-              placeholder="다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다."
-              multiline={true}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-8 text-white drop-shadow-[0_0_20px_rgba(249,115,22,0.3)] whitespace-pre-line"
-            />
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
-          >
-            <EditableText
-              tag="p"
-              multiline={true}
-              value={data.desc || ''}
-              onChange={(val) => onChange({ desc: val })}
-              isEditMode={isEditMode}
-              placeholder="단순한 통증 치료가 아닙니다. 부상 이전의 완벽한 퍼포먼스를 되찾아주는\n나음만의 프리미엄 스포츠 재활입니다."
-              className="text-lg md:text-2xl text-gray-300 font-light tracking-tight leading-relaxed whitespace-pre-line max-w-2xl"
-            />
-          </motion.div>
-        </div>
+      <div className="relative z-10 max-w-5xl w-full px-6 flex flex-col items-center text-center mt-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+        >
+          <div className="text-cyan-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">Return To Play</div>
+          <EditableText
+            tag="h1"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다."
+            multiline={true}
+            className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.15] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line"
+          />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+        >
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="단순한 통증 치료가 아닙니다. 부상 이전의 완벽한 퍼포먼스를 되찾아주는\n나음만의 프리미엄 스포츠 재활입니다."
+            className="text-lg md:text-2xl text-cyan-50/70 font-light tracking-tight leading-relaxed whitespace-pre-line max-w-3xl"
+          />
+        </motion.div>
       </div>
     </section>
   );
