@@ -668,12 +668,37 @@ export const PAGE_TEMPLATES = {
       "data": {
         "title": "비급여 진료비 안내",
         "desc": "의료법 제45조 및 동법 시행규칙 제42조의 2에 의거하여 비급여 진료비용을 고지합니다.",
-        "items": [
-          { "midClass": "이학요법료", "subClass": "도수치료", "itemCode": "MZ007", "itemName": "도수치료(40분)", "type": "일반", "price": "120000", "minPrice": "120000", "maxPrice": "120000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "근골격계 통증, 체형교정", "lastUpdated": "2026.09.01" },
-          { "midClass": "이학요법료", "subClass": "체외충격파", "itemCode": "MZ012", "itemName": "체외충격파(집중형)", "type": "일반", "price": "90000", "minPrice": "90000", "maxPrice": "90000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "1부위 당 1회 (Wolf/Piezo)", "lastUpdated": "2026.09.01" },
-          { "midClass": "주사료", "subClass": "증식치료", "itemCode": "MZ008", "itemName": "프롤로테라피", "type": "초음파 유도", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "인대/힘줄 조직 재생 목적", "lastUpdated": "2026.09.01" },
-          { "midClass": "주사료", "subClass": "수액치료", "itemCode": "IV001", "itemName": "마늘주사(푸르설타민)", "type": "영양수액", "price": "50000", "minPrice": "50000", "maxPrice": "50000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "만성 피로 회복 및 활력 증진", "lastUpdated": "2026.09.01" },
-          { "midClass": "초음파검사료", "subClass": "초음파", "itemCode": "EB451", "itemName": "근골격계 초음파", "type": "진단용", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "관절, 인대 등 세부 정밀 진단", "lastUpdated": "2026.09.01" }
+        "sections": [
+          {
+            "title": "비급여 진료비용",
+            "items": [
+              { "midClass": "이학요법료", "subClass": "도수치료", "itemCode": "MZ007", "itemName": "도수치료(40분)", "type": "일반", "price": "120000", "minPrice": "120000", "maxPrice": "120000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "근골격계 통증, 체형교정", "lastUpdated": "2026.09.01" },
+              { "midClass": "이학요법료", "subClass": "체외충격파", "itemCode": "MZ012", "itemName": "체외충격파(집중형)", "type": "일반", "price": "90000", "minPrice": "90000", "maxPrice": "90000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "1부위 당 1회 (Wolf/Piezo)", "lastUpdated": "2026.09.01" },
+              { "midClass": "주사료", "subClass": "증식치료", "itemCode": "MZ008", "itemName": "프롤로테라피", "type": "초음파 유도", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "인대/힘줄 조직 재생 목적", "lastUpdated": "2026.09.01" },
+              { "midClass": "초음파검사료", "subClass": "초음파", "itemCode": "EB451", "itemName": "근골격계 초음파", "type": "진단용", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "관절, 인대 등 세부 정밀 진단", "lastUpdated": "2026.09.01" }
+            ]
+          },
+          {
+            "title": "치료재료대",
+            "items": [
+              { "midClass": "치료재료대", "subClass": "기타재료", "itemCode": "BM001", "itemName": "부목(반기브스)", "type": "재료대", "price": "30000", "minPrice": "30000", "maxPrice": "50000", "materialIncluded": "해당없음", "medicineIncluded": "해당없음", "note": "부위별 상이", "lastUpdated": "2026.09.01" },
+              { "midClass": "치료재료대", "subClass": "주사기", "itemCode": "SY001", "itemName": "1회용 주사기", "type": "재료대", "price": "1000", "minPrice": "1000", "maxPrice": "1000", "materialIncluded": "해당없음", "medicineIncluded": "해당없음", "note": "비급여 시", "lastUpdated": "2026.09.01" }
+            ]
+          },
+          {
+            "title": "수액 영양제",
+            "items": [
+              { "midClass": "주사료", "subClass": "수액치료", "itemCode": "IV001", "itemName": "마늘주사(푸르설타민)", "type": "영양수액", "price": "50000", "minPrice": "50000", "maxPrice": "50000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "만성 피로 회복 및 활력 증진", "lastUpdated": "2026.09.01" },
+              { "midClass": "주사료", "subClass": "수액치료", "itemCode": "IV002", "itemName": "백옥주사(글루타치온)", "type": "영양수액", "price": "60000", "minPrice": "60000", "maxPrice": "60000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "항산화, 간 기능 개선", "lastUpdated": "2026.09.01" }
+            ]
+          },
+          {
+            "title": "제증명 수수료",
+            "items": [
+              { "midClass": "제증명수수료", "subClass": "진단서", "itemCode": "C001", "itemName": "일반진단서", "type": "서류발급", "price": "20000", "minPrice": "20000", "maxPrice": "20000", "materialIncluded": "해당없음", "medicineIncluded": "해당없음", "note": "국문 기준", "lastUpdated": "2026.09.01" },
+              { "midClass": "제증명수수료", "subClass": "진료기록사본", "itemCode": "C002", "itemName": "진료기록부 사본(1~5매)", "type": "서류발급", "price": "1000", "minPrice": "1000", "maxPrice": "1000", "materialIncluded": "해당없음", "medicineIncluded": "해당없음", "note": "1매당", "lastUpdated": "2026.09.01" }
+            ]
+          }
         ]
       }
     }
