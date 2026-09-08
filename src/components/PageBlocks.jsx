@@ -2558,7 +2558,7 @@ export function SportsV2HeroBlock({ data, isEditMode, onChange }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           >
-            <div className="text-orange-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">Return To Play</div>
+            <div className="text-cyan-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">Return To Play</div>
             <EditableText
               tag="h1"
               value={data.title || ''}
@@ -2594,7 +2594,7 @@ export function SportsV2HeroBlock({ data, isEditMode, onChange }) {
 export function SportsV2ProblemBlock({ data, isEditMode, onChange }) {
   return (
     <section className="py-24 md:py-40 bg-[#050505] text-white overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-orange-900/10 to-transparent blur-[100px]" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-cyan-900/10 to-transparent blur-[100px]" />
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, rotateY: -30 }}
@@ -2603,7 +2603,7 @@ export function SportsV2ProblemBlock({ data, isEditMode, onChange }) {
           viewport={{ once: true, margin: '-100px' }}
           className="md:w-5/12 glassmorphism rounded-3xl p-10 border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl"
         >
-          <div className="text-orange-500 mb-6">
+          <div className="text-cyan-500 mb-6">
             <Crosshair size={48} strokeWidth={1.5} />
           </div>
           <EditableText
@@ -2634,9 +2634,9 @@ export function SportsV2ProblemBlock({ data, isEditMode, onChange }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
               viewport={{ once: true, margin: '-50px' }}
-              className="p-8 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-orange-500/30 transition-colors group"
+              className="p-8 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-cyan-500/30 transition-colors group"
             >
-              <div className="text-orange-500/50 text-4xl font-black mb-4 group-hover:text-orange-500 transition-colors">0{idx + 1}</div>
+              <div className="text-cyan-500/50 text-4xl font-black mb-4 group-hover:text-cyan-500 transition-colors">0{idx + 1}</div>
               <h3 className="text-xl font-bold text-white mb-2">{pt.title}</h3>
               <p className="text-gray-500 leading-relaxed">{pt.desc}</p>
             </motion.div>
@@ -2651,7 +2651,7 @@ export function SportsV2PhilosophyBlock({ data, isEditMode, onChange }) {
   return (
     <section className="py-32 md:py-48 bg-[#000000] text-white border-y border-white/5 relative overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-        <div className="w-[120%] h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent transform -rotate-12 blur-[2px]" />
+        <div className="w-[120%] h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent transform -rotate-12 blur-[2px]" />
         <div className="absolute w-[120%] h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent transform -rotate-6 blur-[2px]" />
       </div>
       <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
@@ -2661,7 +2661,7 @@ export function SportsV2PhilosophyBlock({ data, isEditMode, onChange }) {
           transition={{ duration: 1, ease: 'easeOut' }}
           viewport={{ once: true, margin: '-100px' }}
         >
-          <div className="text-orange-500 font-bold tracking-widest uppercase mb-8">Our Philosophy</div>
+          <div className="text-cyan-500 font-bold tracking-widest uppercase mb-8">Our Philosophy</div>
           <EditableText
             tag="h2"
             multiline={true}
@@ -2698,7 +2698,7 @@ export function SportsV2TargetsBlock({ data, isEditMode, onChange }) {
               className="text-4xl md:text-6xl font-bold tracking-tighter"
             />
           </div>
-          <div className="text-orange-500 font-medium">Sports Injuries</div>
+          <div className="text-cyan-500 font-medium">Sports Injuries</div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
@@ -2709,9 +2709,9 @@ export function SportsV2TargetsBlock({ data, isEditMode, onChange }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               viewport={{ once: true, margin: '-50px' }}
-              className="relative group bg-[#0a0a0a] rounded-3xl p-8 md:p-12 border border-white/5 overflow-hidden transition-colors hover:border-orange-500/50"
+              className="relative group bg-[#0a0a0a] rounded-3xl p-8 md:p-12 border border-white/5 overflow-hidden transition-colors hover:border-cyan-500/50"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 rounded-full blur-[80px] transform translate-x-1/2 -translate-y-1/2 group-hover:bg-orange-500/20 transition-colors" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-600/10 rounded-full blur-[80px] transform translate-x-1/2 -translate-y-1/2 group-hover:bg-cyan-500/20 transition-colors" />
               <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
                   <h3 className="text-3xl font-bold mb-4 tracking-tight">{item.title}</h3>
@@ -2765,11 +2765,11 @@ export function SportsV2SolutionsBlock({ data, isEditMode, onChange }) {
               className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
             >
               <div className="w-full md:w-1/2 aspect-video bg-[#0a0a0a] rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <Activity size={64} className="text-white/20 group-hover:text-orange-500/50 transition-colors duration-500" strokeWidth={1} />
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Activity size={64} className="text-white/20 group-hover:text-cyan-500/50 transition-colors duration-500" strokeWidth={1} />
               </div>
               <div className="w-full md:w-1/2 text-left">
-                <div className="text-orange-500 font-mono text-xl mb-4">0{idx + 1}</div>
+                <div className="text-cyan-500 font-mono text-xl mb-4">0{idx + 1}</div>
                 <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">{sol.title}</h3>
                 <p className="text-xl text-gray-400 leading-relaxed break-keep">{sol.desc}</p>
               </div>
@@ -2817,7 +2817,7 @@ export function SportsV2ProcessBlock({ data, isEditMode, onChange }) {
               </div>
               <div className="relative z-10">
                 <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
-                  <span className="text-orange-500 font-bold">{idx + 1}</span>
+                  <span className="text-cyan-500 font-bold">{idx + 1}</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
                 <p className="text-gray-400 leading-relaxed break-keep text-sm md:text-base">{step.desc}</p>
@@ -2833,7 +2833,7 @@ export function SportsV2ProcessBlock({ data, isEditMode, onChange }) {
 export function SportsV2OutroBlock({ data, isEditMode, onChange }) {
   return (
     <section className="py-32 md:py-64 bg-[#000000] text-white overflow-hidden relative border-t border-white/5">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-orange-900/30 via-[#000000] to-[#000000]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-cyan-900/30 via-[#000000] to-[#000000]" />
       <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
