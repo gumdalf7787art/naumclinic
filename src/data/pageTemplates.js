@@ -668,48 +668,12 @@ export const PAGE_TEMPLATES = {
       "data": {
         "title": "비급여 진료비 안내",
         "desc": "의료법 제45조 및 동법 시행규칙 제42조의 2에 의거하여 비급여 진료비용을 고지합니다.",
-        "categories": [
-          {
-            "name": "도수/운동치료",
-            "items": [
-              { "code": "도수치료", "name": "일반 도수치료 (40분)", "desc": "통증 완화 및 근골격계 기본 교정", "price": "120000" },
-              { "code": "도수치료", "name": "특수 도수치료 (60분)", "desc": "집중 부위 심층 교정 및 재활 특화", "price": "160000" },
-              { "code": "운동치료", "name": "재활 운동치료 (30분)", "desc": "1:1 맞춤형 기구 필라테스 및 소도구 운동", "price": "80000" }
-            ]
-          },
-          {
-            "name": "물리치료/기타장비",
-            "items": [
-              { "code": "체외충격파", "name": "집중형 체외충격파 (ESWT) 1부위", "desc": "관절 및 힘줄 심부 염증 치료 (Wolf / Piezo 장비)", "price": "90000" },
-              { "code": "체외충격파", "name": "방사형 체외충격파 (RSWT) 1부위", "desc": "근막 통증 증후군 및 근육 이완", "price": "70000" },
-              { "code": "고주파치료", "name": "심부 고주파 치료 (WINBACK)", "desc": "심부열 발생을 통한 빠른 재생 유도", "price": "80000" }
-            ]
-          },
-          {
-            "name": "주사치료",
-            "items": [
-              { "code": "증식치료", "name": "프롤로테라피 (1부위)", "desc": "인대 및 힘줄 재생 주사 (고해상도 초음파 유도)", "price": "80000" },
-              { "code": "증식치료", "name": "DNA 주사 (PDRN)", "desc": "조직 재생 촉진 (연어 주사)", "price": "100000" },
-              { "code": "신경차단술", "name": "초음파 유도하 미세 신경 차단술", "desc": "척추, 관절 신경 통증 차단", "price": "50000" },
-              { "code": "관절강내주사", "name": "콘쥬란 주사", "desc": "무릎 관절 연골 마찰 감소 및 통증 완화", "price": "120000" }
-            ]
-          },
-          {
-            "name": "수액치료",
-            "items": [
-              { "code": "영양수액", "name": "마늘주사 (푸르설타민)", "desc": "만성 피로 회복 및 신경통 완화", "price": "50000" },
-              { "code": "영양수액", "name": "백옥주사 (글루타치온)", "desc": "항산화 효과, 간 해독 및 피부 미백", "price": "60000" },
-              { "code": "영양수액", "name": "신데렐라주사 (알파리포산)", "desc": "항산화 및 체지방 감소 보조, 피로 회복", "price": "50000" },
-              { "code": "프리미엄수액", "name": "나음 VIP 종합 칵테일 주사", "desc": "아미노산, 고용량 비타민, 미네랄 종합 처방", "price": "150000" }
-            ]
-          },
-          {
-            "name": "진단검사",
-            "items": [
-              { "code": "초음파검사", "name": "근골격계 초음파 (관절, 인대, 근육)", "desc": "어깨, 무릎, 발목 등 세부 관절 정밀 진단", "price": "80000" },
-              { "code": "초음파검사", "name": "말초신경 초음파", "desc": "손목터널증후군 등 말초신경 포착 진단", "price": "70000" }
-            ]
-          }
+        "items": [
+          { "midClass": "이학요법료", "subClass": "도수치료", "itemCode": "MZ007", "itemName": "도수치료(40분)", "type": "일반", "price": "120000", "minPrice": "120000", "maxPrice": "120000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "근골격계 통증, 체형교정", "lastUpdated": "2026.09.01" },
+          { "midClass": "이학요법료", "subClass": "체외충격파", "itemCode": "MZ012", "itemName": "체외충격파(집중형)", "type": "일반", "price": "90000", "minPrice": "90000", "maxPrice": "90000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "1부위 당 1회 (Wolf/Piezo)", "lastUpdated": "2026.09.01" },
+          { "midClass": "주사료", "subClass": "증식치료", "itemCode": "MZ008", "itemName": "프롤로테라피", "type": "초음파 유도", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "인대/힘줄 조직 재생 목적", "lastUpdated": "2026.09.01" },
+          { "midClass": "주사료", "subClass": "수액치료", "itemCode": "IV001", "itemName": "마늘주사(푸르설타민)", "type": "영양수액", "price": "50000", "minPrice": "50000", "maxPrice": "50000", "materialIncluded": "포함", "medicineIncluded": "포함", "note": "만성 피로 회복 및 활력 증진", "lastUpdated": "2026.09.01" },
+          { "midClass": "초음파검사료", "subClass": "초음파", "itemCode": "EB451", "itemName": "근골격계 초음파", "type": "진단용", "price": "80000", "minPrice": "80000", "maxPrice": "80000", "materialIncluded": "포함", "medicineIncluded": "미포함", "note": "관절, 인대 등 세부 정밀 진단", "lastUpdated": "2026.09.01" }
         ]
       }
     }

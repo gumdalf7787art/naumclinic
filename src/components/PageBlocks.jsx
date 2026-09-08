@@ -2917,13 +2917,12 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
 }
 
 export function CommunityNonCoveredBlock({ data, isEditMode, onChange }) {
-  const [activeTab, setActiveTab] = React.useState(0);
-  const categories = data.categories || [];
+  const items = data.items || [];
 
   return (
     <section className="py-20 bg-white min-h-[60vh]">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="text-center mb-12">
           <EditableText
             tag="h2"
             value={data.title || ''}
@@ -2942,64 +2941,60 @@ export function CommunityNonCoveredBlock({ data, isEditMode, onChange }) {
           />
         </div>
 
-        {categories.length > 0 && (
-          <div className="mb-10 flex flex-wrap justify-center gap-2 md:gap-3">
-            {categories.map((cat, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTab(idx)}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-colors ${
-                  activeTab === idx
-                    ? 'bg-[#0284c7] text-white shadow-md'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {categories.length > 0 && categories[activeTab] && (
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
-          >
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[600px]">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 text-[13px] uppercase tracking-wider">
-                    <th className="px-6 py-4 font-semibold w-1/4">분류</th>
-                    <th className="px-6 py-4 font-semibold w-1/2">항목명 / 상세설명</th>
-                    <th className="px-6 py-4 font-semibold w-1/4 text-right">비용 (원)</th>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-xl border-t-2 border-[#545b77] shadow-sm overflow-hidden"
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full text-center border-collapse min-w-[1000px] text-[13px]">
+              <thead>
+                <tr className="bg-[#f4f6fa] border-b border-gray-300 text-[#404b5c] font-bold">
+                  <th rowSpan="2" className="p-3 border-r border-gray-200 font-semibold align-middle whitespace-nowrap">중분류</th>
+                  <th rowSpan="2" className="p-3 border-r border-gray-200 font-semibold align-middle whitespace-nowrap">소분류</th>
+                  <th colSpan="2" className="p-3 border-r border-gray-200 font-semibold border-b border-gray-300">항목</th>
+                  <th colSpan="6" className="p-3 border-r border-gray-200 font-semibold border-b border-gray-300">진료비용 등(단위: 원)</th>
+                  <th rowSpan="2" className="p-3 border-r border-gray-200 font-semibold align-middle whitespace-nowrap">특이사항</th>
+                  <th rowSpan="2" className="p-3 font-semibold align-middle whitespace-nowrap">최종 변경일</th>
+                </tr>
+                <tr className="bg-[#f4f6fa] border-b border-gray-300 text-[#404b5c] font-bold">
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">코드</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">명칭</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">구분</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">비용</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">최저비용</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">최고비용</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">치료재료대<br/>포함여부</th>
+                  <th className="p-3 border-r border-gray-200 font-medium whitespace-nowrap">약제비<br/>포함여부</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 text-gray-700">
+                {items.map((item, idx) => (
+                  <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                    <td className="p-3 border-r border-gray-200 align-middle break-keep bg-gray-50/30">{item.midClass}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle break-keep bg-gray-50/30">{item.subClass}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle text-gray-500 text-xs">{item.itemCode}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle font-bold text-gray-800 text-left min-w-[120px]">{item.itemName}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle">{item.type || '-'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle text-right font-medium">{item.price ? parseInt(item.price).toLocaleString() : '-'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle text-right text-gray-500">{item.minPrice ? parseInt(item.minPrice).toLocaleString() : '-'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle text-right text-gray-500">{item.maxPrice ? parseInt(item.maxPrice).toLocaleString() : '-'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle">{item.materialIncluded || '미포함'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle">{item.medicineIncluded || '미포함'}</td>
+                    <td className="p-3 border-r border-gray-200 align-middle text-left text-xs min-w-[150px]">{item.note || '-'}</td>
+                    <td className="p-3 align-middle text-gray-400 text-xs whitespace-nowrap">{item.lastUpdated || '-'}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {categories[activeTab].items?.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
-                      <td className="px-6 py-5 text-sm text-gray-500 align-top">{item.code || '-'}</td>
-                      <td className="px-6 py-5">
-                        <div className="font-bold text-gray-800 text-[15px]">{item.name}</div>
-                        {item.desc && <div className="text-sm text-gray-500 mt-1.5 leading-snug">{item.desc}</div>}
-                      </td>
-                      <td className="px-6 py-5 text-right font-bold text-[#0284c7] align-top text-[15px]">
-                        {parseInt(item.price).toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                  {(!categories[activeTab].items || categories[activeTab].items.length === 0) && (
-                    <tr>
-                      <td colSpan="3" className="px-6 py-10 text-center text-gray-400">등록된 비급여 항목이 없습니다.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-        )}
+                ))}
+                {(!items || items.length === 0) && (
+                  <tr>
+                    <td colSpan="12" className="p-10 text-center text-gray-400">등록된 비급여 항목이 없습니다.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -3661,47 +3656,76 @@ export const BLOCK_DEFINITIONS = [
     defaultData: {
       title: '비급여 진료비 안내',
       desc: '의료법 제45조 및 동법 시행규칙 제42조의 2에 의거하여 비급여 진료비용을 고지합니다.',
-      categories: [
+      items: [
         {
-          name: '도수/운동치료',
-          items: [
-            { code: '도수치료', name: '일반 도수치료 (40분)', desc: '통증 완화 및 근골격계 교정', price: '120000' },
-            { code: '도수치료', name: '특수 도수치료 (60분)', desc: '집중 부위 심층 교정 및 재활', price: '160000' },
-            { code: '운동치료', name: '재활 운동치료 (30분)', desc: '1:1 맞춤형 기구 필라테스 및 소도구 운동', price: '80000' }
-          ]
+          midClass: '이학요법료',
+          subClass: '도수치료',
+          itemCode: 'MZ007',
+          itemName: '도수치료(40분)',
+          type: '일반',
+          price: '120000',
+          minPrice: '120000',
+          maxPrice: '120000',
+          materialIncluded: '포함',
+          medicineIncluded: '미포함',
+          note: '근골격계 통증',
+          lastUpdated: '2026.09.01'
         },
         {
-          name: '물리치료/기타장비',
-          items: [
-            { code: '체외충격파', name: '집중형 체외충격파 (ESWT) 1부위', desc: '관절 및 힘줄 심부 염증 치료 (Wolf / Piezo)', price: '90000' },
-            { code: '체외충격파', name: '방사형 체외충격파 (RSWT) 1부위', desc: '근막 통증 증후군 및 근육 이완', price: '70000' },
-            { code: '고주파치료', name: '심부 고주파 치료 (WINBACK)', desc: '심부열 발생을 통한 빠른 재생 유도', price: '80000' }
-          ]
+          midClass: '이학요법료',
+          subClass: '체외충격파',
+          itemCode: 'MZ012',
+          itemName: '체외충격파(집중형)',
+          type: '일반',
+          price: '90000',
+          minPrice: '90000',
+          maxPrice: '90000',
+          materialIncluded: '포함',
+          medicineIncluded: '미포함',
+          note: '1부위 기준',
+          lastUpdated: '2026.09.01'
         },
         {
-          name: '주사치료',
-          items: [
-            { code: '증식치료', name: '프롤로테라피 (1부위)', desc: '인대 및 힘줄 재생 주사 (초음파 유도)', price: '80000' },
-            { code: '증식치료', name: 'DNA 주사 (PDRN)', desc: '조직 재생 촉진 (연어 주사)', price: '100000' },
-            { code: '신경차단술', name: '초음파 유도하 미세 신경 차단술', desc: '척추, 관절 신경 통증 차단', price: '50000' },
-            { code: '관절강내주사', name: '콘쥬란 주사', desc: '무릎 관절 연골 마찰 감소 및 통증 완화', price: '120000' }
-          ]
+          midClass: '주사료',
+          subClass: '증식치료',
+          itemCode: 'MZ008',
+          itemName: '프롤로테라피',
+          type: '초음파 유도',
+          price: '80000',
+          minPrice: '80000',
+          maxPrice: '80000',
+          materialIncluded: '포함',
+          medicineIncluded: '포함',
+          note: '인대/힘줄 재생',
+          lastUpdated: '2026.09.01'
         },
         {
-          name: '수액치료',
-          items: [
-            { code: '영양수액', name: '마늘주사 (푸르설타민)', desc: '만성 피로 회복 및 면역력 증진', price: '50000' },
-            { code: '영양수액', name: '백옥주사 (글루타치온)', desc: '항산화 효과, 간 해독 및 피부 미백', price: '60000' },
-            { code: '영양수액', name: '신데렐라주사 (알파리포산)', desc: '항산화 및 체지방 감소 보조', price: '50000' },
-            { code: '프리미엄수액', name: '나음 VIP 종합 칵테일 주사', desc: '아미노산, 고용량 비타민, 미네랄 종합 처방', price: '150000' }
-          ]
+          midClass: '주사료',
+          subClass: '수액치료',
+          itemCode: 'IV001',
+          itemName: '마늘주사(푸르설타민)',
+          type: '영양수액',
+          price: '50000',
+          minPrice: '50000',
+          maxPrice: '50000',
+          materialIncluded: '포함',
+          medicineIncluded: '포함',
+          note: '피로회복',
+          lastUpdated: '2026.09.01'
         },
         {
-          name: '진단검사',
-          items: [
-            { code: '초음파검사', name: '근골격계 초음파 (관절, 인대, 근육)', desc: '어깨, 무릎, 발목 등 관절 세밀 진단', price: '80000' },
-            { code: '초음파검사', name: '말초신경 초음파', desc: '손목터널증후군 등 신경 포착 진단', price: '70000' }
-          ]
+          midClass: '초음파검사료',
+          subClass: '초음파',
+          itemCode: 'EB451',
+          itemName: '근골격계 초음파',
+          type: '진단용',
+          price: '80000',
+          minPrice: '80000',
+          maxPrice: '80000',
+          materialIncluded: '포함',
+          medicineIncluded: '미포함',
+          note: '관절 세부 진단',
+          lastUpdated: '2026.09.01'
         }
       ]
     }
