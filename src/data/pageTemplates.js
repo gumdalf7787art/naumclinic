@@ -420,5 +420,49 @@ export const PAGE_TEMPLATES = {
         ]
       }
     }
+  ],
+  'special/sports': [
+    {
+      "id": "blk_sports_hero_1",
+      "type": "HeroSection",
+      "data": {
+        "title": "스포츠 손상 클리닉",
+        "desc": "다시 뛰는 당신을 위해,\n나음이 완벽한 복귀를 돕습니다.",
+        "bgImage": "/sports-bg.webp"
+      }
+    },
+    {
+      "id": "blk_sports_target_1",
+      "type": "ManualTarget",
+      "data": {
+        "title": "이런 증상이 있다면 치료가 필요합니다",
+        "targets": [
+          { "title": "골프/테니스 엘보", "desc": "팔꿈치 바깥쪽이나 안쪽에 찌릿한 통증이 발생한 분" },
+          { "title": "회전근개 및 어깨 손상", "desc": "스윙 동작이나 무거운 물건을 들 때 어깨가 아픈 분" },
+          { "title": "무릎/발목 염좌 및 인대 손상", "desc": "러닝, 축구, 등산 중 관절을 삐끗하여 붓고 아픈 분" },
+          { "title": "족저근막염 및 아킬레스건염", "desc": "아침에 첫 발을 디딜 때 발바닥이나 발뒤꿈치가 아픈 분" }
+        ]
+      }
+    },
+    {
+      "id": "blk_sports_process_1",
+      "type": "ManualProcess",
+      "data": {
+        "title": "스포츠 특화 치료 프로세스",
+        "steps": [
+          { "title": "정확한 원인 진단", "desc": "초음파 및 X-ray를 통해 인대, 건, 근육의 미세한 손상 파악" },
+          { "title": "급성기 염증 제어", "desc": "체외충격파, 주사치료, 고주파 치료로 빠른 통증 감소" },
+          { "title": "조직 재생 유도", "desc": "손상된 부위에 혈류를 공급하여 세포 단위의 근본적 재생 촉진" },
+          { "title": "퍼포먼스 회복", "desc": "스포츠 도수치료 및 운동 처방으로 안전한 복귀 지원" }
+        ]
+      }
+    },
+    {
+      "id": "blk_sports_outro_1",
+      "type": "ManualOutro",
+      "data": {
+        "title": "단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다."
+      }
+    }
   ]
 };

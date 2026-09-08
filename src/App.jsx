@@ -289,11 +289,11 @@ function Navbar({ isLoggedIn }) {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">특수 클리닉</h3>
+                  <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">나음 특화 클리닉</h3>
                   <div className="grid grid-cols-2 gap-y-2.5 pl-1">
-                    <Link to="/special/equipment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">최신 장비 치료</Link>
-                    <Link to="/special/chronic" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">난치성 만성통증 클리닉</Link>
-                    <Link to="/special/iv" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">프리미엄 수액/영양 클리닉</Link>
+                    <Link to="/special/sports" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">스포츠 손상 클리닉</Link>
+                    <Link to="/special/chronic" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">난치성 신경통 클리닉</Link>
+                    <Link to="/special/iv" onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">맞춤 수액·면역 클리닉</Link>
                   </div>
                 </div>
                 <div>
@@ -1246,7 +1246,7 @@ function App() {
         <Route path="/special/*" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <SubPageLayout title="특수 클리닉" engTitle="SPECIAL CLINIC" parentPath="/special" />
+            <SubPageLayout title="나음 특화 클리닉" engTitle="NAUM SPECIAL CLINIC" parentPath="/special" />
             <Footer />
           </>
         } />

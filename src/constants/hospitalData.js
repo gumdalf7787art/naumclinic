@@ -24,11 +24,11 @@ export const HOSPITAL_MENUS = [
     ]
   },
   {
-    id: 'special', name: '특수 클리닉', path: '/special/equipment', is_active: 1,
+    id: 'special', name: '나음 특화 클리닉', path: '/special/sports', is_active: 1,
     children: [
-      { id: 'special-equipment', name: '최신 하이엔드 장비 치료', path: '/special/equipment', is_active: 1 },
-      { id: 'special-chronic', name: '난치성 만성통증 클리닉', path: '/special/chronic', is_active: 1 },
-      { id: 'special-iv', name: '프리미엄 수액/영양 클리닉', path: '/special/iv', is_active: 1 }
+      { id: 'special-sports', name: '스포츠 손상 클리닉', path: '/special/sports', is_active: 1 },
+      { id: 'special-chronic', name: '난치성 신경통 클리닉', path: '/special/chronic', is_active: 1 },
+      { id: 'special-iv', name: '맞춤 수액·면역 클리닉', path: '/special/iv', is_active: 1 }
     ]
   },
   {
