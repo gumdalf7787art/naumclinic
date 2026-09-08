@@ -645,10 +645,10 @@ export const PAGE_TEMPLATES = {
       "type": "CommunityNotice",
       "data": {
         "notices": [
-          { "category": "이벤트", "title": "개원 기념 맞춤 수액 할인 이벤트 안내", "date": "2026.09.08", "author": "관리자", "image": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600&auto=format&fit=crop" },
+          { "category": "공지", "title": "야간진료 안내 (매주 월·화·목·금 오후 8시까지)", "date": "2026.09.08", "author": "관리자", "image": "/images/notices/notice_night.jpg" },
+          { "category": "공지", "title": "9월 원장님별 진료일정 안내 (추석 연휴 포함)", "date": "2026.09.05", "author": "관리자", "image": "/images/notices/notice_schedule.jpg" },
           { "category": "공지", "title": "스포츠 손상 클리닉 V2 리뉴얼 오픈 안내", "date": "2026.09.08", "author": "관리자", "image": "" },
-          { "category": "휴진", "title": "추석 연휴 진료 안내 (연휴 중 하루 정상진료)", "date": "2026.09.05", "author": "관리자", "image": "" },
-          { "category": "공지", "title": "나음재활의학과의원 공식 홈페이지 오픈", "date": "2026.09.01", "author": "관리자", "image": "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=600&auto=format&fit=crop" }
+          { "category": "이벤트", "title": "개원 기념 맞춤 수액 할인 이벤트 안내", "date": "2026.09.01", "author": "관리자", "image": "" }
         ]
       }
     }

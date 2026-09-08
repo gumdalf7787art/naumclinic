@@ -2902,7 +2902,7 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
               {/* Thumbnail Area */}
               <div className="w-full h-48 relative overflow-hidden bg-gray-100">
                 {notice.image ? (
-                  <img src={notice.image} alt={notice.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                  <img src={notice.image} alt={notice.title} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#0284c7] to-[#0f172a] flex items-center justify-center relative group-hover:scale-110 transition-transform duration-700 ease-out">
                     <span className="text-white text-4xl font-extrabold tracking-[0.2em] opacity-20">NAUM</span>
@@ -3669,9 +3669,9 @@ export const BLOCK_DEFINITIONS = [
     icon: <Search size={16} />,
     defaultData: {
       notices: [
-        { category: '공지', title: '나음재활의학과의원 개원 안내', date: '2026.09.01', author: '관리자', image: '' },
-        { category: '휴진', title: '추석 연휴 휴진 안내', date: '2026.09.05', author: '관리자', image: '' },
-        { category: '이벤트', title: '개원 기념 맞춤 수액 할인 안내', date: '2026.09.08', author: '관리자', image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600&auto=format&fit=crop' }
+        { category: '공지', title: '야간진료 안내 (매주 월·화·목·금 오후 8시까지)', date: '2026.09.08', author: '관리자', image: '/images/notices/notice_night.jpg' },
+        { category: '공지', title: '9월 원장님별 진료일정 안내 (추석 연휴 포함)', date: '2026.09.05', author: '관리자', image: '/images/notices/notice_schedule.jpg' },
+        { category: '이벤트', title: '개원 기념 맞춤 수액 할인 안내', date: '2026.09.01', author: '관리자', image: '' }
       ]
     }
   },
