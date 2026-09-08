@@ -44,9 +44,31 @@ export default function NoticeWrite() {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const base64Url = event.target.result;
-        if (!thumbnail) setThumbnail(base64Url);
-        handleFormat('insertImage', base64Url);
+        const img = new window.Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          // 웹 최적화: 가로 최대 사이즈 1200px로 리사이징
+          const MAX_WIDTH = 1200;
+          if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // WebP 포맷으로 품질 80% 압축 (최적화)
+          const optimizedBase64 = canvas.toDataURL('image/webp', 0.8);
+          
+          if (!thumbnail) setThumbnail(optimizedBase64);
+          handleFormat('insertImage', optimizedBase64);
+        };
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
