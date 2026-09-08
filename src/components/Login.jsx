@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Mail, Lock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Mail, Lock, X, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login({ setIsLoggedIn }) {
@@ -20,6 +20,10 @@ export default function Login({ setIsLoggedIn }) {
   };
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showFindPw, setShowFindPw] = useState(false);
+  const [findPwEmail, setFindPwEmail] = useState('');
+  const [findPwSent, setFindPwSent] = useState(false);
+  const [findPwLoading, setFindPwLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,11 +59,92 @@ export default function Login({ setIsLoggedIn }) {
     }
   };
 
+  const handleFindPassword = async (e) => {
+    e.preventDefault();
+    if (!findPwEmail) { alert('이메일을 입력해주세요.'); return; }
+    setFindPwLoading(true);
+    try {
+      const res = await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: findPwEmail })
+      });
+      setFindPwSent(true);
+    } catch {
+      setFindPwSent(true); // UX: 항상 성공처럼 보여서 이메일 존재 여부를 노출하지 않음
+    } finally {
+      setFindPwLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#fafafc] flex flex-col justify-center items-center py-12 px-4 relative overflow-hidden">
       {/* Background Decor (Same as SignUp for consistency) */}
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#5227FF]/5 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#FF9FFC]/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+      {/* 비밀번호 찾기 모달 */}
+      <AnimatePresence>
+        {showFindPw && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 z-[200]"
+              onClick={() => { setShowFindPw(false); setFindPwSent(false); setFindPwEmail(''); }}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[201] flex items-center justify-center px-4"
+            >
+              <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-gray-900">비밀번호 찾기</h3>
+                  <button onClick={() => { setShowFindPw(false); setFindPwSent(false); setFindPwEmail(''); }}
+                    className="p-1 rounded-lg hover:bg-gray-100 transition-colors">
+                    <X size={20} className="text-gray-500" />
+                  </button>
+                </div>
+                {findPwSent ? (
+                  <div className="text-center py-4">
+                    <CheckCircle2 size={48} className="text-[#0284c7] mx-auto mb-4" />
+                    <p className="font-bold text-gray-800 mb-2">이메일을 발송했습니다</p>
+                    <p className="text-sm text-gray-500">{findPwEmail}으로<br/>비밀번호 재설정 링크를 보내드렸습니다.<br/>메일함을 확인해 주세요.</p>
+                    <button
+                      onClick={() => { setShowFindPw(false); setFindPwSent(false); setFindPwEmail(''); }}
+                      className="mt-6 w-full py-3 bg-[#0284c7] text-white font-bold rounded-xl hover:bg-[#0369a1] transition-colors">
+                      확인
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleFindPassword}>
+                    <p className="text-sm text-gray-500 mb-5">가입하신 이메일 주소를 입력하시면<br/>비밀번호 재설정 링크를 보내드립니다.</p>
+                    <div className="relative mb-5">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Mail size={17} className="text-gray-400" />
+                      </div>
+                      <input
+                        type="email"
+                        value={findPwEmail}
+                        onChange={e => setFindPwEmail(e.target.value)}
+                        placeholder="example@email.com"
+                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7] outline-none text-[15px]"
+                        required
+                      />
+                    </div>
+                    <button type="submit" disabled={findPwLoading}
+                      className="w-full py-3.5 bg-[#0284c7] text-white font-bold rounded-xl hover:bg-[#0369a1] transition-colors disabled:bg-gray-300">
+                      {findPwLoading ? '전송 중...' : '재설정 링크 보내기'}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Back Button */}
       <button 
@@ -70,9 +155,17 @@ export default function Login({ setIsLoggedIn }) {
         <span className="font-medium">돌아가기</span>
       </button>
 
-      {/* Logo */}
-      <div className="flex justify-center cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
-        <img src="/logo.jpg" alt="평화교회 로고" className="h-12 w-auto object-contain" />
+      {/* Logo - 나음재활의학과 */}
+      <div className="flex flex-col items-center cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f172a] flex items-center justify-center shadow-md">
+            <span className="text-white text-lg font-extrabold tracking-tight">N</span>
+          </div>
+          <div className="text-left">
+            <p className="text-[18px] font-extrabold text-gray-900 leading-tight tracking-tight">나음재활의학과의원</p>
+            <p className="text-[11px] text-[#0284c7] font-semibold tracking-widest">NAUM CLINIC</p>
+          </div>
+        </div>
       </div>
 
       <motion.div 
@@ -178,8 +271,8 @@ export default function Login({ setIsLoggedIn }) {
           {/* Remember Me & Find Password */}
           <div className="flex items-center justify-between pt-1">
             <label className="flex items-center cursor-pointer group">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleInputChange}
@@ -187,7 +280,10 @@ export default function Login({ setIsLoggedIn }) {
               />
               <span className="ml-2 text-[13px] text-gray-600 group-hover:text-black transition-colors">로그인 유지</span>
             </label>
-            <button type="button" className="text-[13px] text-gray-500 hover:text-black underline underline-offset-4 decoration-gray-200 transition-colors">
+            <button
+              type="button"
+              onClick={() => setShowFindPw(true)}
+              className="text-[13px] text-[#0284c7] hover:text-[#0369a1] underline underline-offset-4 decoration-[#0284c7]/30 transition-colors font-medium">
               비밀번호 찾기
             </button>
           </div>

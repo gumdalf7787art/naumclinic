@@ -147,9 +147,17 @@ export default function SignUp({ setIsLoggedIn }) {
         <span className="font-medium">돌아가기</span>
       </button>
 
-      {/* Logo */}
-      <div className="flex justify-center cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
-        <img src="/logo.jpg" alt="평화교회 로고" className="h-12 w-auto object-contain" />
+      {/* Logo - 나음재활의학과 */}
+      <div className="flex flex-col items-center cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f172a] flex items-center justify-center shadow-md">
+            <span className="text-white text-lg font-extrabold tracking-tight">N</span>
+          </div>
+          <div className="text-left">
+            <p className="text-[18px] font-extrabold text-gray-900 leading-tight tracking-tight">나음재활의학과의원</p>
+            <p className="text-[11px] text-[#0284c7] font-semibold tracking-widest">NAUM CLINIC</p>
+          </div>
+        </div>
       </div>
 
       <motion.div 
