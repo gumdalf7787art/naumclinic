@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { getNotices } from '../utils/noticeStore';
 import { BookOpen, Flame, Users, Heart, Globe, Image as ImageIcon, Plus, Trash2, Search, Shield, Activity, ChevronLeft, ChevronRight, MapPin, Phone, Clock, Bus, Train, Car, Star, Crosshair, List } from 'lucide-react';
 
 // -------------------------------------------------------------
@@ -2888,11 +2889,18 @@ export function CommunityHeroBlock({ data, isEditMode, onChange }) {
 
 export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
   const navigate = useNavigate();
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    // localStorage store에서 공개된 공지사항 로드
+    setNotices(getNotices().filter(n => !n.hidden));
+  }, []);
+
   return (
     <section className="py-20 bg-gray-50 min-h-[60vh]">
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex justify-end mb-6">
-          <button 
+          <button
             onClick={() => navigate('/community/notice/write')}
             className="flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white font-bold rounded-lg hover:bg-[#0284c7] transition-colors shadow-sm text-sm"
           >
@@ -2901,9 +2909,9 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.notices?.map((notice, idx) => (
+          {notices.map((notice, idx) => (
             <motion.div
-              key={idx}
+              key={notice.id || idx}
               onClick={() => {
                 if (notice.id && !isEditMode) {
                   navigate(`/community/notice/${notice.id}`);
@@ -2937,7 +2945,7 @@ export function CommunityNoticeBlock({ data, isEditMode, onChange }) {
             </motion.div>
           ))}
         </div>
-        {(!data.notices || data.notices.length === 0) && (
+        {notices.length === 0 && (
           <div className="text-center py-20 text-gray-400">등록된 공지사항이 없습니다.</div>
         )}
       </div>
