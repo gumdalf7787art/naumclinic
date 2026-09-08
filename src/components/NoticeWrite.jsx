@@ -49,12 +49,15 @@ export default function NoticeWrite() {
   const [textColor, setTextColor] = useState('#000000');
   const [bgColor, setBgColor] = useState('#FFFFFF');
   const [showColorPicker, setShowColorPicker] = useState(null);
+  const [pickerPos, setPickerPos] = useState({ top: 0, left: 0 });
   const [showTableModal, setShowTableModal] = useState(false);
   const [tableRows, setTableRows] = useState(3);
   const [tableCols, setTableCols] = useState(3);
   const editorRef = useRef(null);
   const fileInputRef = useRef(null);
   const savedRange = useRef(null);
+  const textColorBtnRef = useRef(null);
+  const bgColorBtnRef = useRef(null);
   const categories = ['공지', '이벤트', '휴진', '안내'];
 
   // 편집 모드: 기존 공지 로드
@@ -233,6 +236,62 @@ export default function NoticeWrite() {
     <div className="bg-gray-50 py-10 pb-20">
       <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageUpload} style={{ display: 'none' }} />
 
+      {/* ── 글자색 팔레트 (fixed: 모든 창 위에 렌더링) ── */}
+      {showColorPicker === 'text' && (
+        <>
+          <div className="fixed inset-0" style={{ zIndex: 9998 }} onClick={() => setShowColorPicker(null)} />
+          <div
+            className="bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-52"
+            style={{ position: 'fixed', top: pickerPos.top, left: pickerPos.left, zIndex: 9999 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <p className="text-xs font-bold text-gray-500 mb-2">글자 색</p>
+            <div className="grid grid-cols-6 gap-1.5 mb-2">
+              {TEXT_COLORS.map(c => (
+                <button key={c}
+                  onMouseDown={e => { e.preventDefault(); handleTextColor(c); }}
+                  className="w-6 h-6 rounded-full border-2 hover:scale-110 transition-transform"
+                  style={{ backgroundColor: c, borderColor: c === textColor ? '#0284c7' : '#e5e7eb' }}
+                />
+              ))}
+            </div>
+            <input type="color" value={textColor}
+              onChange={e => setTextColor(e.target.value)}
+              onMouseDown={() => captureSelection()}
+              onBlur={e => handleTextColor(e.target.value)}
+              className="w-full h-7 rounded cursor-pointer border border-gray-200" />
+          </div>
+        </>
+      )}
+
+      {/* ── 배경색 팔레트 (fixed: 모든 창 위에 렌더링) ── */}
+      {showColorPicker === 'bg' && (
+        <>
+          <div className="fixed inset-0" style={{ zIndex: 9998 }} onClick={() => setShowColorPicker(null)} />
+          <div
+            className="bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-52"
+            style={{ position: 'fixed', top: pickerPos.top, left: pickerPos.left, zIndex: 9999 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <p className="text-xs font-bold text-gray-500 mb-2">배경 색 (하이라이트)</p>
+            <div className="grid grid-cols-5 gap-1.5 mb-2">
+              {BG_COLORS.map(c => (
+                <button key={c}
+                  onMouseDown={e => { e.preventDefault(); handleBgColor(c); }}
+                  className="w-7 h-7 rounded border-2 hover:scale-110 transition-transform"
+                  style={{ backgroundColor: c, borderColor: c === bgColor ? '#0284c7' : '#e5e7eb' }}
+                />
+              ))}
+            </div>
+            <input type="color" value={bgColor}
+              onChange={e => setBgColor(e.target.value)}
+              onMouseDown={() => captureSelection()}
+              onBlur={e => handleBgColor(e.target.value)}
+              className="w-full h-7 rounded cursor-pointer border border-gray-200" />
+          </div>
+        </>
+      )}
+
       {/* 표 삽입 모달 */}
       {showTableModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40">
@@ -333,73 +392,39 @@ export default function NoticeWrite() {
               {/* 글자 색 */}
               <div className="relative">
                 <button
+                  ref={textColorBtnRef}
                   title="글자 색"
                   onMouseDown={e => { e.preventDefault(); captureSelection(); }}
-                  onClick={e => { e.stopPropagation(); setShowColorPicker(v => v === 'text' ? null : 'text'); }}
+                  onClick={e => {
+                    e.stopPropagation();
+                    const rect = textColorBtnRef.current.getBoundingClientRect();
+                    setPickerPos({ top: rect.bottom + 6, left: rect.left });
+                    setShowColorPicker(v => v === 'text' ? null : 'text');
+                  }}
                   className="flex flex-col items-center gap-0.5 px-1.5 py-1 rounded hover:bg-gray-100 transition-colors"
                 >
                   <span className="text-sm font-extrabold leading-none" style={{ color: textColor === '#FFFFFF' ? '#374151' : textColor }}>A</span>
                   <div className="w-4 h-1 rounded-sm border border-gray-300" style={{ backgroundColor: textColor }} />
                 </button>
-                {showColorPicker === 'text' && (
-                  <div
-                    className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-52"
-                    style={{ zIndex: 200 }}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <p className="text-xs font-bold text-gray-500 mb-2">글자 색</p>
-                    <div className="grid grid-cols-6 gap-1.5 mb-2">
-                      {TEXT_COLORS.map(c => (
-                        <button key={c}
-                          onMouseDown={e => { e.preventDefault(); handleTextColor(c); }}
-                          className="w-6 h-6 rounded-full border-2 hover:scale-110 transition-transform"
-                          style={{ backgroundColor: c, borderColor: c === textColor ? '#0284c7' : '#e5e7eb' }}
-                        />
-                      ))}
-                    </div>
-                    <input type="color" value={textColor}
-                      onChange={e => setTextColor(e.target.value)}
-                      onMouseDown={e => captureSelection()}
-                      onBlur={e => handleTextColor(e.target.value)}
-                      className="w-full h-7 rounded cursor-pointer border border-gray-200" />
-                  </div>
-                )}
               </div>
 
               {/* 배경 색 */}
               <div className="relative">
                 <button
+                  ref={bgColorBtnRef}
                   title="배경 색 (하이라이트)"
                   onMouseDown={e => { e.preventDefault(); captureSelection(); }}
-                  onClick={e => { e.stopPropagation(); setShowColorPicker(v => v === 'bg' ? null : 'bg'); }}
+                  onClick={e => {
+                    e.stopPropagation();
+                    const rect = bgColorBtnRef.current.getBoundingClientRect();
+                    setPickerPos({ top: rect.bottom + 6, left: rect.left });
+                    setShowColorPicker(v => v === 'bg' ? null : 'bg');
+                  }}
                   className="flex flex-col items-center gap-0.5 px-1.5 py-1 rounded hover:bg-gray-100 transition-colors"
                 >
                   <Palette size={14} className="text-gray-700" />
                   <div className="w-4 h-1 rounded-sm border border-gray-300" style={{ backgroundColor: bgColor }} />
                 </button>
-                {showColorPicker === 'bg' && (
-                  <div
-                    className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-52"
-                    style={{ zIndex: 200 }}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <p className="text-xs font-bold text-gray-500 mb-2">배경 색 (하이라이트)</p>
-                    <div className="grid grid-cols-5 gap-1.5 mb-2">
-                      {BG_COLORS.map(c => (
-                        <button key={c}
-                          onMouseDown={e => { e.preventDefault(); handleBgColor(c); }}
-                          className="w-7 h-7 rounded border-2 hover:scale-110 transition-transform"
-                          style={{ backgroundColor: c, borderColor: c === bgColor ? '#0284c7' : '#e5e7eb' }}
-                        />
-                      ))}
-                    </div>
-                    <input type="color" value={bgColor}
-                      onChange={e => setBgColor(e.target.value)}
-                      onMouseDown={e => captureSelection()}
-                      onBlur={e => handleBgColor(e.target.value)}
-                      className="w-full h-7 rounded cursor-pointer border border-gray-200" />
-                  </div>
-                )}
               </div>
             </div>
           </div>
