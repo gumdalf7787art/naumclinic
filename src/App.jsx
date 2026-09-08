@@ -1254,7 +1254,9 @@ function App() {
         <Route path="/community/notice/write" element={
           <>
             <Navbar isLoggedIn={isLoggedIn} />
-            <NoticeWrite />
+            <SubPageLayout title="나음 커뮤니티" engTitle="COMMUNITY" parentPath="/community">
+              <NoticeWrite />
+            </SubPageLayout>
             <Footer />
           </>
         } />
