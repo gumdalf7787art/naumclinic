@@ -102,16 +102,28 @@ export default function NoticeWrite() {
 
   const handleTextColor = (color) => {
     setTextColor(color);
-    restoreSelection();
-    exec('foreColor', color);
     setShowColorPicker(null);
+    editorRef.current?.focus();
+    if (saveSelection.current) {
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(saveSelection.current);
+    }
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('foreColor', false, color);
   };
 
   const handleBgColor = (color) => {
     setBgColor(color);
-    restoreSelection();
-    exec('hiliteColor', color);
     setShowColorPicker(null);
+    editorRef.current?.focus();
+    if (saveSelection.current) {
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(saveSelection.current);
+    }
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('hiliteColor', false, color);
   };
 
   const handleLink = () => {
@@ -303,26 +315,28 @@ export default function NoticeWrite() {
               <div className="relative">
                 <button
                   title="글자 색"
-                  onMouseDown={e => { e.preventDefault(); captureSelection(); setShowColorPicker(v => v === 'text' ? null : 'text'); }}
+                  onMouseDown={e => { e.preventDefault(); captureSelection(); }}
+                  onClick={() => setShowColorPicker(v => v === 'text' ? null : 'text')}
                   className="flex flex-col items-center gap-0.5 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
                 >
-                  <span className="text-xs font-bold text-gray-700" style={{ color: textColor === '#FFFFFF' ? '#374151' : textColor }}>A</span>
-                  <div className="w-5 h-1.5 rounded-sm" style={{ backgroundColor: textColor }} />
+                  <span className="text-sm font-extrabold" style={{ color: textColor === '#FFFFFF' ? '#374151' : textColor }}>A</span>
+                  <div className="w-5 h-1.5 rounded-sm border border-gray-200" style={{ backgroundColor: textColor }} />
                 </button>
                 {showColorPicker === 'text' && (
                   <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl p-3 z-50 w-52">
                     <p className="text-xs font-bold text-gray-500 mb-2">글자 색</p>
-                    <div className="grid grid-cols-6 gap-1.5">
+                    <div className="grid grid-cols-6 gap-1.5 mb-2">
                       {TEXT_COLORS.map(c => (
-                        <button key={c} onClick={() => handleTextColor(c)}
+                        <button key={c} onMouseDown={e => { e.preventDefault(); handleTextColor(c); }}
                           className="w-6 h-6 rounded-full border-2 transition-transform hover:scale-110"
                           style={{ backgroundColor: c, borderColor: c === textColor ? '#0284c7' : '#e5e7eb' }}
                         />
                       ))}
                     </div>
-                    <input type="color" value={textColor} onChange={e => { setTextColor(e.target.value); }}
+                    <input type="color" value={textColor}
+                      onChange={e => setTextColor(e.target.value)}
                       onBlur={e => handleTextColor(e.target.value)}
-                      className="mt-2 w-full h-8 rounded cursor-pointer border border-gray-200" />
+                      className="w-full h-8 rounded cursor-pointer border border-gray-200" />
                   </div>
                 )}
               </div>
@@ -331,7 +345,8 @@ export default function NoticeWrite() {
               <div className="relative">
                 <button
                   title="배경 색"
-                  onMouseDown={e => { e.preventDefault(); captureSelection(); setShowColorPicker(v => v === 'bg' ? null : 'bg'); }}
+                  onMouseDown={e => { e.preventDefault(); captureSelection(); }}
+                  onClick={() => setShowColorPicker(v => v === 'bg' ? null : 'bg')}
                   className="flex flex-col items-center gap-0.5 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
                 >
                   <Palette size={15} className="text-gray-700" />
@@ -340,17 +355,18 @@ export default function NoticeWrite() {
                 {showColorPicker === 'bg' && (
                   <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl p-3 z-50 w-52">
                     <p className="text-xs font-bold text-gray-500 mb-2">배경 색</p>
-                    <div className="grid grid-cols-5 gap-1.5">
+                    <div className="grid grid-cols-5 gap-1.5 mb-2">
                       {BG_COLORS.map(c => (
-                        <button key={c} onClick={() => handleBgColor(c)}
+                        <button key={c} onMouseDown={e => { e.preventDefault(); handleBgColor(c); }}
                           className="w-7 h-7 rounded border-2 transition-transform hover:scale-110"
                           style={{ backgroundColor: c, borderColor: c === bgColor ? '#0284c7' : '#e5e7eb' }}
                         />
                       ))}
                     </div>
-                    <input type="color" value={bgColor} onChange={e => setBgColor(e.target.value)}
+                    <input type="color" value={bgColor}
+                      onChange={e => setBgColor(e.target.value)}
                       onBlur={e => handleBgColor(e.target.value)}
-                      className="mt-2 w-full h-8 rounded cursor-pointer border border-gray-200" />
+                      className="w-full h-8 rounded cursor-pointer border border-gray-200" />
                   </div>
                 )}
               </div>

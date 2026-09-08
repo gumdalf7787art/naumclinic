@@ -68,27 +68,34 @@ export default function NoticeDetail() {
 
           {/* Content */}
           <div className="p-8 md:p-10">
-            {notice.image && (
-              <div className="mb-10 rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
-                <img 
-                  src={notice.image} 
-                  alt={notice.title} 
-                  className="w-full h-auto max-h-[800px] object-contain object-top"
-                />
+            {notice.content ? (
+              <div
+                className="notice-content max-w-none text-gray-700 text-base leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: notice.content }}
+              />
+            ) : notice.image ? (
+              <div className="rounded-xl overflow-hidden">
+                <img src={notice.image} alt={notice.title} className="w-full h-auto" />
               </div>
+            ) : (
+              <p className="text-gray-400 italic text-center py-10">상세 내용이 없습니다.</p>
             )}
-            <div className="prose prose-blue max-w-none">
-              {notice.content ? (
-                <p className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
-                  {notice.content}
-                </p>
-              ) : (
-                <p className="text-gray-400 italic text-center py-10">
-                  상세 내용이 없습니다.
-                </p>
-              )}
-            </div>
           </div>
+
+          <style>{`
+            .notice-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 12px 0; }
+            .notice-content h1 { font-size: 2em; font-weight: 800; margin: 0.6em 0; color: #111827; }
+            .notice-content h2 { font-size: 1.5em; font-weight: 700; margin: 0.6em 0; color: #111827; }
+            .notice-content h3 { font-size: 1.25em; font-weight: 600; margin: 0.6em 0; color: #111827; }
+            .notice-content p { margin: 0.4em 0; line-height: 1.8; }
+            .notice-content blockquote { border-left: 4px solid #0284c7; margin: 12px 0; padding: 10px 16px; background: #f0f9ff; color: #0369a1; border-radius: 0 8px 8px 0; }
+            .notice-content table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+            .notice-content th, .notice-content td { border: 1px solid #cbd5e1; padding: 8px 12px; }
+            .notice-content th { background: #f1f5f9; font-weight: 600; text-align: center; }
+            .notice-content hr { border: none; border-top: 2px solid #e5e7eb; margin: 16px 0; }
+            .notice-content a { color: #0284c7; text-decoration: underline; }
+            .notice-content ul { list-style: disc; padding-left: 1.5em; margin: 0.5em 0; }
+          `}</style>
 
           {/* Footer Controls */}
           <div className="p-8 md:p-10 border-t border-gray-100 flex justify-center bg-gray-50/50">
