@@ -155,17 +155,10 @@ export default function Login({ setIsLoggedIn }) {
         <span className="font-medium">돌아가기</span>
       </button>
 
-      {/* Logo - 나음재활의학과 */}
-      <div className="flex flex-col items-center cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
-        <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f172a] flex items-center justify-center shadow-md">
-            <span className="text-white text-lg font-extrabold tracking-tight">N</span>
-          </div>
-          <div className="text-left">
-            <p className="text-[18px] font-extrabold text-gray-900 leading-tight tracking-tight">나음재활의학과의원</p>
-            <p className="text-[11px] text-[#0284c7] font-semibold tracking-widest">NAUM CLINIC</p>
-          </div>
-        </div>
+      {/* Logo - 헤더와 동일한 로고 */}
+      <div className="flex items-center gap-3 cursor-pointer mb-10 z-20" onClick={() => navigate('/')}>
+        <img src="/logo-mark.png" alt="나음재활의학과" className="h-12 w-auto object-contain" />
+        <span className="font-extrabold text-[22px] tracking-tight text-[#0369A1]">나음재활의학과의원</span>
       </div>
 
       <motion.div 
