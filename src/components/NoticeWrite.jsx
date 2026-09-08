@@ -20,12 +20,15 @@ import {
   Check
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { PAGE_TEMPLATES } from '../data/pageTemplates';
 
 export default function NoticeWrite() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('공지');
+  const [thumbnail, setThumbnail] = useState('');
   const editorRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const categories = ['공지', '이벤트', '휴진', '안내'];
 
@@ -36,7 +39,48 @@ export default function NoticeWrite() {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64Url = event.target.result;
+        if (!thumbnail) setThumbnail(base64Url);
+        handleFormat('insertImage', base64Url);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handlePublish = () => {
+    if (!title.trim()) {
+      alert('제목을 입력해주세요.');
+      return;
+    }
+    
+    const content = editorRef.current.innerHTML;
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+    
+    const newNotice = {
+      id: Date.now().toString(),
+      category: category,
+      title: title,
+      date: formattedDate,
+      author: '관리자',
+      image: thumbnail,
+      content: content === '<p><br></p>' ? '' : content
+    };
+
+    // Update PAGE_TEMPLATES in memory
+    const noticeBlocks = PAGE_TEMPLATES['community/notice'];
+    if (noticeBlocks) {
+      const block = noticeBlocks.find(b => b.type === 'CommunityNotice');
+      if (block && block.data && block.data.notices) {
+        block.data.notices.unshift(newNotice);
+      }
+    }
+
     alert('게시글이 성공적으로 등록되었습니다.');
     navigate('/community/notice');
   };
@@ -58,9 +102,17 @@ export default function NoticeWrite() {
         >
           {/* Editor Header (Toolbar) */}
           <div className="bg-white border-b border-gray-100 relative z-30">
+            {/* Hidden File Input */}
+            <input 
+              type="file" 
+              accept="image/*" 
+              ref={fileInputRef} 
+              onChange={handleImageUpload} 
+              style={{ display: 'none' }} 
+            />
             {/* Top Toolbar - Block Elements */}
             <div className="flex items-center px-6 py-3 gap-1 overflow-x-auto border-b border-gray-50 scrollbar-hide">
-              <ToolbarButton icon={<ImageIcon size={22} strokeWidth={1.5} />} label="사진" />
+              <ToolbarButton icon={<ImageIcon size={22} strokeWidth={1.5} />} label="사진" onClick={() => fileInputRef.current.click()} />
               <ToolbarButton icon={<Smile size={22} strokeWidth={1.5} />} label="스티커" />
               <ToolbarButton icon={<Quote size={22} strokeWidth={1.5} />} label="인용구" onClick={() => handleFormat('formatBlock', 'blockquote')} />
               <ToolbarButton icon={<Minus size={22} strokeWidth={1.5} />} label="구분선" onClick={() => handleFormat('insertHorizontalRule')} />
