@@ -2229,6 +2229,316 @@ export function NeuroOutroBlock({ data, isEditMode, onChange }) {
   );
 }
 
+// -------------------------------------------------------------
+// IV-Style Blocks (Custom IV/Immune Clinic)
+// -------------------------------------------------------------
+export function IVHeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative w-full h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-[#020813] text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 mix-blend-screen"
+        style={{ backgroundImage: `url(${data.bgImage || '/iv-bg.webp'})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020813]/10 via-[#020813]/50 to-[#020813]" />
+      
+      <div className="relative z-10 max-w-5xl w-full px-6 flex flex-col items-center text-center mt-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+        >
+          <EditableText
+            tag="h1"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="내 몸이 깨어나는 시간,\n1:1 맞춤 영양 설계"
+            multiline={true}
+            className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.15] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line"
+          />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+        >
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="단순한 피로 회복을 넘어, 근본적인 세포 재생과 면역력 강화를 위한\n나음만의 프리미엄 수액 치료입니다."
+            className="text-lg md:text-2xl text-cyan-50/70 font-light tracking-tight leading-relaxed whitespace-pre-line max-w-3xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function IVProblemBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#020813] text-white border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="lg:w-1/2"
+        >
+          <div className="text-cyan-500 font-mono tracking-widest uppercase mb-4 text-sm md:text-base">The Hidden Cause</div>
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="잘 낫지 않는 만성 통증,\n진짜 원인은 세포의 영양 결핍일 수 있습니다."
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight mb-8 text-white"
+          />
+          <EditableText
+            tag="p"
+            multiline={true}
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="면역 저하, 만성 피로, 수술 후 체력 저하는 신체의 회복력을 무너뜨려 근골격계 통증의 악순환을 만듭니다. 겉으로 드러난 통증만을 쫓는 것이 아니라, 몸속 세포부터 다시 세우는 것이 진정한 재활의 완성입니다."
+            className="text-lg md:text-xl text-gray-400 leading-relaxed font-light break-keep"
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="lg:w-1/2 relative"
+        >
+          <div className="aspect-square rounded-full bg-gradient-to-tr from-blue-900/40 to-cyan-500/20 blur-[80px] absolute inset-0 transform scale-110" />
+          <div className="relative glassmorphism rounded-3xl p-8 md:p-12 border border-white/10 bg-white/5 backdrop-blur-2xl">
+            <div className="flex flex-col gap-8">
+              {['면역력 저하', '만성 피로 누적', '조직 재생 지연', '통증 악순환'].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-6">
+                  <div className="w-12 h-12 rounded-full bg-cyan-900/50 flex items-center justify-center border border-cyan-500/30 text-cyan-400 font-bold">
+                    0{idx + 1}
+                  </div>
+                  <span className="text-xl md:text-2xl font-semibold text-gray-200">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function IVSynergyBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#020813] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="text-center mb-20"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="재활 치료와 수액의 강력한 시너지"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {data.benefits?.map((benefit, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="relative p-8 md:p-10 rounded-3xl bg-gradient-to-b from-[#0a1224] to-[#040a15] border border-cyan-900/30 hover:border-cyan-500/50 transition-colors group overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[40px] group-hover:bg-cyan-400/20 transition-colors" />
+              <div className="relative z-10 text-center">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-cyan-950/50 border border-cyan-500/20 flex items-center justify-center">
+                  <Activity size={32} className="text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 tracking-tight text-white">{benefit.title}</h3>
+                <p className="text-gray-400 leading-relaxed break-keep">{benefit.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function IVLineupBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#000000] text-white border-y border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-16 md:mb-24"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="프리미엄 수액 라인업"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
+          {data.lineup?.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-cyan-400 font-semibold tracking-wide mb-2 text-sm">{item.tag}</div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">{item.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed break-keep mb-8">{item.desc}</p>
+              </div>
+              <div className="pt-6 border-t border-white/10 flex gap-2 flex-wrap">
+                {item.ingredients?.map((ing, i) => (
+                  <span key={i} className="px-3 py-1 bg-black/50 rounded-full text-xs text-gray-300 font-mono">{ing}</span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function IVProcessBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#020813] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-24"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="개인 맞춤 처방 시스템"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="flex flex-col md:flex-row gap-8 justify-between">
+          {data.steps?.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="flex-1 flex flex-col relative"
+            >
+              {idx < data.steps.length - 1 && (
+                <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-gradient-to-r from-cyan-500/50 to-transparent" />
+              )}
+              <div className="w-16 h-16 rounded-full bg-cyan-900 border border-cyan-400 flex items-center justify-center text-2xl font-bold text-white z-10 mb-6 mx-auto md:mx-0 shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                {idx + 1}
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                <p className="text-gray-400 leading-relaxed break-keep">{step.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function IVFacilityBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-48 bg-[#000000] text-white border-y border-white/5 relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1224] to-black opacity-80" />
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="치료의 질은 쉬는 공간에서 완성됩니다.\n최고급 VIP 1인실에서 누리는 온전한 휴식"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.3] whitespace-pre-line text-white mb-10"
+          />
+          <div className="flex flex-wrap justify-center gap-4">
+            {['프라이빗 1인 수액실', '최고급 전동 리클라이너', '호텔급 침구 및 어메니티', '조도 컨트롤 시스템'].map((item, idx) => (
+              <span key={idx} className="px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-cyan-300 font-medium tracking-tight">
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function IVOutroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-64 bg-[#020813] text-white overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-[#020813] to-[#020813]" />
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="지친 당신의 세포에\n프리미엄 휴식을 선사합니다."
+            className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight whitespace-pre-line text-white drop-shadow-lg"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Block Renderer Registry
 // -------------------------------------------------------------
 const BLOCK_REGISTRY = {
@@ -2282,6 +2592,13 @@ const BLOCK_REGISTRY = {
   NeuroSolutions: NeuroSolutionsBlock,
   NeuroProcess: NeuroProcessBlock,
   NeuroOutro: NeuroOutroBlock,
+  IVHero: IVHeroBlock,
+  IVProblem: IVProblemBlock,
+  IVSynergy: IVSynergyBlock,
+  IVLineup: IVLineupBlock,
+  IVProcess: IVProcessBlock,
+  IVFacility: IVFacilityBlock,
+  IVOutro: IVOutroBlock,
   Empty: EmptyBlock
 };
 
@@ -2700,6 +3017,74 @@ export const BLOCK_DEFINITIONS = [
     label: '신경 아웃트로',
     icon: <Heart size={16} />,
     defaultData: { title: '포기하지 마세요.\n통증 없는 평범한 아침을 돌려드리겠습니다.' }
+  },
+  {
+    type: 'IVHero',
+    label: '수액 히어로 (맞춤수액 클리닉)',
+    icon: <Activity size={16} />,
+    defaultData: { title: '내 몸이 깨어나는 시간,\n1:1 맞춤 영양 설계', desc: '단순한 피로 회복을 넘어, 근본적인 세포 재생과 면역력 강화를 위한\n나음만의 프리미엄 수액 치료입니다.', bgImage: '/iv-bg.webp' }
+  },
+  {
+    type: 'IVProblem',
+    label: '수액 문제인식 (영양 결핍)',
+    icon: <Search size={16} />,
+    defaultData: { 
+      title: '잘 낫지 않는 만성 통증,\n진짜 원인은 세포의 영양 결핍일 수 있습니다.',
+      desc: '면역 저하, 만성 피로, 수술 후 체력 저하는 신체의 회복력을 무너뜨려 근골격계 통증의 악순환을 만듭니다. 겉으로 드러난 통증만을 쫓는 것이 아니라, 몸속 세포부터 다시 세우는 것이 진정한 재활의 완성입니다.'
+    }
+  },
+  {
+    type: 'IVSynergy',
+    label: '수액 시너지 효과',
+    icon: <Shield size={16} />,
+    defaultData: {
+      title: '재활 치료와 수액의 강력한 시너지',
+      benefits: [
+        { title: '염증의 빠른 배출', desc: '혈관을 통해 직접 투여된 고농도 영양분이 체내 염증 물질을 빠르게 해독하고 배출합니다.' },
+        { title: '즉각적인 재생 물질 공급', desc: '손상된 인대, 건, 신경에 필수적인 비타민과 미네랄을 공급하여 자연 치유력을 극대화합니다.' },
+        { title: '회복(리커버리) 속도 가속화', desc: '도수치료 및 수술 후 저하된 체력을 끌어올려 재활 치료의 효과를 배가시킵니다.' }
+      ]
+    }
+  },
+  {
+    type: 'IVLineup',
+    label: '수액 라인업',
+    icon: <Heart size={16} />,
+    defaultData: {
+      title: '프리미엄 수액 라인업',
+      lineup: [
+        { tag: '활력/피로', title: '마이어스 칵테일', desc: '만성 피로 증후군 및 면역력 급감 개선', ingredients: ['비타민C', '마그네슘', '비타민B군'] },
+        { tag: '신경/관절', title: '신경 재생 수액', desc: '대상포진, 척추/관절 통증 환자의 신경 염증 치료', ingredients: ['알파리포산', '비타민D', '은행잎추출물'] },
+        { tag: '수술 회복', title: '포스트옵(Post-Op) 수액', desc: '근골격계 수술 후 조직 재생 및 체력 보충', ingredients: ['고농도 아미노산', '단백질', '미네랄'] },
+        { tag: '항산화/안티에이징', title: '프리미엄 항산화', desc: '항노화, 갱년기 극복 및 강력한 체질 개선', ingredients: ['태반', '글루타치온', '셀레늄'] }
+      ]
+    }
+  },
+  {
+    type: 'IVProcess',
+    label: '수액 맞춤 처방 프로세스',
+    icon: <List size={16} />,
+    defaultData: {
+      title: '개인 맞춤 처방 시스템',
+      steps: [
+        { title: '정밀 진단', desc: '체성분 및 증상 정밀 진단' },
+        { title: '1:1 맞춤 처방', desc: '전문의의 1:1 맞춤 영양 배합' },
+        { title: '안전한 투여', desc: '숙련된 간호팀의 프라이빗 수액 투여' },
+        { title: '지속 관리', desc: '치료 경과 추적 및 성분 재조정' }
+      ]
+    }
+  },
+  {
+    type: 'IVFacility',
+    label: '수액 VIP 시설',
+    icon: <Star size={16} />,
+    defaultData: { title: '치료의 질은 쉬는 공간에서 완성됩니다.\n최고급 VIP 1인실에서 누리는 온전한 휴식' }
+  },
+  {
+    type: 'IVOutro',
+    label: '수액 아웃트로',
+    icon: <Activity size={16} />,
+    defaultData: { title: '지친 당신의 세포에\n프리미엄 휴식을 선사합니다.' }
   }];
 
 // -------------------------------------------------------------
