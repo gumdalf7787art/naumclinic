@@ -2254,7 +2254,7 @@ export function IVHeroBlock({ data, isEditMode, onChange }) {
             isEditMode={isEditMode}
             placeholder="내 몸이 깨어나는 시간,\n1:1 맞춤 영양 설계"
             multiline={true}
-            className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.15] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.2] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line break-keep"
           />
         </motion.div>
         
@@ -2565,7 +2565,7 @@ export function SportsV2HeroBlock({ data, isEditMode, onChange }) {
             isEditMode={isEditMode}
             placeholder="다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다."
             multiline={true}
-            className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.15] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.2] mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-blue-400 drop-shadow-[0_0_30px_rgba(56,189,248,0.4)] whitespace-pre-line break-keep"
           />
         </motion.div>
         
