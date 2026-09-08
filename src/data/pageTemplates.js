@@ -423,45 +423,78 @@ export const PAGE_TEMPLATES = {
   ],
   'special/sports': [
     {
-      "id": "blk_sports_hero_1",
-      "type": "AppleHero",
+      "id": "blk_sports_v2_hero_1",
+      "type": "SportsV2Hero",
       "data": {
-        "title": "스포츠 손상 클리닉",
-        "desc": "다시 뛰는 당신을 위해,\n나음이 완벽한 복귀를 돕습니다.",
-        "bgImage": "/sports-bg.webp"
+        "title": "다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다.",
+        "desc": "단순한 통증 치료가 아닙니다. 부상 이전의 완벽한 퍼포먼스를 되찾아주는\n나음만의 프리미엄 스포츠 재활입니다.",
+        "bgImage": "/sports-v2-bg.webp"
       }
     },
     {
-      "id": "blk_sports_target_1",
-      "type": "AppleBento",
+      "id": "blk_sports_v2_problem_1",
+      "type": "SportsV2Problem",
       "data": {
-        "title": "이런 증상이 있다면 치료가 필요합니다",
+        "title": "일반 통증과 스포츠 손상의\n치료 목표는 다릅니다.",
+        "desc": "단순히 일상생활이 가능할 정도로 아프지 않은 상태가 아니라, 스윙, 점프, 러닝 등 폭발적인 동작을 견뎌낼 수 있는 '퍼포먼스의 완벽한 회복'이 우리의 목표입니다.",
+        "points": [
+          { "title": "원인 파악", "desc": "과사용으로 인한 미세 손상 및 구조적 불균형 진단" },
+          { "title": "목표 설정", "desc": "통증 완화를 넘어 폭발적 퍼포먼스 수행 능력 회복" },
+          { "title": "재발 방지", "desc": "생체역학적 교정을 통한 부상 근본 원인 차단" },
+          { "title": "RTP 최적화", "desc": "종목별 특수성을 고려한 복귀 시점 및 강도 설정" }
+        ]
+      }
+    },
+    {
+      "id": "blk_sports_v2_philosophy_1",
+      "type": "SportsV2Philosophy",
+      "data": {
+        "title": "일반적인 일상 복귀를 넘어,\n완벽한 스포츠 복귀(Return to Play)를 약속합니다."
+      }
+    },
+    {
+      "id": "blk_sports_v2_targets_1",
+      "type": "SportsV2Targets",
+      "data": {
+        "title": "핵심 집중 치료 질환",
         "targets": [
-          { "title": "골프/테니스 엘보", "desc": "팔꿈치 바깥쪽이나 안쪽에 찌릿한 통증이 발생한 분" },
-          { "title": "회전근개 및 어깨 손상", "desc": "스윙 동작이나 무거운 물건을 들 때 어깨가 아픈 분" },
-          { "title": "무릎/발목 염좌 및 인대 손상", "desc": "러닝, 축구, 등산 중 관절을 삐끗하여 붓고 아픈 분" },
-          { "title": "족저근막염 및 아킬레스건염", "desc": "아침에 첫 발을 디딜 때 발바닥이나 발뒤꿈치가 아픈 분" }
+          { "title": "골프/테니스 엘보", "desc": "팔꿈치 힘줄의 미세 파열 및 과사용 증후군", "sports": ["골프", "테니스", "배드민턴"] },
+          { "title": "어깨 손상", "desc": "회전근개 파열 및 충돌증후군, 슬랩 병변", "sports": ["야구", "수영", "웨이트트레이닝"] },
+          { "title": "무릎/발목 관절", "desc": "십자인대, 반월상연골 파열, 만성 발목 염좌", "sports": ["축구", "농구", "러닝"] },
+          { "title": "족부 질환", "desc": "족저근막염, 아킬레스건염 등 발의 과부하로 인한 염증", "sports": ["마라톤", "등산", "축구"] }
         ]
       }
     },
     {
-      "id": "blk_sports_process_1",
-      "type": "AppleProcess",
+      "id": "blk_sports_v2_solutions_1",
+      "type": "SportsV2Solutions",
       "data": {
-        "title": "스포츠 특화 치료 프로세스",
+        "title": "특화 치료 솔루션",
+        "solutions": [
+          { "title": "스포츠 전문 도수·운동치료", "desc": "단순히 굳은 근육을 푸는 것을 넘어, 생체역학(Biomechanics) 기반으로 손상된 관절의 가동 범위를 회복하고 코어 근력을 강화합니다." },
+          { "title": "초정밀 재생 주사 (프롤로)", "desc": "고해상도 초음파를 이용하여 파열되고 늘어난 인대와 힘줄을 정확히 타겟팅, 조직 증식제를 주입하여 근본적인 재생을 유도합니다." },
+          { "title": "고강도 체외충격파(ESWT)", "desc": "충격파 에너지를 병변 깊숙이 전달하여 만성 염증을 깨뜨리고 미세 혈류를 재건하여 회복 속도를 극대화합니다." }
+        ]
+      }
+    },
+    {
+      "id": "blk_sports_v2_process_1",
+      "type": "SportsV2Process",
+      "data": {
+        "title": "4단계 RTP 회복 시스템",
         "steps": [
-          { "title": "정확한 원인 진단", "desc": "초음파 및 X-ray를 통해 인대, 건, 근육의 미세한 손상 파악" },
-          { "title": "급성기 염증 제어", "desc": "체외충격파, 주사치료, 고주파 치료로 빠른 통증 감소" },
-          { "title": "조직 재생 유도", "desc": "손상된 부위에 혈류를 공급하여 세포 단위의 근본적 재생 촉진" },
-          { "title": "퍼포먼스 회복", "desc": "스포츠 도수치료 및 운동 처방으로 안전한 복귀 지원" }
+          { "title": "통증 및 부종 제어", "desc": "급성기 통증과 염증을 빠르게 억제합니다." },
+          { "title": "가동 범위(ROM) 회복", "desc": "관절의 굳어짐을 막고 유연성을 확보합니다." },
+          { "title": "근력 및 밸런스 강화", "desc": "손상된 부위 주변 근력을 키워 안정성을 높입니다." },
+          { "title": "스포츠 복귀 훈련", "desc": "종목별 특화 퍼포먼스 훈련으로 완벽한 복귀를 돕습니다." }
         ]
       }
     },
     {
-      "id": "blk_sports_outro_1",
-      "type": "AppleOutro",
+      "id": "blk_sports_v2_outro_1",
+      "type": "SportsV2Outro",
       "data": {
-        "title": "단순한 통증 완화를 넘어\n안전한 스포츠 복귀(Return to Play)를 약속합니다."
+        "title": "당신의 가장 빛나는 필드를 위해,\n나음이 든든한 페이스메이커가 되겠습니다."
       }
     }
   ],

@@ -2539,6 +2539,323 @@ export function IVOutroBlock({ data, isEditMode, onChange }) {
   );
 }
 
+// -------------------------------------------------------------
+// Sports V2-Style Blocks (Sports Clinic V2)
+// -------------------------------------------------------------
+export function SportsV2HeroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="relative w-full h-[85vh] md:h-screen flex items-center justify-center overflow-hidden bg-[#050505] text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 mix-blend-screen"
+        style={{ backgroundImage: `url(${data.bgImage || '/sports-v2-bg.webp'})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
+      
+      <div className="relative z-10 max-w-5xl w-full px-6 flex flex-col md:flex-row items-center justify-between text-left mt-10">
+        <div className="w-full md:w-2/3">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+          >
+            <div className="text-orange-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">Return To Play</div>
+            <EditableText
+              tag="h1"
+              value={data.title || ''}
+              onChange={(val) => onChange({ title: val })}
+              isEditMode={isEditMode}
+              placeholder="다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다."
+              multiline={true}
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-8 text-white drop-shadow-[0_0_20px_rgba(249,115,22,0.3)] whitespace-pre-line"
+            />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+          >
+            <EditableText
+              tag="p"
+              multiline={true}
+              value={data.desc || ''}
+              onChange={(val) => onChange({ desc: val })}
+              isEditMode={isEditMode}
+              placeholder="단순한 통증 치료가 아닙니다. 부상 이전의 완벽한 퍼포먼스를 되찾아주는\n나음만의 프리미엄 스포츠 재활입니다."
+              className="text-lg md:text-2xl text-gray-300 font-light tracking-tight leading-relaxed whitespace-pre-line max-w-2xl"
+            />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2ProblemBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#050505] text-white overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-orange-900/10 to-transparent blur-[100px]" />
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, rotateY: -30 }}
+          whileInView={{ opacity: 1, rotateY: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="md:w-5/12 glassmorphism rounded-3xl p-10 border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl"
+        >
+          <div className="text-orange-500 mb-6">
+            <Crosshair size={48} strokeWidth={1.5} />
+          </div>
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="일반 통증과 스포츠 손상의\n치료 목표는 다릅니다."
+            multiline={true}
+            className="text-3xl md:text-4xl font-bold tracking-tighter leading-tight mb-6 text-white whitespace-pre-line"
+          />
+          <EditableText
+            tag="p"
+            value={data.desc || ''}
+            onChange={(val) => onChange({ desc: val })}
+            isEditMode={isEditMode}
+            placeholder="단순히 일상생활이 가능할 정도로 아프지 않은 상태가 아니라, 스윙, 점프, 러닝 등 폭발적인 동작을 견뎌낼 수 있는 '퍼포먼스의 완벽한 회복'이 우리의 목표입니다."
+            multiline={true}
+            className="text-lg text-gray-400 leading-relaxed font-light break-keep"
+          />
+        </motion.div>
+        
+        <div className="md:w-7/12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {data.points?.map((pt, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="p-8 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-orange-500/30 transition-colors group"
+            >
+              <div className="text-orange-500/50 text-4xl font-black mb-4 group-hover:text-orange-500 transition-colors">0{idx + 1}</div>
+              <h3 className="text-xl font-bold text-white mb-2">{pt.title}</h3>
+              <p className="text-gray-500 leading-relaxed">{pt.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2PhilosophyBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-48 bg-[#000000] text-white border-y border-white/5 relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+        <div className="w-[120%] h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent transform -rotate-12 blur-[2px]" />
+        <div className="absolute w-[120%] h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent transform -rotate-6 blur-[2px]" />
+      </div>
+      <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          <div className="text-orange-500 font-bold tracking-widest uppercase mb-8">Our Philosophy</div>
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="일반적인 일상 복귀를 넘어,\n완벽한 스포츠 복귀(Return to Play)를 약속합니다."
+            className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.2] whitespace-pre-line text-white"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2TargetsBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#050505] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <div>
+            <EditableText
+              tag="h2"
+              value={data.title || ''}
+              onChange={(val) => onChange({ title: val })}
+              isEditMode={isEditMode}
+              placeholder="핵심 집중 치료 질환"
+              className="text-4xl md:text-6xl font-bold tracking-tighter"
+            />
+          </div>
+          <div className="text-orange-500 font-medium">Sports Injuries</div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          {data.targets?.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="relative group bg-[#0a0a0a] rounded-3xl p-8 md:p-12 border border-white/5 overflow-hidden transition-colors hover:border-orange-500/50"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 rounded-full blur-[80px] transform translate-x-1/2 -translate-y-1/2 group-hover:bg-orange-500/20 transition-colors" />
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div>
+                  <h3 className="text-3xl font-bold mb-4 tracking-tight">{item.title}</h3>
+                  <p className="text-gray-400 text-lg leading-relaxed break-keep mb-8">{item.desc}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {item.sports?.map((sport, i) => (
+                    <span key={i} className="px-4 py-1.5 bg-white/10 rounded-full text-sm text-gray-200 font-medium tracking-tight backdrop-blur-md">
+                      {sport}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2SolutionsBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#000000] text-white border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="text-center mb-24"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="특화 치료 솔루션"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="space-y-12 md:space-y-24">
+          {data.solutions?.map((sol, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+            >
+              <div className="w-full md:w-1/2 aspect-video bg-[#0a0a0a] rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Activity size={64} className="text-white/20 group-hover:text-orange-500/50 transition-colors duration-500" strokeWidth={1} />
+              </div>
+              <div className="w-full md:w-1/2 text-left">
+                <div className="text-orange-500 font-mono text-xl mb-4">0{idx + 1}</div>
+                <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">{sol.title}</h3>
+                <p className="text-xl text-gray-400 leading-relaxed break-keep">{sol.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2ProcessBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-24 md:py-40 bg-[#050505] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-24"
+        >
+          <EditableText
+            tag="h2"
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="4단계 RTP 회복 시스템"
+            className="text-4xl md:text-6xl font-bold tracking-tighter"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {data.steps?.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              className="bg-[#0a0a0a] rounded-3xl p-8 border border-white/5 relative overflow-hidden"
+            >
+              <div className="text-6xl font-black text-white/5 absolute -top-4 -right-4 select-none">
+                {idx + 1}
+              </div>
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                  <span className="text-orange-500 font-bold">{idx + 1}</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
+                <p className="text-gray-400 leading-relaxed break-keep text-sm md:text-base">{step.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SportsV2OutroBlock({ data, isEditMode, onChange }) {
+  return (
+    <section className="py-32 md:py-64 bg-[#000000] text-white overflow-hidden relative border-t border-white/5">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-orange-900/30 via-[#000000] to-[#000000]" />
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <EditableText
+            tag="h2"
+            multiline={true}
+            value={data.title || ''}
+            onChange={(val) => onChange({ title: val })}
+            isEditMode={isEditMode}
+            placeholder="당신의 가장 빛나는 필드를 위해,\n나음이 든든한 페이스메이커가 되겠습니다."
+            className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight whitespace-pre-line text-white drop-shadow-xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Block Renderer Registry
 // -------------------------------------------------------------
 const BLOCK_REGISTRY = {
@@ -2599,6 +2916,13 @@ const BLOCK_REGISTRY = {
   IVProcess: IVProcessBlock,
   IVFacility: IVFacilityBlock,
   IVOutro: IVOutroBlock,
+  SportsV2Hero: SportsV2HeroBlock,
+  SportsV2Problem: SportsV2ProblemBlock,
+  SportsV2Philosophy: SportsV2PhilosophyBlock,
+  SportsV2Targets: SportsV2TargetsBlock,
+  SportsV2Solutions: SportsV2SolutionsBlock,
+  SportsV2Process: SportsV2ProcessBlock,
+  SportsV2Outro: SportsV2OutroBlock,
   Empty: EmptyBlock
 };
 
@@ -3085,6 +3409,80 @@ export const BLOCK_DEFINITIONS = [
     label: '수액 아웃트로',
     icon: <Activity size={16} />,
     defaultData: { title: '지친 당신의 세포에\n프리미엄 휴식을 선사합니다.' }
+  },
+  {
+    type: 'SportsV2Hero',
+    label: '스포츠 V2 히어로',
+    icon: <Activity size={16} />,
+    defaultData: { title: '다시 뛰는 당신을 위해,\n한계 없는 복귀를 선사합니다.', desc: '단순한 통증 치료가 아닙니다. 부상 이전의 완벽한 퍼포먼스를 되찾아주는\n나음만의 프리미엄 스포츠 재활입니다.', bgImage: '/sports-v2-bg.webp' }
+  },
+  {
+    type: 'SportsV2Problem',
+    label: '스포츠 V2 문제인식',
+    icon: <Search size={16} />,
+    defaultData: { 
+      title: '일반 통증과 스포츠 손상의\n치료 목표는 다릅니다.',
+      desc: '단순히 일상생활이 가능할 정도로 아프지 않은 상태가 아니라, 스윙, 점프, 러닝 등 폭발적인 동작을 견뎌낼 수 있는 \'퍼포먼스의 완벽한 회복\'이 우리의 목표입니다.',
+      points: [
+        { title: '원인 파악', desc: '과사용으로 인한 미세 손상 및 구조적 불균형 진단' },
+        { title: '목표 설정', desc: '통증 완화를 넘어 폭발적 퍼포먼스 수행 능력 회복' },
+        { title: '재발 방지', desc: '생체역학적 교정을 통한 부상 근본 원인 차단' },
+        { title: 'RTP 최적화', desc: '종목별 특수성을 고려한 복귀 시점 및 강도 설정' }
+      ]
+    }
+  },
+  {
+    type: 'SportsV2Philosophy',
+    label: '스포츠 V2 철학',
+    icon: <Star size={16} />,
+    defaultData: { title: '일반적인 일상 복귀를 넘어,\n완벽한 스포츠 복귀(Return to Play)를 약속합니다.' }
+  },
+  {
+    type: 'SportsV2Targets',
+    label: '스포츠 V2 타겟 질환',
+    icon: <Crosshair size={16} />,
+    defaultData: {
+      title: '핵심 집중 치료 질환',
+      targets: [
+        { title: '골프/테니스 엘보', desc: '팔꿈치 힘줄의 미세 파열 및 과사용 증후군', sports: ['골프', '테니스', '배드민턴'] },
+        { title: '어깨 손상', desc: '회전근개 파열 및 충돌증후군, 슬랩 병변', sports: ['야구', '수영', '웨이트트레이닝'] },
+        { title: '무릎/발목 관절', desc: '십자인대, 반월상연골 파열, 만성 발목 염좌', sports: ['축구', '농구', '러닝'] },
+        { title: '족부 질환', desc: '족저근막염, 아킬레스건염 등 발의 과부하로 인한 염증', sports: ['마라톤', '등산', '축구'] }
+      ]
+    }
+  },
+  {
+    type: 'SportsV2Solutions',
+    label: '스포츠 V2 솔루션',
+    icon: <Shield size={16} />,
+    defaultData: {
+      title: '특화 치료 솔루션',
+      solutions: [
+        { title: '스포츠 전문 도수·운동치료', desc: '단순히 굳은 근육을 푸는 것을 넘어, 생체역학(Biomechanics) 기반으로 손상된 관절의 가동 범위를 회복하고 코어 근력을 강화합니다.' },
+        { title: '초정밀 재생 주사 (프롤로)', desc: '고해상도 초음파를 이용하여 파열되고 늘어난 인대와 힘줄을 정확히 타겟팅, 조직 증식제를 주입하여 근본적인 재생을 유도합니다.' },
+        { title: '고강도 체외충격파(ESWT)', desc: '충격파 에너지를 병변 깊숙이 전달하여 만성 염증을 깨뜨리고 미세 혈류를 재건하여 회복 속도를 극대화합니다.' }
+      ]
+    }
+  },
+  {
+    type: 'SportsV2Process',
+    label: '스포츠 V2 프로세스',
+    icon: <List size={16} />,
+    defaultData: {
+      title: '4단계 RTP 회복 시스템',
+      steps: [
+        { title: '통증 및 부종 제어', desc: '급성기 통증과 염증을 빠르게 억제합니다.' },
+        { title: '가동 범위(ROM) 회복', desc: '관절의 굳어짐을 막고 유연성을 확보합니다.' },
+        { title: '근력 및 밸런스 강화', desc: '손상된 부위 주변 근력을 키워 안정성을 높입니다.' },
+        { title: '스포츠 복귀 훈련', desc: '종목별 특화 퍼포먼스 훈련으로 완벽한 복귀를 돕습니다.' }
+      ]
+    }
+  },
+  {
+    type: 'SportsV2Outro',
+    label: '스포츠 V2 아웃트로',
+    icon: <Activity size={16} />,
+    defaultData: { title: '당신의 가장 빛나는 필드를 위해,\n나음이 든든한 페이스메이커가 되겠습니다.' }
   }];
 
 // -------------------------------------------------------------
