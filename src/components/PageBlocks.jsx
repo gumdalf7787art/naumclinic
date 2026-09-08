@@ -1651,7 +1651,7 @@ export function PostOpTypesBlock({ data, isEditMode, onChange }) {
                   onChange={(val) => onChange({ title: val })}
                   isEditMode={isEditMode}
                   placeholder="모든 수술에 대한 해답"
-                  className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+                  className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 break-keep leading-tight"
                 />
                 <p className="text-gray-400 text-lg md:text-xl break-keep">
                   어떤 부위의 수술이든, 나음의 숙련된 치료팀이 맞춤형 솔루션을 제공합니다.
