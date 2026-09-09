@@ -46,7 +46,7 @@ export default function AdminHomeManager() {
         if (serverData.cms_heroSlides) setHeroSlides(serverData.cms_heroSlides);
         if (serverData.cms_quickSection) setQuickSection(serverData.cms_quickSection);
         if (serverData.cms_quickLinks) setQuickLinks(serverData.cms_quickLinks);
-        if (serverData.cms_pastorSection) setPastorSection(serverData.cms_pastorSection);
+        if (serverData.cms_principlesSection) setPrinciplesSection(serverData.cms_principlesSection);
         if (serverData.cms_footerSection) setFooterSection(serverData.cms_footerSection);
         if (serverData.cms_floatingLinks) setFloatingLinks(serverData.cms_floatingLinks);
       }
@@ -80,9 +80,9 @@ export default function AdminHomeManager() {
 
   const tabs = [
     { id: 'hero', label: '메인 슬라이드', icon: <MonitorPlay size={18} /> },
-    { id: 'quick', label: '표어 및 바로가기', icon: <LinkIcon size={18} /> },
-    { id: 'worship', label: '예배시간 안내', icon: <Clock size={18} /> },
-    { id: 'pastor', label: '담임목사 인사말', icon: <MessageSquare size={18} /> },
+    { id: 'quick', label: '슬로건 및 퀵메뉴', icon: <LinkIcon size={18} /> },
+    { id: 'worship', label: '진료시간 안내', icon: <Clock size={18} /> },
+    { id: 'pastor', label: '3대 원칙 및 진료철학', icon: <MessageSquare size={18} /> },
     { id: 'location', label: '오시는길', icon: <MapPin size={18} /> },
     { id: 'footer', label: '풋터 설정', icon: <Layout size={18} /> },
     { id: 'floating', label: '플로팅 버튼', icon: <MousePointer2 size={18} /> },
@@ -92,37 +92,28 @@ export default function AdminHomeManager() {
     {
       id: 1,
       image: "/hero-1-bg.webp",
-      topText: "기독교대한감리회",
-      main: "평화교회",
-      engText: "PEACE METHODIST CHURCH",
-      sub: "예수님의 사랑으로 사람을 세우고,\n세상을 섬기는 교회",
-      align: "left",
+      topText: "통증 없는 편안한 일상",
+      main: "나음재활의학과의원",
+      engText: "NAEUM REHABILITATION CLINIC",
+      sub: "정확한 진단과 따뜻한 치료로\n환자분들의 건강한 일상을 되찾아 드립니다",
+      align: "center",
       zoomEffect: "zoom-in"
     },
     {
       id: 2,
       image: "/hero-2-bg.webp",
-      main: "말씀이 삶이 되는\n은혜의 예배",
-      sub: "진리와 성령으로 드리는\n참된 예배의 자리",
-      align: "left",
+      main: "비수술적 척추관절\n통증 치료",
+      sub: "원인을 알 수 없는 만성 통증,\n체계적인 재활 치료로 해결하세요",
+      align: "center",
       zoomEffect: "zoom-in"
     },
     {
       id: 3,
       image: "/hero-3-bg.webp",
-      main: "세상을 섬기는\n사랑의 공동체",
-      sub: "이웃과 함께하며\n세상의 빛과 소금의 역할을 다합니다",
-      align: "left",
+      main: "최고의 의료진과\n최첨단 장비",
+      sub: "풍부한 임상경험을 바탕으로\n1:1 맞춤형 진료를 제공합니다",
+      align: "center",
       zoomEffect: "zoom-in"
-    },
-    {
-      id: 4,
-      image: "/hero4.jpg",
-      main: "",
-      sub: "",
-      align: "left",
-      zoomEffect: "none",
-      noDim: true
     }
   ];
 
@@ -215,18 +206,18 @@ export default function AdminHomeManager() {
   };
 
   const DEFAULT_QUICK_SECTION = {
-    mottoYear: '2026년 표어',
-    mottoMain: '주 안에서 하나 되는 평화교회',
-    mottoSub: '평화교회에 오신 여러분을 환영합니다',
+    mottoYear: '스마트 의료 서비스',
+    mottoMain: '환자를 최우선으로 생각하는\n나음재활의학과의원',
+    mottoSub: '신뢰할 수 있는 진료로 보답하겠습니다',
     bgImage: '',
     useBgImage: true
   };
 
   const DEFAULT_QUICK_LINKS = [
-    { id: 1, title: '예배안내', path: '/about/worship', bgImage: '/hero-2-bg.webp', icon: 'Clock' },
-    { id: 2, title: '주보', path: '/about/bulletin', bgImage: '/korean-bible-bg.webp', icon: 'FileText' },
-    { id: 3, title: '유튜브채널', path: '/worship/word', bgImage: '/hero-3-bg.webp', icon: 'PlayCircle' },
-    { id: 4, title: '오시는길', path: '/about/location', bgImage: '/hero-1-bg.webp', icon: 'MapPin' }
+    { id: 1, title: '비수술 통증치료', path: '/pain/spine', bgImage: '/card1-opt.webp', icon: 'Link' },
+    { id: 2, title: '관절·인대 치료', path: '/pain/joint', bgImage: '/card2-opt.webp', icon: 'Link' },
+    { id: 3, title: '통증 교정 도수치료', path: '/rehab/manual', bgImage: '/card3-opt.webp', icon: 'Link' },
+    { id: 4, title: '수술 후 재활치료', path: '/rehab/post-op', bgImage: '/card6-opt.webp', icon: 'Link' }
   ];
 
   const [quickSection, setQuickSection] = useState(() => {
@@ -263,33 +254,34 @@ export default function AdminHomeManager() {
     triggerAutoSave('cms_quickLinks', newLinks);
   };
 
-  const DEFAULT_PASTOR_SECTION = {
-    image: '/pastor-bg.png',
-    title: '평화 교회에 오신것을 환영합니다.',
-    subTitle: '하나님의 사랑과 은혜가 충만한 곳',
-    content: '어떠한 어려움 속에서도 믿음의 자리를 지키며 주님의 길을 걷는 교회\n점점 혼탁해져가는 이 시대에 진리를 전하며 거룩함을 세워가는 교회\n주님의 소유된 백성들을 거룩한 제사장으로 세워 이땅에 하나님의 나라를 이루어가는 교회',
-    name: '장 성 진'
+  const DEFAULT_PRINCIPLES = {
+    image: '/principles-bg.png',
+    tag: 'CORE PRINCIPLES',
+    title: '나음재활의학과의 3대 원칙',
+    subTitle: '환자 중심의 바른 진료를 약속합니다',
+    content: '01. 정확한 원인 분석과 맞춤 진단\n02. 비수술적 보존 치료 우선\n03. 끝까지 책임지는 재활 파트너',
+    name: '나음재활의학과의원'
   };
 
-  const [pastorSection, setPastorSection] = useState(() => {
-    const saved = localStorage.getItem('cms_pastorSection');
+  const [principlesSection, setPrinciplesSection] = useState(() => {
+    const saved = localStorage.getItem('cms_principlesSection');
     if (saved) {
       try { return JSON.parse(saved); } catch(e) {}
     }
-    return DEFAULT_PASTOR_SECTION;
+    return DEFAULT_PRINCIPLES;
   });
 
-  const updatePastorSection = (field, value) => {
-    const newSec = { ...pastorSection, [field]: value };
-    setPastorSection(newSec);
-    localStorage.setItem('cms_pastorSection', JSON.stringify(newSec));
+  const updatePrinciplesSection = (field, value) => {
+    const newSec = { ...principlesSection, [field]: value };
+    setPrinciplesSection(newSec);
+    localStorage.setItem('cms_principlesSection', JSON.stringify(newSec));
     window.dispatchEvent(new Event('cms_pastor_updated'));
-    triggerAutoSave('cms_pastorSection', newSec);
+    triggerAutoSave('cms_principlesSection', newSec);
   };
 
   const handlePastorImageUpload = (e) => {
     processAndUploadImage(e.target.files[0], (optimizedDataUrl) => {
-      updatePastorSection('image', optimizedDataUrl);
+      updatePrinciplesSection('image', optimizedDataUrl);
     });
   };
 
@@ -576,7 +568,7 @@ export default function AdminHomeManager() {
                 <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-6 pb-6 border-b border-gray-100 gap-4">
                   <div>
                     <h3 className="text-[20px] font-bold text-gray-900 flex items-center">
-                      표어 및 바로가기
+                      슬로건 및 퀵메뉴
                       <span className={`ml-3 text-[12px] px-2 py-0.5 rounded-full ${sections.quick ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>
                         {sections.quick ? 'ON' : 'OFF'}
                       </span>
@@ -595,13 +587,13 @@ export default function AdminHomeManager() {
                 <div className={`transition-opacity ${!sections.quick ? 'opacity-40 pointer-events-none' : ''}`}>
                   <div className="flex flex-col md:flex-row gap-8 mb-8 pb-8 border-b border-gray-100">
                     <div className="flex-1 space-y-5">
-                      <h4 className="text-[15px] font-bold text-gray-900">올해의 표어 설정</h4>
+                      <h4 className="text-[15px] font-bold text-gray-900">슬로건 및 모토 설정</h4>
                       <div>
-                        <label className="block text-[12px] font-bold text-gray-500 mb-1">표어 연도 및 타이틀</label>
+                        <label className="block text-[12px] font-bold text-gray-500 mb-1">슬로건 상단 태그</label>
                         <input type="text" value={quickSection.mottoYear || ''} onChange={(e) => updateQuickSection('mottoYear', e.target.value)} className="w-full px-4 py-2 border border-gray-200 rounded-xl text-[14px] font-bold focus:border-black outline-none bg-gray-50 focus:bg-white" />
                       </div>
                       <div>
-                        <label className="block text-[12px] font-bold text-gray-500 mb-1">표어 내용 (큰 글씨)</label>
+                        <label className="block text-[12px] font-bold text-gray-500 mb-1">메인 슬로건 (큰 글씨)</label>
                         <textarea value={quickSection.mottoMain || ''} onChange={(e) => updateQuickSection('mottoMain', e.target.value)} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-[18px] font-black focus:border-black outline-none text-[#5227FF] bg-gray-50 focus:bg-white resize-none h-24" />
                       </div>
                       <div>
@@ -722,7 +714,7 @@ export default function AdminHomeManager() {
               <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-6 pb-6 border-b border-gray-100 gap-4">
                 <div>
                   <h3 className="text-[20px] font-bold text-gray-900 flex items-center">
-                    예배시간 안내 카드
+                    진료시간 안내 카드
                     <span className={`ml-3 text-[12px] px-2 py-0.5 rounded-full ${sections.worship ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>
                       {sections.worship ? 'ON' : 'OFF'}
                     </span>
@@ -744,9 +736,9 @@ export default function AdminHomeManager() {
                       <Info size={24} />
                     </div>
                     <div>
-                      <h4 className="text-[16px] font-bold text-gray-900 mb-2">예배시간 안내 연동</h4>
+                      <h4 className="text-[16px] font-bold text-gray-900 mb-2">진료시간 안내 연동</h4>
                       <p className="text-[14px] text-gray-600 leading-relaxed break-keep">
-                        예배시간 안내의 내용은 <strong className="text-black">교회소개 {'>'} 예배안내</strong> 페이지의 내용을 가져와서 표기됩니다. 내용 수정이 필요하신 경우 해당 페이지 설정에서 변경해 주세요.
+                        진료시간 안내의 내용은 <strong className="text-black">교회소개 {'>'} 예배안내</strong> 페이지의 내용을 가져와서 표기됩니다. 내용 수정이 필요하신 경우 해당 페이지 설정에서 변경해 주세요.
                       </p>
                     </div>
                   </div>
@@ -761,7 +753,7 @@ export default function AdminHomeManager() {
               <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-6 pb-6 border-b border-gray-100 gap-4">
                 <div>
                   <h3 className="text-[20px] font-bold text-gray-900 flex items-center">
-                    담임목사 인사말
+                    3대 원칙 및 진료철학
                     <span className={`ml-3 text-[12px] px-2 py-0.5 rounded-full ${sections.pastor ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>
                       {sections.pastor ? 'ON' : 'OFF'}
                     </span>
@@ -780,7 +772,7 @@ export default function AdminHomeManager() {
                 <div className="w-full md:w-1/3">
                   <label className="block text-[14px] font-bold text-gray-700 mb-2">프로필 (배경) 이미지</label>
                   <label className="aspect-video bg-gray-100 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center relative overflow-hidden group cursor-pointer hover:bg-gray-50 block">
-                    <img src={pastorSection.image || "/pastor-bg.png"} alt="목사님" className="w-full h-full object-cover opacity-80" />
+                    <img src={principlesSection.image || "/pastor-bg.png"} alt="목사님" className="w-full h-full object-cover opacity-80" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity z-10">
                       <ImageIcon color="white" size={32} className="mb-2" />
                       <span className="text-white font-bold text-[13px]">사진 변경</span>
@@ -792,17 +784,17 @@ export default function AdminHomeManager() {
                 <div className="flex-1 space-y-5">
                   <div>
                     <label className="block text-[13px] font-bold text-gray-700 mb-2">이름</label>
-                    <input type="text" value={pastorSection.name} onChange={(e) => updatePastorSection('name', e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-[18px] focus:bg-white focus:border-black outline-none" />
+                    <input type="text" value={principlesSection.name} onChange={(e) => updatePrinciplesSection('name', e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-[18px] focus:bg-white focus:border-black outline-none" />
                   </div>
                   <div>
                     <label className="block text-[13px] font-bold text-gray-700 mb-2">인사말 큰 제목</label>
-                    <input type="text" value={pastorSection.title} onChange={(e) => updatePastorSection('title', e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-[18px] focus:bg-white focus:border-black outline-none" />
+                    <input type="text" value={principlesSection.title} onChange={(e) => updatePrinciplesSection('title', e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-[18px] focus:bg-white focus:border-black outline-none" />
                   </div>
                   <div>
                     <label className="block text-[13px] font-bold text-gray-700 mb-2">인사말 본문 내용 (엔터로 줄바꿈)</label>
                     <textarea 
-                      value={pastorSection.content}
-                      onChange={(e) => updatePastorSection('content', e.target.value)}
+                      value={principlesSection.content}
+                      onChange={(e) => updatePrinciplesSection('content', e.target.value)}
                       className="w-full h-[200px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[14px] leading-relaxed focus:bg-white focus:border-black outline-none resize-none"
                     />
                   </div>
@@ -890,7 +882,7 @@ export default function AdminHomeManager() {
                 ))}
 
                 <button onClick={handleAddLocationGroup} className="w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-bold hover:bg-gray-50 hover:text-black transition-colors flex items-center justify-center">
-                  <Plus size={18} className="mr-2" /> 새로운 항목 그룹 추가 (예: 예배시간 안내 등)
+                  <Plus size={18} className="mr-2" /> 새로운 항목 그룹 추가 (예: 진료시간 안내 등)
                 </button>
               </div>
             </div>
@@ -950,12 +942,12 @@ export default function AdminHomeManager() {
                 {/* Info Section */}
                 <div className="col-span-1 md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                   <div>
-                    <label className="block text-[13px] font-bold text-gray-700 mb-2">교회(기관)명</label>
+                    <label className="block text-[13px] font-bold text-gray-700 mb-2">병원(기관)명</label>
                     <input type="text" value={footerSection.churchName} onChange={(e) => updateFooterSection('churchName', e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-black outline-none" />
                   </div>
                   <div>
                     <label className="block text-[13px] font-bold text-gray-700 mb-2">대표자명 (선택)</label>
-                    <input type="text" value={footerSection.repName} onChange={(e) => updateFooterSection('repName', e.target.value)} placeholder="홍길동 목사" className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-black outline-none" />
+                    <input type="text" value={footerSection.repName} onChange={(e) => updateFooterSection('repName', e.target.value)} placeholder="홍길동 원장" className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-black outline-none" />
                   </div>
                   <div className="col-span-1 md:col-span-2">
                     <label className="block text-[13px] font-bold text-gray-700 mb-2">주소</label>

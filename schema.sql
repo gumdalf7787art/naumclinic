@@ -28,3 +28,14 @@ CREATE TABLE IF NOT EXISTS estimates (
   status TEXT DEFAULT 'PENDING',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 3. 메뉴 및 카테고리 테이블 (Menus)
+CREATE TABLE IF NOT EXISTS menus (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  path TEXT,
+  parent_id INTEGER,
+  sort_order INTEGER DEFAULT 0,
+  is_active INTEGER DEFAULT 1,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

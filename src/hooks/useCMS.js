@@ -97,7 +97,7 @@ export function useCMSData(key, defaultData) {
     if (key === 'cms_sections') eventName = 'cms_sections_updated';
     else if (key === 'cms_heroSlides') eventName = 'cms_hero_updated';
     else if (key === 'cms_quickSection' || key === 'cms_quickLinks') eventName = 'cms_quick_updated';
-    else if (key === 'cms_pastorSection') eventName = 'cms_pastor_updated';
+    else if (key === 'cms_principlesSection') eventName = 'cms_pastor_updated';
     else if (key === 'cms_footerSection') eventName = 'cms_footer_updated';
 
     window.addEventListener(eventName, handleUpdate);

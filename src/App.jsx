@@ -788,6 +788,7 @@ function MedicalVideos() {
 }
 
 function ClinicHours() {
+  const clinicHours = useCMSData('cms_clinicHoursSection', clinicHours);
   const sections = useCMSData('cms_sections', { clinicHours: true });
   const isVisible = sections.clinicHours !== false;
 
@@ -805,9 +806,9 @@ function ClinicHours() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full md:w-1/5 flex flex-col justify-start shrink-0 mb-8 md:mb-0 md:pr-8 text-center md:text-left mt-0 md:mt-2"
         >
-          <div className="text-[13px] md:text-[14px] font-bold tracking-widest text-[#0284C7] mb-1 md:mb-2">{C.CLINIC_HOURS_SECTION.tag}</div>
+          <div className="text-[13px] md:text-[14px] font-bold tracking-widest text-[#0284C7] mb-1 md:mb-2">{clinicHours.tag}</div>
           <h2 className="text-[28px] md:text-[40px] font-bold tracking-tight text-[#404b5c] leading-tight">
-            {C.CLINIC_HOURS_SECTION.title.split(' ')[0]}<br className="hidden md:block"/> {C.CLINIC_HOURS_SECTION.title.split(' ').slice(1).join(' ')}
+            {clinicHours.title.split(' ')[0]}<br className="hidden md:block"/> {clinicHours.title.split(' ').slice(1).join(' ')}
           </h2>
           <div className="w-10 md:w-12 h-1 bg-gray-800 mt-3 md:mt-5 mx-auto md:mx-0"></div>
         </motion.div>
@@ -820,7 +821,7 @@ function ClinicHours() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="w-full md:w-4/5 grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8 md:gap-y-10 md:pl-10 border-l-0 md:border-l border-gray-200"
         >
-          {C.CLINIC_HOURS_SECTION.groups.map((group, idx) => (
+          {clinicHours.groups.map((group, idx) => (
             <div key={idx}>
               <h3 className="font-bold text-[16px] md:text-[18px] text-[#404b5c] mb-3 md:mb-4 flex items-center">
                 <span className={`w-1.5 md:w-2 h-1.5 md:h-2 rounded-full ${group.dotColor} mr-2 md:mr-2.5`}></span> {group.title}
@@ -845,7 +846,7 @@ function ClinicHours() {
 }
 
 function ThreePrinciples() {
-    const section = useCMSData('cms_pastorSection', C.THREE_PRINCIPLES);
+    const section = useCMSData('cms_principlesSection', C.THREE_PRINCIPLES);
     const sections = useCMSData('cms_sections', { pastor: true });
     const isVisible = sections.pastor !== false;
   
