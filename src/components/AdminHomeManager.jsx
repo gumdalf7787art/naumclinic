@@ -982,7 +982,80 @@ export default function AdminHomeManager() {
             </div>
           )}
         </motion.div>
-      </AnimatePresence>
-    </motion.div>
+
+        {/* Floating Menu Config Tab */}
+          {activeTab === 'floating' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-black/5"
+            >
+              <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-100">
+                <div>
+                  <h3 className="text-[18px] font-bold text-gray-800 flex items-center">
+                    <MousePointer2 className="mr-2 text-[#0284C7]" size={22} />
+                    플로팅 퀵 버튼 링크 설정
+                  </h3>
+                  <p className="text-gray-500 text-[13px] mt-1">홈페이지 우측 하단에 항상 떠 있는 퀵 버튼의 링크 주소를 설정합니다.</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-6 max-w-3xl">
+                {/* Phone */}
+                <div>
+                  <label className="block text-[14px] font-bold text-gray-700 mb-2">전화 상담 번호 (tel: 접두사 필수)</label>
+                  <input 
+                    type="text" 
+                    value={floatingLinks.phone} 
+                    onChange={(e) => updateFloatingLinks('phone', e.target.value)} 
+                    placeholder="tel:031-445-7502"
+                    className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-[#0284C7] outline-none transition-colors" 
+                  />
+                  <p className="text-gray-400 text-[12px] mt-1">예: tel:031-445-7502 (클릭 시 모바일에서 전화 앱이 열립니다)</p>
+                </div>
+
+                {/* Kakao */}
+                <div>
+                  <label className="block text-[14px] font-bold text-gray-700 mb-2">카카오톡 상담 링크</label>
+                  <input 
+                    type="text" 
+                    value={floatingLinks.kakao} 
+                    onChange={(e) => updateFloatingLinks('kakao', e.target.value)} 
+                    placeholder="http://pf.kakao.com/..."
+                    className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-[#0284C7] outline-none transition-colors" 
+                  />
+                  <p className="text-gray-400 text-[12px] mt-1">카카오톡 채널 관리자 센터에서 복사한 프로필 URL을 입력하세요.</p>
+                </div>
+
+                {/* Naver Reserve */}
+                <div>
+                  <label className="block text-[14px] font-bold text-gray-700 mb-2">네이버 예약 링크</label>
+                  <input 
+                    type="text" 
+                    value={floatingLinks.naverReserve} 
+                    onChange={(e) => updateFloatingLinks('naverReserve', e.target.value)} 
+                    placeholder="https://booking.naver.com/..."
+                    className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-[#0284C7] outline-none transition-colors" 
+                  />
+                  <p className="text-gray-400 text-[12px] mt-1">네이버 플레이스/예약 URL을 입력하세요.</p>
+                </div>
+
+                {/* Naver Blog */}
+                <div>
+                  <label className="block text-[14px] font-bold text-gray-700 mb-2">네이버 블로그 링크</label>
+                  <input 
+                    type="text" 
+                    value={floatingLinks.naverBlog} 
+                    onChange={(e) => updateFloatingLinks('naverBlog', e.target.value)} 
+                    placeholder="https://blog.naver.com/..."
+                    className="w-full px-4 py-2.5 bg-gray-50 focus:bg-white border border-gray-200 rounded-xl text-[14px] focus:border-[#0284C7] outline-none transition-colors" 
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
   );
 }
