@@ -18,6 +18,7 @@ import GoogleCallback from './components/GoogleCallback';
 import Admin from './components/Admin';
 import SubPageLayout from './components/SubPageLayout';
 import DynamicPage from './components/DynamicPage';
+import FloatingMenu from './components/FloatingMenu';
 import NoticeDetail from './components/NoticeDetail';
 import NoticeWrite from './components/NoticeWrite';
 import SEO from './components/SEO';
@@ -1238,8 +1239,9 @@ function App() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-surface-canvas">
+    <div className="w-full min-h-screen bg-surface-canvas relative overflow-hidden">
       <ScrollToTop />
+      <FloatingMenu />
       <Routes>
         <Route path="/" element={
           <>
