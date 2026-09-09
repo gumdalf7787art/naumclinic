@@ -520,7 +520,7 @@ function QuickMenu() {
         )}
       
       {/* Quick Menus Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 w-full max-w-5xl mx-auto px-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-10 w-full max-w-5xl mx-auto px-4">
         {menus.map((menu, idx) => (
           <motion.div
               key={idx}
@@ -546,22 +546,22 @@ function QuickMenu() {
             </div>
             
             {/* Bottom Text Content */}
-            <div className="py-3 px-4 sm:py-4 sm:px-5 flex flex-col flex-1 bg-white relative">
+            <div className="py-2.5 px-3 sm:py-4 sm:px-5 flex flex-col flex-1 bg-white relative">
               {(menu.tag || menu.icon) && (
-                <span className="inline-block text-[#0284C7] text-[11px] font-bold tracking-wide mb-1.5 px-2 py-0.5 bg-[#0284C7]/10 rounded-full w-fit">
+                <span className="inline-block text-[#0284C7] text-[10px] sm:text-[11px] font-bold tracking-wide mb-1.5 px-2 py-0.5 bg-[#0284C7]/10 rounded-full w-fit">
                   {menu.tag || '진료안내'}
                 </span>
               )}
-              <h3 className="text-[15px] sm:text-[17px] font-bold text-[#404b5c] tracking-tight leading-snug mb-1 group-hover:text-[#0369A1] transition-colors">
+              <h3 className="text-[14px] sm:text-[17px] font-bold text-[#404b5c] tracking-tight leading-snug mb-1 group-hover:text-[#0369A1] transition-colors">
                 {menu.title || menu.name}
               </h3>
               {(menu.subtitle || menu.sub) && (
-                <p className="text-[12px] sm:text-[13px] text-gray-500 leading-snug mb-2 line-clamp-2 break-keep flex-1">
+                <p className="text-[11px] sm:text-[13px] text-gray-500 leading-snug mb-2 line-clamp-2 break-keep flex-1">
                   {menu.subtitle || menu.sub}
                 </p>
               )}
               
-              <div className="mt-auto flex items-center text-[12px] font-bold text-[#0284C7] group/btn">
+              <div className="mt-auto flex items-center text-[11px] sm:text-[12px] font-bold text-[#0284C7] group/btn">
                 자세히 보기 
                 <ArrowRight size={12} className="ml-1 transform transition-transform duration-300 group-hover:translate-x-1" />
               </div>
