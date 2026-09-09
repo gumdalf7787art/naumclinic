@@ -1172,13 +1172,13 @@ function Footer() {
           </div>
 
           <div className="md:w-1/2 flex flex-col md:items-end">
-            <div className="space-y-2 text-left md:text-right text-[13px] leading-relaxed mt-4 md:mt-0">
+            <div className="space-y-2 text-left md:text-right text-[13px] leading-relaxed mt-4 md:mt-0 break-keep">
               <p><strong className="text-white font-medium text-[15px]">{footer.clinicName}</strong> {footer.repName && <span className="ml-2 opacity-80">(대표: {footer.repName})</span>}</p>
-              <p>{footer.address}</p>
-              <div className="pt-3 flex flex-col md:flex-row md:justify-end gap-2 md:gap-6">
-                {footer.phone && <span>Tel: <strong className="text-white font-medium tracking-wider">{footer.phone}</strong></span>}
-                {footer.time && <span>Time: <strong className="text-white font-medium tracking-wider">{footer.time}</strong></span>}
-                {footer.email && <span>Email: <strong className="text-white font-medium">{footer.email}</strong></span>}
+              <p className="text-[#888]">{footer.address}</p>
+              <div className="pt-2 flex flex-col space-y-1.5 text-[#888]">
+                {footer.phone && <p>Tel: <strong className="text-white font-medium tracking-wider ml-1">{footer.phone}</strong></p>}
+                {footer.time && <p>Time: <strong className="text-white font-medium tracking-wider ml-1">{footer.time}</strong></p>}
+                {footer.email && <p>Email: <strong className="text-white font-medium ml-1">{footer.email}</strong></p>}
               </div>
             </div>
           </div>
