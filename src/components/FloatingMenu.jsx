@@ -1,8 +1,18 @@
 import React from 'react';
 import { Phone, MessageCircle, Calendar, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useCMSData } from '../hooks/useCMS';
 
 export default function FloatingMenu() {
+  const DEFAULT_FLOATING_LINKS = {
+    phone: 'tel:031-445-7502',
+    kakao: '#',
+    naverReserve: '#',
+    naverBlog: '#'
+  };
+
+  const links = useCMSData('cms_floatingLinks', DEFAULT_FLOATING_LINKS);
+
   const buttons = [
     {
       id: 'phone',
@@ -10,7 +20,7 @@ export default function FloatingMenu() {
       label: '전화 상담',
       bg: 'bg-[#0369A1]',
       text: 'text-white',
-      link: 'tel:031-445-7502'
+      link: links.phone
     },
     {
       id: 'kakao',
@@ -18,7 +28,7 @@ export default function FloatingMenu() {
       label: '카카오톡 상담',
       bg: 'bg-[#FEE500]',
       text: 'text-[#3A1D1D]',
-      link: '#' 
+      link: links.kakao
     },
     {
       id: 'naver-reserve',
@@ -26,7 +36,7 @@ export default function FloatingMenu() {
       label: '네이버 예약',
       bg: 'bg-[#03C75A]',
       text: 'text-white',
-      link: '#' 
+      link: links.naverReserve
     },
     {
       id: 'naver-blog',
@@ -34,7 +44,7 @@ export default function FloatingMenu() {
       label: '네이버 블로그',
       bg: 'bg-[#03C75A]',
       text: 'text-white',
-      link: '#' 
+      link: links.naverBlog
     }
   ];
 

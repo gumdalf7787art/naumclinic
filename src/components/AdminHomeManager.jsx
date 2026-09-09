@@ -48,6 +48,7 @@ export default function AdminHomeManager() {
         if (serverData.cms_quickLinks) setQuickLinks(serverData.cms_quickLinks);
         if (serverData.cms_pastorSection) setPastorSection(serverData.cms_pastorSection);
         if (serverData.cms_footerSection) setFooterSection(serverData.cms_footerSection);
+        if (serverData.cms_floatingLinks) setFloatingLinks(serverData.cms_floatingLinks);
       }
     });
   }, []);
@@ -84,6 +85,7 @@ export default function AdminHomeManager() {
     { id: 'pastor', label: '담임목사 인사말', icon: <MessageSquare size={18} /> },
     { id: 'location', label: '오시는길', icon: <MapPin size={18} /> },
     { id: 'footer', label: '풋터 설정', icon: <Layout size={18} /> },
+    { id: 'floating', label: '플로팅 버튼', icon: <MousePointer2 size={18} /> },
   ];
 
   const DEFAULT_HERO_SLIDES = [
@@ -300,7 +302,11 @@ export default function AdminHomeManager() {
     phone: '02-000-0000',
     fax: '',
     email: 'peace@peacechurch.com',
-    copyright: 'Copyright © 2026 Peace Church. All rights reserved.'
+    copyright: 'Copyright © 2026 Peace Church. All rights reserved.',
+    links: [
+      { label: '이용약관', path: '/policy/terms' },
+      { label: '개인정보처리방침', path: '/policy/privacy' }
+    ]
   };
 
   const [footerSection, setFooterSection] = useState(() => {
@@ -311,12 +317,35 @@ export default function AdminHomeManager() {
     return DEFAULT_FOOTER_SECTION;
   });
 
-  const updateFooterSection = (field, value) => {
-    const newSec = { ...footerSection, [field]: value };
-    setFooterSection(newSec);
-    localStorage.setItem('cms_footerSection', JSON.stringify(newSec));
-    window.dispatchEvent(new Event('cms_footer_updated'));
-    triggerAutoSave('cms_footerSection', newSec);
+  const updateFooterSection = (key, value) => {
+    const newFooter = { ...footerSection, [key]: value };
+    setFooterSection(newFooter);
+    localStorage.setItem('cms_footerSection', JSON.stringify(newFooter));
+    window.dispatchEvent(new Event('cms_footerSection_updated'));
+    triggerAutoSave('cms_footerSection', newFooter);
+  };
+
+  const DEFAULT_FLOATING_LINKS = {
+    phone: 'tel:031-445-7502',
+    kakao: '#',
+    naverReserve: '#',
+    naverBlog: '#'
+  };
+
+  const [floatingLinks, setFloatingLinks] = useState(() => {
+    const saved = localStorage.getItem('cms_floatingLinks');
+    if (saved) {
+      try { return JSON.parse(saved); } catch(e) {}
+    }
+    return DEFAULT_FLOATING_LINKS;
+  });
+
+  const updateFloatingLinks = (key, value) => {
+    const updated = { ...floatingLinks, [key]: value };
+    setFloatingLinks(updated);
+    localStorage.setItem('cms_floatingLinks', JSON.stringify(updated));
+    window.dispatchEvent(new Event('cms_floatingLinks_updated'));
+    triggerAutoSave('cms_floatingLinks', updated);
   };
 
   const handleFooterLogoUpload = (e) => {
