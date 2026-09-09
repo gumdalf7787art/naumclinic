@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, PlayCircle, MapPin, X } from 'lucide-react';
+import { ArrowRight, PlayCircle, MapPin, X, Clock, FileText, Search, Users } from 'lucide-react';
 import { useCMSData } from '../../hooks/useCMS';
 import * as C from '../../constants/hospitalData';
 
