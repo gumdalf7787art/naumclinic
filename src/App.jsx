@@ -807,12 +807,26 @@ function ClinicHours() {
               </h3>
               <ul className="text-[14px] md:text-[15px]">
                 {group.items.map((item, itemIdx) => (
-                  <li key={itemIdx} className={`flex flex-col py-3 ${itemIdx < group.items.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-bold text-[#404b5c] tracking-tight">{item.label}</span>
-                        <span className="text-[13px] text-gray-400 tracking-tight">{item.desc}</span>
+                  <li key={itemIdx} className={`py-3.5 ${itemIdx < group.items.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      {/* 모바일 뷰 */}
+                      <div className="md:hidden flex flex-col gap-1.5">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <span className="font-bold text-[#404b5c] text-[15px] tracking-tight">{item.label}</span>
+                          <span className="text-gray-600 font-medium tracking-tight text-[14px]">{item.time}</span>
+                        </div>
+                        {item.desc && (
+                          <span className="text-[13px] text-gray-500 tracking-tight flex items-center before:content-[''] before:w-1 before:h-1 before:bg-gray-300 before:rounded-full before:mr-1.5">{item.desc}</span>
+                        )}
                       </div>
-                      <span className="text-gray-600 font-medium tracking-tight whitespace-pre-wrap">{item.time}</span>
+                      
+                      {/* 데스크탑 뷰 */}
+                      <div className="hidden md:flex flex-col">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-bold text-[#404b5c] tracking-tight">{item.label}</span>
+                          <span className="text-[13px] text-gray-400 tracking-tight">{item.desc}</span>
+                        </div>
+                        <span className="text-gray-600 font-medium tracking-tight whitespace-pre-wrap">{item.time}</span>
+                      </div>
                     </li>
                 ))}
               </ul>
