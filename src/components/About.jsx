@@ -577,7 +577,7 @@ function LocationPage() {
           const options = { center: coords, level: 3 };
           const map = new window.kakao.maps.Map(mapRef.current, options);
           const marker = new window.kakao.maps.Marker({ map: map, position: coords });
-          const content = `<div style="padding:5px 10px; border-radius:8px; background:white; font-size:14px; font-weight:bold; color:#cc0000; border:1px solid #ddd; box-shadow:0 2px 4px rgba(0,0,0,0.1);">평화교회</div>`;
+          const content = `<div style="padding:5px 10px; border-radius:8px; background:white; font-size:14px; font-weight:bold; color:#0369A1; border:1px solid #ddd; box-shadow:0 2px 4px rgba(0,0,0,0.1);">나음재활의학과의원</div>`;
           const customOverlay = new window.kakao.maps.CustomOverlay({
               position: coords,
               content: content,
@@ -588,7 +588,7 @@ function LocationPage() {
 
         if (window.kakao.maps.services) {
           const geocoder = new window.kakao.maps.services.Geocoder();
-          geocoder.addressSearch('서울 중랑구 봉화산로 120', function(result, status) {
+          geocoder.addressSearch('경기도 안양시 만안구 안양로 249', function(result, status) {
             if (status === window.kakao.maps.services.Status.OK) {
               const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
               renderMap(coords);
@@ -631,31 +631,23 @@ function LocationPage() {
       {/* ── Bottom: Location Info ── */}
       <div style={{ borderTop: '2px solid #333' }}>
         
+        {/* 주소 */}
+        <div style={{ display: 'flex', padding: '32px 0', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ width: '140px', fontSize: '16px', fontWeight: 'bold', color: '#111', flexShrink: 0 }}>주소</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '16px', color: '#333', marginBottom: '6px' }}>경기도 안양시 만안구 안양로 249</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>안양디오르나인 2BL 302호 (안양동)</div>
+          </div>
+        </div>
+
         {/* 연락처 */}
         <div style={{ display: 'flex', padding: '32px 0', borderBottom: '1px solid #e5e7eb' }}>
           <div style={{ width: '140px', fontSize: '16px', fontWeight: 'bold', color: '#111', flexShrink: 0 }}>연락처</div>
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', marginBottom: '16px' }}>
               <div style={{ width: '80px', fontSize: '15px', fontWeight: '600', color: '#444' }}>전화번호</div>
-              <div style={{ fontSize: '15px', color: '#333' }}>02-123-4567</div>
+              <div style={{ fontSize: '15px', color: '#333' }}>031-445-7502</div>
             </div>
-            <div style={{ display: 'flex', marginBottom: '16px' }}>
-              <div style={{ width: '80px', fontSize: '15px', fontWeight: '600', color: '#444' }}>팩스</div>
-              <div style={{ fontSize: '15px', color: '#333' }}>02-123-4568</div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <div style={{ width: '80px', fontSize: '15px', fontWeight: '600', color: '#444' }}>이메일</div>
-              <div style={{ fontSize: '15px', color: '#333' }}>peacechurch@example.com</div>
-            </div>
-          </div>
-        </div>
-
-        {/* 주소 */}
-        <div style={{ display: 'flex', padding: '32px 0', borderBottom: '1px solid #e5e7eb' }}>
-          <div style={{ width: '140px', fontSize: '16px', fontWeight: 'bold', color: '#111', flexShrink: 0 }}>주소</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '16px', color: '#333', marginBottom: '6px' }}>서울 중랑구 봉화산로 120</div>
-            <div style={{ fontSize: '14px', color: '#666' }}>(지번: 서울 중랑구 신내동 613)</div>
           </div>
         </div>
         
@@ -665,14 +657,7 @@ function LocationPage() {
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', marginBottom: '16px' }}>
               <div style={{ width: '80px', fontSize: '15px', fontWeight: '600', color: '#444' }}>지하철</div>
-              <div style={{ fontSize: '15px', color: '#555' }}>1호선 평화역 3번 출구에서 도보 5분</div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <div style={{ width: '80px', fontSize: '15px', fontWeight: '600', color: '#444' }}>버스</div>
-              <div style={{ fontSize: '15px', color: '#555', lineHeight: 1.6 }}>
-                간선: 100, 200, 300<br />
-                지선: 1011, 2022
-              </div>
+              <div style={{ fontSize: '15px', color: '#555' }}>1호선 안양역 하차 후 도보 또는 버스 환승</div>
             </div>
           </div>
         </div>
@@ -681,8 +666,8 @@ function LocationPage() {
         <div style={{ display: 'flex', padding: '32px 0', borderBottom: '1px solid #e5e7eb' }}>
           <div style={{ width: '140px', fontSize: '16px', fontWeight: 'bold', color: '#111', flexShrink: 0 }}>주차 안내</div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '16px', color: '#333', marginBottom: '6px' }}>교회 본관 지하 주차장 이용 가능 (무료)</div>
-            <div style={{ fontSize: '14px', color: '#666' }}>주일에는 혼잡할 수 있으니 대중교통 이용을 권장합니다.</div>
+            <div style={{ fontSize: '16px', color: '#333', marginBottom: '6px' }}>안양디오르나인 건물 지하 주차장 이용 가능</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>진료 후 데스크에서 주차 등록을 도와드립니다.</div>
           </div>
         </div>
         
