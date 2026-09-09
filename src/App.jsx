@@ -119,7 +119,7 @@ function Navbar({ isLoggedIn }) {
                   <span className="text-gray-600 font-medium">13:00 - 14:00</span>
                 </li>
               </ul>
-              <div className="mt-5 text-[12px] font-medium text-gray-400 bg-gray-50 rounded-md py-2.5 px-3 text-center border border-gray-100">
+              <div className="mt-5 mr-6 text-[12px] font-medium text-gray-400 bg-gray-50 rounded-md py-2.5 px-3 text-center border border-gray-100">
                 토요일 점심시간 없음 / 일·공휴일 휴진
               </div>
             </div>
