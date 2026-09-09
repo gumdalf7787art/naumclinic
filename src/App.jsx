@@ -1077,8 +1077,29 @@ function Location() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="w-full lg:w-[40%] flex flex-col justify-center"
           >
-            <div className="h-full flex flex-col justify-center space-y-8 py-4 pl-4 md:pl-8 lg:pl-12">
+            <div className="h-full flex flex-col justify-center space-y-7 py-4 pl-4 md:pl-8 lg:pl-12">
               
+              {/* 전화번호 (크게 강조) */}
+              <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '10px', textAlign: 'left', alignItems: 'center' }}>
+                <h3 className="text-[16px] md:text-[17px] font-bold text-[#404b5c]">상담/예약</h3>
+                <div className="text-[26px] md:text-[32px] font-extrabold text-[#0369A1] tracking-tight">
+                  {C.LOCATION_SECTION.phone}
+                </div>
+              </div>
+
+              <div className="h-[1px] bg-gray-200/80 w-full"></div>
+
+              {/* 진료시간 */}
+              <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '10px', textAlign: 'left', alignItems: 'start' }}>
+                <h3 className="text-[16px] md:text-[17px] font-bold text-[#404b5c] pt-0.5">진료시간</h3>
+                <div className="text-[15px] md:text-[16px] text-[#404b5c] font-medium break-keep">
+                  {C.LOCATION_SECTION.time}
+                </div>
+              </div>
+
+              <div className="h-[1px] bg-gray-200/80 w-full"></div>
+              
+              {/* 주소 */}
               <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '10px', textAlign: 'left', alignItems: 'start' }}>
                 <h3 className="text-[16px] md:text-[17px] font-bold text-[#404b5c] pt-0.5">주소</h3>
                 <div className="text-[15px] md:text-[16px] text-[#404b5c] break-keep leading-relaxed font-medium">
@@ -1156,7 +1177,7 @@ function Footer() {
               <p>{footer.address}</p>
               <div className="pt-3 flex flex-col md:flex-row md:justify-end gap-2 md:gap-6">
                 {footer.phone && <span>Tel: <strong className="text-white font-medium tracking-wider">{footer.phone}</strong></span>}
-                {footer.fax && <span>Fax: <strong className="text-white font-medium tracking-wider">{footer.fax}</strong></span>}
+                {footer.time && <span>Time: <strong className="text-white font-medium tracking-wider">{footer.time}</strong></span>}
                 {footer.email && <span>Email: <strong className="text-white font-medium">{footer.email}</strong></span>}
               </div>
             </div>

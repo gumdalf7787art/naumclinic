@@ -4230,6 +4230,52 @@ export function FacilityGalleryBlock({ data, isEditMode, onChange }) {
 // -------------------------------------------------------------
 export function LocationBlock({ data, onChange }) {
   const { title, desc, address, phone, mapPlaceholder, transport } = data;
+  const mapRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const initMap = () => {
+      if (!window.kakao || !window.kakao.maps) {
+        return;
+      }
+      
+      window.kakao.maps.load(() => {
+        const fallbackCoords = new window.kakao.maps.LatLng(37.4000, 126.9200); // 안양시청 근처 임시좌표
+        
+        const renderMap = (coords) => {
+          const options = { center: coords, level: 3 };
+          const map = new window.kakao.maps.Map(mapRef.current, options);
+          const marker = new window.kakao.maps.Marker({ map: map, position: coords });
+          const content = `<div style="padding:5px 10px; border-radius:8px; background:white; font-size:14px; font-weight:bold; color:#0369A1; border:1px solid #ddd; box-shadow:0 2px 4px rgba(0,0,0,0.1);">나음재활의학과의원</div>`;
+          const customOverlay = new window.kakao.maps.CustomOverlay({
+              position: coords,
+              content: content,
+              yAnchor: 2.3
+          });
+          customOverlay.setMap(map);
+        };
+
+        if (window.kakao.maps.services) {
+          const geocoder = new window.kakao.maps.services.Geocoder();
+          geocoder.addressSearch('경기도 안양시 만안구 안양로 249', function(result, status) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+              renderMap(coords);
+            } else {
+              renderMap(fallbackCoords);
+            }
+          });
+        } else {
+          renderMap(fallbackCoords);
+        }
+      });
+    };
+
+    const timer = setTimeout(() => {
+      initMap();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="w-full py-16 md:py-24 bg-white">
@@ -4242,12 +4288,9 @@ export function LocationBlock({ data, onChange }) {
           <p className="text-[15px] md:text-[16px] text-gray-500 font-medium break-keep">{desc}</p>
         </div>
 
-        {/* Map Placeholder */}
-        <div className="w-full h-[350px] md:h-[450px] bg-[#f8f9fa] rounded-2xl border border-gray-200 flex flex-col items-center justify-center mb-12 shadow-inner relative overflow-hidden group">
-          <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-          <MapPin size={48} className="text-[#0369A1] mb-4 opacity-50 group-hover:scale-110 transition-transform duration-500" />
-          <h3 className="text-[18px] md:text-[22px] font-bold text-gray-700 z-10">{mapPlaceholder || '지도 영역 (추후 연동)'}</h3>
-          <p className="text-[14px] text-gray-400 mt-2 z-10">이곳에 카카오맵 또는 네이버지도가 연동될 예정입니다.</p>
+        {/* Map Container */}
+        <div className="w-full h-[350px] md:h-[450px] bg-[#eef1f5] rounded-2xl border border-gray-200 flex flex-col items-center justify-center mb-12 shadow-inner relative overflow-hidden group">
+          <div ref={mapRef} className="w-full h-full"></div>
         </div>
 
         {/* Info Grid */}

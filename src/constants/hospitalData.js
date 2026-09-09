@@ -164,16 +164,18 @@ export const GALLERY_SECTION = {
 export const LOCATION_SECTION = {
   tag: 'LOCATION',
   title: '오시는 길',
-  address: '서울 중랑구 봉화산로 120',
-  addressSub: '(지번: 서울 중랑구 신내동 613)',
+  address: '경기도 안양시 만안구 안양로 249',
+  addressSub: '안양디오르나인 2BL 302호 (안양동)',
+  phone: '031-445-7502',
+  time: '평일 08:50 ~ 18:00 (점심시간 13:00 ~ 14:00)',
   transport: {
-    subway: { title: '지하철', desc: '1호선 평화역 3번 출구에서 도보 5분' },
-    bus: { title: '버스', desc: '간선: 100, 200, 300\n지선: 1011, 2022' }
+    subway: { title: '지하철', desc: '1호선 안양역 하차 후 도보 또는 버스 환승' },
+    bus: { title: '버스', desc: '간선: 일반버스 다수 운행\n안양역에서 승차 시 약 5~10분 소요' }
   },
   parking: {
     title: '주차 안내',
-    desc: '병원 건물 지하 주차장 이용 가능 (진료 시 무료)',
-    sub: '주차장이 혼잡할 수 있으니 가급적 대중교통 이용을 권장합니다.'
+    desc: '안양디오르나인 건물 지하 주차장 이용 가능',
+    sub: '진료 후 데스크에서 주차 등록을 도와드립니다.'
   }
 };
 
@@ -182,9 +184,9 @@ export const FOOTER_SECTION = {
   description: '환자 중심의 맞춤형 진료를 약속합니다.\n최상의 의료 서비스로 보답하는 나음재활의학과의원이 되겠습니다.',
   clinicName: '나음재활의학과의원',
   repName: '나음',
-  address: '서울 중랑구 봉화산로 120',
-  phone: '02-000-0000',
-  fax: '02-000-0001',
+  address: '경기도 안양시 만안구 안양로 249, 안양디오르나인 2BL 302호 (안양동)',
+  phone: '031-445-7502',
+  time: '평일 08:50 ~ 18:00 (점심시간 13:00 ~ 14:00)',
   email: 'contact@naeumclinic.com',
   copyright: 'Copyright © 2026 Naeum Clinic. All rights reserved.',
   links: [
