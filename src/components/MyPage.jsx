@@ -133,8 +133,8 @@ export default function MyPage({ setIsLoggedIn }) {
         {/* Logo & Back */}
         <div className="h-[70px] flex items-center px-6 border-b border-black/5 justify-between">
           <div className="flex items-center cursor-pointer" onClick={() => handleNavigation(() => navigate('/'))}>
-            <img src="/logo.jpg" alt="평화교회 로고" className="w-7 h-7 object-cover rounded-lg mr-2 shadow-sm border border-black/5" />
-            <span className="font-display font-bold text-[16px] text-black tracking-tight">평화교회</span>
+            <img src="/logo-mark.png" alt="나음재활의학과 로고" className="w-auto h-7 object-contain mr-2" />
+            <span className="font-extrabold text-[16px] text-[#0369A1] tracking-tight">나음재활의학과의원</span>
           </div>
         </div>
 
