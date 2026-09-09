@@ -1,7 +1,89 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Mail, Lock, CheckCircle2, XCircle } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Mail, Lock, CheckCircle2, XCircle, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+// 비밀번호 찾기 모달 - document.body에 직접 포탈로 렌더링
+function FindPasswordModal({ onClose }) {
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+    } catch {}
+    finally {
+      setSent(true);
+      setLoading(false);
+    }
+  };
+
+  return createPortal(
+    <AnimatePresence>
+      <motion.div
+        key="backdrop"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        onClick={onClose}
+        style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 99998,
+        }}
+      />
+      <motion.div
+        key="modal"
+        initial={{ opacity: 0, scale: 0.93, y: 24 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.93, y: 24 }}
+        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: 'fixed', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 99999, width: '100%', maxWidth: '440px', padding: '0 16px',
+        }}
+      >
+        <div style={{ background: '#fff', borderRadius: '20px', padding: '36px 32px', boxShadow: '0 25px 60px rgba(0,0,0,0.18)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#111' }}>비밀번호 찾기</h3>
+            <button onClick={onClose} style={{ padding: '4px', borderRadius: '8px', border: 'none', background: 'transparent', cursor: 'pointer' }}>
+              <X size={20} color="#6b7280" />
+            </button>
+          </div>
+          {sent ? (
+            <div style={{ textAlign: 'center', padding: '16px 0' }}>
+              <CheckCircle2 size={52} color="#0284c7" style={{ margin: '0 auto 16px' }} />
+              <p style={{ fontWeight: 700, fontSize: '16px', color: '#111', marginBottom: '8px' }}>이메일을 발송했습니다</p>
+              <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.7 }}>{email}으로<br />비밀번호 재설정 링크를 보내드렸습니다.<br />메일함을 확인해 주세요.</p>
+              <button onClick={onClose} style={{ marginTop: '24px', width: '100%', padding: '14px', background: '#0284c7', color: '#fff', fontWeight: 700, fontSize: '15px', borderRadius: '12px', border: 'none', cursor: 'pointer' }}>확인</button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '20px', lineHeight: 1.7 }}>가입하신 이메일 주소를 입력하시면<br />비밀번호 재설정 링크를 보내드립니다.</p>
+              <div style={{ position: 'relative', marginBottom: '16px' }}>
+                <Mail size={17} color="#9ca3af" style={{ position: 'absolute', top: '50%', left: '14px', transform: 'translateY(-50%)' }} />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="example@email.com" required
+                  style={{ width: '100%', paddingLeft: '42px', paddingRight: '16px', paddingTop: '14px', paddingBottom: '14px', background: '#f9fafb', border: '1.5px solid #e5e7eb', borderRadius: '12px', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+              <button type="submit" disabled={loading}
+                style={{ width: '100%', padding: '14px', background: loading ? '#9ca3af' : '#0284c7', color: '#fff', fontWeight: 700, fontSize: '15px', borderRadius: '12px', border: 'none', cursor: 'pointer' }}>
+                {loading ? '전송 중...' : '재설정 링크 보내기'}
+              </button>
+            </form>
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>,
+    document.body
+  );
+}
 
 export default function SignUp({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -13,6 +95,7 @@ export default function SignUp({ setIsLoggedIn }) {
     passwordConfirm: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showFindPw, setShowFindPw] = useState(false);
 
   const [errors, setErrors] = useState({
     email: '',
@@ -135,8 +218,11 @@ export default function SignUp({ setIsLoggedIn }) {
   return (
     <div className="min-h-screen bg-[#fafafc] flex flex-col justify-center items-center py-12 px-4 relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#5227FF]/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#FF9FFC]/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#5227FF]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#FF9FFC]/5 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* 비밀번호 찾기 모달 포탈 */}
+      {showFindPw && <FindPasswordModal onClose={() => setShowFindPw(false)} />}
 
       {/* Back Button */}
       <button 
@@ -313,7 +399,11 @@ export default function SignUp({ setIsLoggedIn }) {
             이미 계정이 있으신가요? <button onClick={() => navigate('/login')} className="text-black font-semibold underline underline-offset-2 hover:text-primary transition-colors">로그인하기</button>
           </p>
           <div className="flex justify-center items-center text-[12px] text-gray-400">
-            <button className="hover:text-black transition-colors underline underline-offset-4 decoration-gray-200">비밀번호 찾기</button>
+            <button
+              onClick={() => setShowFindPw(true)}
+              className="text-[#0284c7] hover:text-[#0369a1] transition-colors underline underline-offset-4 font-medium">
+              비밀번호 찾기
+            </button>
           </div>
         </div>
       </motion.div>
