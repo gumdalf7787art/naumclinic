@@ -4,7 +4,7 @@ import { Menu, X, Search, ShoppingBag, Clock } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useCMSData } from '../hooks/useCMS';
 import * as C from '../constants/hospitalData';
-function Navbar({ isLoggedIn }) {
+function Navbar({ isLoggedIn, isOnePage, isFullPage, forceSolid }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { scrollY } = useScroll();
@@ -20,7 +20,7 @@ function Navbar({ isLoggedIn }) {
     setIsScrolled(latest > 50);
   });
 
-  const isTransparent = !isScrolled && !isHeaderHovered && !isMenuHovered;
+  const isTransparent = (pathname === '/' || isOnePage || isFullPage) && !isScrolled && !isHeaderHovered && !isMenuHovered && !forceSolid;
 
   const defaultHospitalMenus = C.HOSPITAL_MENUS;
 
