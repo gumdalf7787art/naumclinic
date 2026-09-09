@@ -1,0 +1,280 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, Search, ShoppingBag, Clock } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useCMSData } from '../hooks/useCMS';
+import * as C from '../constants/hospitalData';
+function Navbar({ isLoggedIn }) {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [userProfile, setUserProfile] = useState({ name: '고객' });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [dynamicMenus, setDynamicMenus] = useState([]);
+
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
+
+  const isTransparent = !isScrolled && !isHeaderHovered && !isMenuHovered;
+
+  const defaultHospitalMenus = C.HOSPITAL_MENUS;
+
+  useEffect(() => {
+    fetch('/api/menus')
+      .then(res => {
+        if (!res.ok) throw new Error('API fetch failed');
+        return res.json();
+      })
+      .then(data => {
+        // Only active menus
+        const filterActive = (list) => list.filter(m => m.is_active !== 0).map(m => ({
+          ...m,
+          children: m.children ? filterActive(m.children) : []
+        }));
+        setDynamicMenus(filterActive(data));
+      })
+      .catch((err) => {
+        console.log('Using default menus due to:', err.message);
+        setDynamicMenus(defaultHospitalMenus);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const saved = localStorage.getItem('userProfile');
+      if (saved) {
+        setUserProfile(JSON.parse(saved));
+      }
+    }
+  }, [isLoggedIn]);
+
+  return (
+    <>
+      <header 
+        className={`z-50 flex justify-center w-full transition-colors duration-300 fixed top-0 left-0 ${isTransparent ? 'bg-transparent border-b border-white/30' : 'bg-white/90 backdrop-blur-xl border-b border-gray-200/50 shadow-sm'}`}
+        onMouseEnter={() => setIsHeaderHovered(true)}
+        onMouseLeave={() => setIsHeaderHovered(false)}
+      >
+        <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-8 h-[72px]">
+          {/* Mega Menu Background */}
+          <div 
+            className={`fixed top-[72px] left-0 w-full bg-white/95 backdrop-blur-xl shadow-xl transition-all duration-300 ease-in-out border-t border-gray-200/50 overflow-hidden ${isMenuHovered ? 'h-[320px] opacity-100 visible' : 'h-0 opacity-0 invisible border-t-0'}`}
+            onMouseEnter={() => setIsMenuHovered(true)}
+            onMouseLeave={() => setIsMenuHovered(false)}
+          >
+            <div className="w-full max-w-7xl mx-auto px-8 h-full flex">
+              {/* Left Info Block (Clinic Hours) - Underneath the logo */}
+              <div className={`w-[280px] h-full pt-10 pb-8 border-r border-gray-100 pr-8 transition-all duration-500 delay-100 ${isMenuHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h4 className="text-[#0369A1] font-bold mb-4 flex items-center tracking-tight text-[15px]">
+                  <Clock size={16} className="mr-2" />
+                  진료 시간 안내
+                </h4>
+                <ul className="space-y-2.5 text-[13px] text-gray-600 pr-6">
+                  <li className="flex justify-between items-center">
+                    <span className="font-medium text-gray-500">평일</span>
+                    <span className="font-bold text-gray-800">09:00 - 19:00</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="font-medium text-[#0369A1]">수·금 (야간진료)</span>
+                    <span className="font-bold text-[#0369A1]">09:00 - 20:00</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="font-medium text-gray-500">토요일</span>
+                    <span className="font-bold text-gray-800">09:00 - 14:00</span>
+                  </li>
+                  <li className="flex justify-between items-center pt-2.5 mt-2.5 border-t border-gray-100/70">
+                    <span className="font-medium text-gray-500">점심시간</span>
+                    <span className="text-gray-600 font-medium">13:00 - 14:00</span>
+                  </li>
+                </ul>
+                <div className="mt-5 mr-6 text-[12px] font-medium text-gray-400 bg-gray-50 rounded-md py-2.5 px-3 text-center border border-gray-100">
+                  토요일 점심시간 없음 / 일·공휴일 휴진
+                </div>
+              </div>
+              
+              {/* Right side is intentionally left blank because the sub-menus from nav will overlay perfectly on top of it */}
+            </div>
+          </div>
+
+          {/* Logo */}
+          <Link 
+            to="/"
+            className="flex items-center cursor-pointer gap-2"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            <div className="flex items-center justify-center">
+              <img src="/logo-mark.png" alt="나음재활의학과" className="h-8 w-auto object-contain" />
+            </div>
+            <span className={`font-extrabold text-[20px] tracking-tight transition-colors z-10 ${isTransparent ? 'text-white' : 'text-[#0369A1]'}`}>나음재활의학과의원</span>
+          </Link>
+          
+          {/* Links */}
+          <div 
+            className={`hidden md:flex items-center h-full space-x-10 text-[16px] font-semibold transition-colors z-10 ${isTransparent ? 'text-white/90' : 'text-[#404b5c]'}`}
+            onMouseEnter={() => setIsMenuHovered(true)}
+            onMouseLeave={() => setIsMenuHovered(false)}
+          >
+            {/* Main Menus */}
+            {dynamicMenus.length > 0 ? dynamicMenus.map((menu) => (
+              <div key={menu.id} className="relative h-full flex items-center">
+                <Link to={menu.path || '#'} className={`transition-colors py-4 px-2 h-full flex items-center relative ${isTransparent ? 'hover:text-white' : 'hover:text-[#0369A1]'}`}>
+                  {menu.name}
+                </Link>
+                
+                {/* Sub Menu Column */}
+                <div className={`absolute top-[72px] left-2 w-[200px] pt-8 pb-8 transition-all duration-300 ease-in-out ${isMenuHovered ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+                  {menu.children && menu.children.length > 0 && (
+                    <div className="flex flex-col space-y-4">
+                      {menu.children.map(child => (
+                        <Link key={child.id} to={child.path || '#'} className="text-[14px] text-gray-600 font-medium hover:text-[#0284C7] transition-colors flex items-center group/item">
+                          <span className="w-1 h-1 rounded-full bg-gray-300 mr-2.5 group-hover/item:bg-[#0284C7] group-hover/item:scale-125 transition-all"></span>
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )) : (
+              <div className="animate-pulse w-48 h-6 bg-gray-100 rounded-md"></div>
+            )}
+          </div>
+
+          {/* Buttons */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {isLoggedIn ? (
+              <button 
+                onClick={() => navigate('/mypage')}
+                className={`flex items-center space-x-2 py-1.5 px-3 rounded-full transition-colors ${isTransparent ? 'bg-white/10 hover:bg-white/20 border border-white/20' : 'bg-gray-100 hover:bg-gray-200'}`}
+              >
+                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#5227FF] to-[#FF9FFC] p-[1.5px]">
+                  <div className="w-full h-full bg-white rounded-full border border-white flex items-center justify-center text-gray-500 font-bold text-[10px]">
+                    {userProfile.name.charAt(0)}
+                  </div>
+                </div>
+                <span className={`text-[13px] font-bold hidden sm:block ${isTransparent ? 'text-white' : 'text-[#404b5c]'}`}>내 정보</span>
+              </button>
+            ) : (
+              <>
+                {/* 데스크탑 로그인 버튼 */}
+                <button
+                  onClick={() => navigate('/login')}
+                  className={`text-[15px] font-semibold transition-all duration-200 hidden sm:block cursor-pointer ${
+                    isTransparent
+                      ? 'text-white/90 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]'
+                      : 'text-[#404b5c] hover:text-[#0284c7]'
+                  }`}
+                >
+                  로그인
+                </button>
+                {/* 데스크탑 회원가입 버튼 */}
+                <button
+                  onClick={() => navigate('/signup')}
+                  className={`!py-2 !px-5 !rounded-lg text-[14px] font-bold shadow-sm transition-all duration-200 cursor-pointer ${
+                    isTransparent
+                      ? 'bg-white/15 border border-white/40 text-white hover:bg-white/35 hover:border-white/60'
+                      : 'bg-[#0284c7] border border-[#0284c7] text-white hover:bg-[#0369a1] hover:border-[#0369a1] hover:shadow-md'
+                  }`}
+                >
+                  회원가입
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className={`lg:hidden p-2 transition-colors ${isTransparent ? 'text-white' : 'text-[#404b5c]'}`}
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Toggle menu"
+          >
+            <Menu size={28} />
+          </button>
+        </nav>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 z-[100] lg:hidden"
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="fixed top-0 right-0 h-full w-[80%] max-w-[320px] bg-white z-[110] shadow-2xl flex flex-col lg:hidden"
+            >
+              <div className="flex justify-between items-center p-4 border-b border-gray-100">
+                <span className="font-bold text-lg">전체메뉴</span>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500 hover:text-[#404b5c]">
+                  <X size={24} />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto py-5 px-5 space-y-5">
+                {/* Mobile Auth Buttons */}
+                <div className="flex flex-col space-y-2 border-b border-gray-100 pb-4">
+                  {isLoggedIn ? (
+                    <button 
+                      onClick={() => { setIsMobileMenuOpen(false); navigate('/mypage'); }}
+                      className="w-full py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-center font-bold text-[#404b5c] text-[14px] transition-colors"
+                    >
+                      내 정보 ({userProfile.name})
+                    </button>
+                  ) : (
+                    <>
+                    {/* 모바일 로그인 버튼 */}
+                    <button
+                      onClick={() => { setIsMobileMenuOpen(false); navigate('/login'); }}
+                      className="w-full py-2.5 bg-white border-2 border-[#0284c7] hover:bg-[#0284c7] hover:text-white rounded-lg text-center font-bold text-[#0284c7] text-[14px] transition-all duration-200 cursor-pointer"
+                    >
+                      로그인
+                    </button>
+                    {/* 모바일 회원가입 버튼 */}
+                    <button
+                      onClick={() => { setIsMobileMenuOpen(false); navigate('/signup'); }}
+                      className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-lg text-center font-bold text-[14px] transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+                    >
+                      회원가입
+                    </button>
+                  </>
+                  )}
+                </div>
+                
+                {dynamicMenus.length > 0 ? dynamicMenus.map(menu => (
+                  <div key={menu.id}>
+                    <h3 className="text-[#0284C7] text-[13px] font-bold mb-2 uppercase tracking-wider">{menu.name}</h3>
+                    {menu.children && menu.children.length > 0 && (
+                      <div className="grid grid-cols-2 gap-y-2.5 pl-1">
+                        {menu.children.map(child => (
+                          <Link key={child.id} to={child.path || '#'} onClick={() => setIsMobileMenuOpen(false)} className="text-[#404b5c] font-medium text-[14px]">
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )) : (
+                  <div className="flex justify-center py-4 text-sm text-gray-400">메뉴를 불러오는 중입니다...</div>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+export default Navbar;
