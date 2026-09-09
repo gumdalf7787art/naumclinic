@@ -58,35 +58,35 @@ export default function FullPageTemplate({ isLoggedIn }) {
         
         {/* Section 1: QuickMenu */}
         <section className="h-screen w-full relative bg-[#f5f5f7]">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12 lg:[&>section]:!py-16 [&>section]:overflow-hidden">
+          <div className="w-full h-full flex flex-col justify-center pt-[72px] [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12 lg:[&>section]:!py-16 [&>section]:overflow-hidden">
             <QuickMenu isFullPage={true} />
           </div>
         </section>
         
         {/* Section 2: ClinicHours */}
         <section className="h-screen w-full relative bg-white">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
+          <div className="w-full h-full flex flex-col justify-center pt-[72px] [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
             <ClinicHours />
           </div>
         </section>
 
         {/* Section 3: ThreePrinciples */}
         <section className="h-screen w-full relative">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!min-h-0 [&>section]:!py-8 md:[&>section]:!py-12">
+          <div className="w-full h-full flex flex-col justify-center pt-[72px] [&>section]:!h-full [&>section]:!min-h-0 [&>section]:!py-8 md:[&>section]:!py-12">
             <ThreePrinciples />
           </div>
         </section>
 
         {/* Section 4: MedicalVideos */}
         <section className="h-screen w-full relative bg-gray-50/50">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
+          <div className="w-full h-full flex flex-col justify-center pt-[72px] [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
             <MedicalVideos />
           </div>
         </section>
 
         {/* Section 5: Location */}
         <section className="h-screen w-full relative bg-white">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
+          <div className="w-full h-full flex flex-col justify-center pt-[72px] [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12">
             <Location />
           </div>
         </section>
