@@ -304,23 +304,20 @@ function HomeVideoModal({ video, onClose }) {
   );
 }
 
-function MedicalVideos() {
+function MedicalVideos({ isFullPage = false }) {
+  const [selectedVideo, setSelectedVideo] = React.useState(null);
   const [videos, setVideos] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const [selectedVideo, setSelectedVideo] = React.useState(null);
 
   React.useEffect(() => {
     const API_KEY = 'AIzaSyB9KDwffH02W8tbqTA4PusVKr8QruVZ08o';
     const playlistId = 'UUdXw-_i5MesRrzKbd4pTs_A';
-    // fetch 30 to filter shorts
     
-    // Fetch more items initially to account for filtered out Shorts
     fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`)
       .then(res => res.json())
       .then(async data => {
         if (data.items) {
           const videoIds = data.items.map(item => item.snippet.resourceId.videoId).join(',');
-          // Fetch duration details
           const durationRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds}&key=${API_KEY}`);
           const durationData = await durationRes.json();
           
@@ -342,7 +339,6 @@ function MedicalVideos() {
                 const seconds = parseInt(match[3] || '0', 10);
                 totalSeconds = hours * 3600 + minutes * 60 + seconds;
               }
-              // Show only videos that are 3 minutes (180 seconds) or longer
               return totalSeconds >= 180;
             })
             .map(item => {
@@ -358,7 +354,6 @@ function MedicalVideos() {
               };
             });
             
-          // Take exactly 9 videos (1 latest, 8 recent)
           setVideos(formattedVideos.slice(0, 9));
         }
         setLoading(false);
@@ -370,7 +365,7 @@ function MedicalVideos() {
   }, []);
 
   const latestVideo = videos.length > 0 ? videos[0] : null;
-  const recentVideos = videos.length > 1 ? videos.slice(1) : [];
+  const recentVideos = videos.slice(1, isFullPage ? 7 : 5);
 
   return (
     <section 
@@ -378,7 +373,6 @@ function MedicalVideos() {
       className="text-white relative py-24 md:py-32 px-4 bg-fixed bg-center bg-cover bg-no-repeat"
       style={{ backgroundImage: `url("${C.MEDIA_SECTION.bgImage}")` }}
     >
-      {/* High-end Subtle Divider */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent z-10"></div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-[0_0_20px_rgba(255,255,255,0.4)] z-10"></div>
 
@@ -388,7 +382,7 @@ function MedicalVideos() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-center mb-16 md:mb-24"
+          className={`text-center ${isFullPage ? 'mb-8 md:mb-12' : 'mb-16 md:mb-24'}`}
         >
           <h2 className="text-[36px] md:text-[48px] font-bold tracking-tight leading-[1.2]">
             {C.MEDIA_SECTION.title}
@@ -397,9 +391,68 @@ function MedicalVideos() {
 
         {loading ? (
           <div style={{ textAlign: 'center', padding: '100px 0', color: '#ccc', fontSize: '18px' }}>영상을 불러오는 중입니다...</div>
+        ) : isFullPage ? (
+          <div className="flex flex-col md:flex-row gap-6 lg:gap-12 items-center justify-center w-full max-w-6xl mx-auto px-4">
+            <div className="w-full md:w-[55%] flex flex-col items-center">
+              {latestVideo && (
+                <div className="w-full relative pb-[56.25%] rounded-2xl overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] mb-4 border border-white/10 bg-gray-900">
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${latestVideo.videoId}`} 
+                    title={latestVideo.title}
+                    className="absolute top-0 left-0 w-full h-full border-none"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
+              <div className="text-center w-full">
+                 <span className="inline-block px-3 py-1 bg-[#0284C7] text-white text-[11px] font-bold rounded-full mb-2">최신 영상</span>
+                 <h3 className="text-[17px] md:text-[20px] font-bold text-white mb-1 leading-tight line-clamp-1">{latestVideo?.title}</h3>
+              </div>
+              
+              <div className="mt-6 text-center hidden md:block">
+                <a href={C.MEDIA_SECTION.youtubeLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center space-x-2 border border-white/20 rounded-full px-6 py-2.5 text-white hover:bg-white/10 transition-colors">
+                  <PlayCircle className="w-5 h-5 text-[#0284C7]" />
+                  <span className="font-medium text-[14px]">{C.MEDIA_SECTION.youtubeText}</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="w-full md:w-[45%] flex flex-col">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                {recentVideos.map((video, idx) => (
+                  <motion.div
+                    onClick={() => setSelectedVideo(video)}
+                    key={video.id}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "0px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
+                    className="group flex flex-col cursor-pointer"
+                  >
+                    <div className="w-full aspect-video rounded-xl overflow-hidden relative mb-2 bg-gray-900 border border-white/5">
+                      <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <PlayCircle className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                    </div>
+                    <h4 className="text-[12px] md:text-[13px] font-bold text-white line-clamp-2 group-hover:text-[#0284C7] transition-colors leading-snug">
+                      {video.title}
+                    </h4>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="mt-6 text-center md:hidden">
+                <a href={C.MEDIA_SECTION.youtubeLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center space-x-2 border border-white/20 rounded-full px-6 py-2.5 text-white hover:bg-white/10 transition-colors">
+                  <PlayCircle className="w-4 h-4 text-[#0284C7]" />
+                  <span className="font-medium text-[13px]">{C.MEDIA_SECTION.youtubeText}</span>
+                </a>
+              </div>
+            </div>
+          </div>
         ) : (
           <>
-            {/* Latest Video - Large */}
             {latestVideo && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -427,7 +480,6 @@ function MedicalVideos() {
               </motion.div>
             )}
 
-            {/* Recent Videos - Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               {recentVideos.map((video, idx) => (
                 <motion.div
@@ -452,15 +504,15 @@ function MedicalVideos() {
                 </motion.div>
               ))}
             </div>
+            
+            <div className="mt-16 text-center">
+              <a href={C.MEDIA_SECTION.youtubeLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center space-x-2 border border-white/20 rounded-full px-8 py-3 text-white hover:bg-white/10 transition-colors">
+                <PlayCircle className="w-5 h-5 text-[#0284C7]" />
+                <span className="font-medium text-[15px]">{C.MEDIA_SECTION.youtubeText}</span>
+              </a>
+            </div>
           </>
         )}
-        
-        <div className="mt-16 text-center">
-          <a href={C.MEDIA_SECTION.youtubeLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center space-x-2 border border-white/20 rounded-full px-8 py-3 text-white hover:bg-white/10 transition-colors">
-            <PlayCircle className="w-5 h-5 text-[#0284C7]" />
-            <span className="font-medium text-[15px]">{C.MEDIA_SECTION.youtubeText}</span>
-          </a>
-        </div>
       </div>
 
       <HomeVideoModal video={selectedVideo} onClose={() => setSelectedVideo(null)} />
