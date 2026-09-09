@@ -174,7 +174,7 @@ const ICONS = {
   Users: <Users />
 };
 
-function QuickMenu() {
+function QuickMenu({ isFullPage = false }) {
   const section = useCMSData('cms_quickSection', DEFAULT_QUICK_SECTION);
   const menus = useCMSData('cms_quickLinks', DEFAULT_QUICK_LINKS);
 
@@ -192,7 +192,7 @@ function QuickMenu() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-center mb-10 md:mb-16 flex flex-col items-center"
+          className={`text-center flex flex-col items-center ${isFullPage ? 'mb-4 md:mb-6' : 'mb-10 md:mb-16'}`}
         >
           {section.mottoYear && (
             <span className="text-[18px] md:text-[22px] font-semibold text-[#0284C7] mb-3 tracking-wide uppercase">{section.mottoYear}</span>
@@ -209,7 +209,7 @@ function QuickMenu() {
         </motion.div>
         
         {/* Welcome Line */}
-        {section.mottoSub && (
+        {!isFullPage && section.mottoSub && (
           <div className="flex items-center w-full max-w-5xl mb-12 sm:mb-16">
             <div className="flex-1 h-[1px] bg-gray-300 hidden sm:block"></div>
             <span className="px-4 sm:px-8 text-[16px] sm:text-[18px] md:text-[20px] font-semibold text-gray-600 tracking-wide text-center w-full sm:w-auto break-keep">
@@ -220,7 +220,7 @@ function QuickMenu() {
         )}
       
       {/* Quick Menus Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-10 w-full max-w-5xl mx-auto px-4">
+      <div className={`grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 w-full mx-auto px-4 ${isFullPage ? 'gap-2 sm:gap-4 max-w-4xl' : 'gap-3 sm:gap-10 max-w-5xl'}`}>
         {menus.map((menu, idx) => (
           <motion.div
               key={idx}
@@ -235,7 +235,7 @@ function QuickMenu() {
                 className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
           >
             {/* Top Image */}
-            <div className="w-full aspect-[16/9] overflow-hidden relative">
+            <div className={`w-full overflow-hidden relative ${isFullPage ? 'aspect-[2/1] sm:aspect-[16/7]' : 'aspect-[16/9]'}`}>
               <img 
                 src={menu.image || menu.bgImage} 
                 alt={menu.title || menu.name} 
@@ -246,17 +246,19 @@ function QuickMenu() {
             </div>
             
             {/* Bottom Text Content */}
-            <div className="py-2.5 px-3 sm:py-4 sm:px-5 flex flex-col flex-1 bg-white relative">
+            <div className={`flex flex-col flex-1 bg-white relative ${isFullPage ? 'py-2 px-3 sm:py-3 sm:px-4' : 'py-2.5 px-3 sm:py-4 sm:px-5'}`}>
               {(menu.tag || menu.icon) && (
-                <span className="inline-block text-[#0284C7] text-[10px] sm:text-[11px] font-bold tracking-wide mb-1.5 px-2 py-0.5 bg-[#0284C7]/10 rounded-full w-fit">
-                  {menu.tag || '진료안내'}
-                </span>
+                <div className={`text-[#0284C7] font-bold tracking-tight flex items-center ${isFullPage ? 'text-[11px] sm:text-[12px] mb-1' : 'text-[12px] sm:text-[13px] mb-1.5'}`}>
+                  <span className="inline-block text-[#0284C7] text-[10px] sm:text-[11px] font-bold tracking-wide mb-1.5 px-2 py-0.5 bg-[#0284C7]/10 rounded-full w-fit">
+                    {menu.tag || '진료안내'}
+                  </span>
+                </div>
               )}
-              <h3 className="text-[14px] sm:text-[17px] font-bold text-[#404b5c] tracking-tight leading-snug mb-1 group-hover:text-[#0369A1] transition-colors">
+              <h3 className={`font-bold text-[#404b5c] tracking-tight leading-tight group-hover:text-[#0284C7] transition-colors ${isFullPage ? 'text-[14px] sm:text-[16px] mb-0.5' : 'text-[16px] sm:text-[19px] mb-1.5'}`}>
                 {menu.title || menu.name}
               </h3>
               {(menu.subtitle || menu.sub) && (
-                <p className="text-[11px] sm:text-[13px] text-gray-500 leading-snug mb-2 line-clamp-2 break-keep flex-1">
+                <p className={`text-gray-500 font-medium leading-snug break-keep ${isFullPage ? 'text-[12px] sm:text-[13px] line-clamp-1' : 'text-[13px] sm:text-[14px] line-clamp-2 sm:line-clamp-none'}`}>
                   {menu.subtitle || menu.sub}
                 </p>
               )}

@@ -58,8 +58,8 @@ export default function FullPageTemplate({ isLoggedIn }) {
         
         {/* Section 1: QuickMenu */}
         <section className="h-screen w-full relative bg-[#f5f5f7]">
-          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12 lg:[&>section]:!py-20 [&>section]:overflow-hidden">
-            <QuickMenu />
+          <div className="w-full h-full flex flex-col justify-center [&>section]:!h-full [&>section]:!py-8 md:[&>section]:!py-12 lg:[&>section]:!py-16 [&>section]:overflow-hidden">
+            <QuickMenu isFullPage={true} />
           </div>
         </section>
         
