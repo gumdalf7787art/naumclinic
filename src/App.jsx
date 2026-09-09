@@ -101,7 +101,7 @@ function Navbar({ isLoggedIn }) {
                 <Clock size={16} className="mr-2" />
                 진료 시간 안내
               </h4>
-              <ul className="space-y-2.5 text-[13px] text-gray-600">
+              <ul className="space-y-2.5 text-[13px] text-gray-600 pr-6">
                 <li className="flex justify-between items-center">
                   <span className="font-medium text-gray-500">평일</span>
                   <span className="font-bold text-gray-800">09:00 - 19:00</span>
