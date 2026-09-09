@@ -188,15 +188,25 @@ function Navbar({ isLoggedIn }) {
             </button>
           ) : (
             <>
-              <button 
+              {/* 데스크탑 로그인 버튼 */}
+              <button
                 onClick={() => navigate('/login')}
-                className={`text-[15px] font-medium transition-colors hidden sm:block ${isTransparent ? 'text-white/90 hover:text-white' : 'text-[#404b5c] hover:text-[#404b5c]'}`}
+                className={`text-[15px] font-semibold transition-all duration-200 hidden sm:block cursor-pointer ${
+                  isTransparent
+                    ? 'text-white/90 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]'
+                    : 'text-[#404b5c] hover:text-[#0284c7]'
+                }`}
               >
                 로그인
               </button>
-              <button 
+              {/* 데스크탑 회원가입 버튼 */}
+              <button
                 onClick={() => navigate('/signup')}
-                className={`!py-2 !px-5 !rounded-lg text-[14px] font-medium shadow-sm transition-colors ${isTransparent ? 'bg-white/10 border border-white/30 text-white hover:bg-white/20' : 'bg-white border border-gray-200 text-[#404b5c] hover:bg-gray-50'}`}
+                className={`!py-2 !px-5 !rounded-lg text-[14px] font-bold shadow-sm transition-all duration-200 cursor-pointer ${
+                  isTransparent
+                    ? 'bg-white/15 border border-white/40 text-white hover:bg-white/35 hover:border-white/60'
+                    : 'bg-[#0284c7] border border-[#0284c7] text-white hover:bg-[#0369a1] hover:border-[#0369a1] hover:shadow-md'
+                }`}
               >
                 회원가입
               </button>
@@ -250,19 +260,21 @@ function Navbar({ isLoggedIn }) {
                     </button>
                   ) : (
                     <>
-                      <button 
-                        onClick={() => { setIsMobileMenuOpen(false); navigate('/login'); }}
-                        className="w-full py-2 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg text-center font-bold text-[#404b5c] text-[14px] transition-colors"
-                      >
-                        로그인
-                      </button>
-                      <button 
-                        onClick={() => { setIsMobileMenuOpen(false); navigate('/signup'); }}
-                        className="w-full py-2 bg-gray-800 hover:bg-gray-900 text-[#F59E0B] rounded-lg text-center font-bold text-[14px] transition-colors"
-                      >
-                        회원가입
-                      </button>
-                    </>
+                    {/* 모바일 로그인 버튼 */}
+                    <button
+                      onClick={() => { setIsMobileMenuOpen(false); navigate('/login'); }}
+                      className="w-full py-2.5 bg-white border-2 border-[#0284c7] hover:bg-[#0284c7] hover:text-white rounded-lg text-center font-bold text-[#0284c7] text-[14px] transition-all duration-200 cursor-pointer"
+                    >
+                      로그인
+                    </button>
+                    {/* 모바일 회원가입 버튼 */}
+                    <button
+                      onClick={() => { setIsMobileMenuOpen(false); navigate('/signup'); }}
+                      className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-lg text-center font-bold text-[14px] transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+                    >
+                      회원가입
+                    </button>
+                  </>
                   )}
                 </div>
                 
