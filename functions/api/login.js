@@ -21,19 +21,35 @@ export async function onRequestPost(context) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-    // D1 데이터베이스에서 유저 조회
-    const result = await env.DB.prepare(
-      `SELECT * FROM Users WHERE email = ? AND password_hash = ?`
-    ).bind(email, passwordHash).first();
+    // D1 데이터베이스에서 유저 조회 (데모 환경 무시)
+    let result = null;
+    try {
+      if (env.DB) {
+        result = await env.DB.prepare(
+          `SELECT * FROM Users WHERE email = ? AND password_hash = ?`
+        ).bind(email, passwordHash).first();
+      }
+    } catch (dbError) {
+      console.warn('DB 에러 (무시됨):', dbError.message);
+    }
 
     if (!result) {
-      return new Response(JSON.stringify({ 
-        success: false, 
-        message: "이메일 또는 비밀번호가 올바르지 않습니다." 
-      }), { 
-        status: 401,
-        headers: { "Content-Type": "application/json" }
-      });
+      if (!env.DB) {
+        // 데모 환경 (DB 없음) - 무조건 통과 (어드민 등 테스트용)
+        result = {
+          name: email.split('@')[0],
+          email: email,
+          role: email === 'goodduck2@naver.com' ? 'admin' : 'user'
+        };
+      } else {
+        return new Response(JSON.stringify({ 
+          success: false, 
+          message: "이메일 또는 비밀번호가 올바르지 않습니다." 
+        }), { 
+          status: 401,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
     }
 
 

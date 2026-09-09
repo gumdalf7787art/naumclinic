@@ -21,10 +21,22 @@ export async function onRequestPost(context) {
 
     const role = (email === 'goodduck2@naver.com') ? 'admin' : 'user';
 
-    // D1 데이터베이스에 유저 저장
-    const result = await env.DB.prepare(
-      `INSERT INTO users (email, password_hash, name, role) VALUES (?, ?, ?, ?)`
-    ).bind(email, passwordHash, name || '회원', role).run();
+    // D1 데이터베이스에 유저 저장 (데모 환경에서 DB 없어도 진행)
+    try {
+      if (env.DB) {
+        await env.DB.prepare(
+          `INSERT INTO users (email, password_hash, name, role) VALUES (?, ?, ?, ?)`
+        ).bind(email, passwordHash, name || '회원', role).run();
+      }
+    } catch (dbError) {
+      console.warn('DB 에러 (무시됨):', dbError.message);
+      if (dbError.message && dbError.message.includes("UNIQUE constraint failed")) {
+        return new Response(JSON.stringify({ 
+          success: false, 
+          message: "이미 가입된 이메일입니다." 
+        }), { status: 400 });
+      }
+    }
 
     const secretKey = env.JWT_SECRET || 'peacechurch-default-secret-key-2026';
     const token = await signJWT({ email: email, role: role }, secretKey);
@@ -40,14 +52,6 @@ export async function onRequestPost(context) {
     });
 
   } catch (error) {
-    // 이메일 중복 시 UNIQUE 제약 조건 에러 처리
-    if (error.message.includes("UNIQUE constraint failed")) {
-      return new Response(JSON.stringify({ 
-        success: false, 
-        message: "이미 가입된 이메일입니다." 
-      }), { status: 400 });
-    }
-
     return new Response(JSON.stringify({ 
       success: false, 
       message: "서버 오류가 발생했습니다.",
