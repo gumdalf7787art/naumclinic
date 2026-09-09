@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, PlayCircle, MapPin, X, Clock, FileText, Search, Users } from 'lucide-react';
 import { useCMSData } from '../../hooks/useCMS';
 import * as C from '../../constants/hospitalData';
+import SplitText from '../SplitText';
 
 const DEFAULT_HERO_SLIDES = C.HERO_SLIDES;
 
