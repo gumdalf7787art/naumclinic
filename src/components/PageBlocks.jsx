@@ -4229,7 +4229,7 @@ export function FacilityGalleryBlock({ data, isEditMode, onChange }) {
 // 12. Location Block
 // -------------------------------------------------------------
 export function LocationBlock({ data, onChange }) {
-  const { title, desc, address, phone, mapPlaceholder, transport } = data;
+  const { title, desc, address, phone, time, mapPlaceholder, transport } = data;
   const mapRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -4313,7 +4313,7 @@ export function LocationBlock({ data, onChange }) {
               </p>
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 mb-10">
               <div className="flex items-center mb-4 text-white/80">
                 <Phone size={20} className="mr-2" />
                 <span className="font-semibold tracking-wide text-[14px]">상담 및 예약문의</span>
@@ -4322,6 +4322,18 @@ export function LocationBlock({ data, onChange }) {
                 {phone}
               </p>
             </div>
+
+            {time && (
+              <div className="relative z-10">
+                <div className="flex items-center mb-4 text-white/80">
+                  <Clock size={20} className="mr-2" />
+                  <span className="font-semibold tracking-wide text-[14px]">진료시간</span>
+                </div>
+                <p className="text-[16px] md:text-[18px] font-medium leading-relaxed break-keep">
+                  {time}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Right: Transport Methods */}
