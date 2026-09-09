@@ -767,7 +767,7 @@ function MedicalVideos() {
 }
 
 function ClinicHours() {
-  const clinicHours = useCMSData('cms_clinicHoursSection', clinicHours);
+  const clinicHours = useCMSData('cms_clinicHoursSection', C.CLINIC_HOURS_SECTION);
   const sections = useCMSData('cms_sections', { clinicHours: true });
   const isVisible = sections.clinicHours !== false;
 
