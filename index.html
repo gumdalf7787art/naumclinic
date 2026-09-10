@@ -22,6 +22,28 @@
         document.getElementById('error-log').innerText += 'Unhandled Rejection: ' + e.reason + '\\n';
       });
     </script>
+    <script>
+      // Scroll chaining for iframe
+      window.addEventListener('wheel', function(e) {
+        if (window.self !== window.top) {
+          // If the scroll is on a specific container inside, we might need to check that, 
+          // but assuming window scroll for now. Let's find the scroll container (window or a div).
+          // naumclinic might use custom scroll containers.
+          // For safety, we can just check if any element can scroll further.
+          // Let's rely on standard window scroll or root scroll.
+          var scrollElement = document.scrollingElement || document.documentElement;
+          var isAtTop = scrollElement.scrollTop <= 1;
+          var isAtBottom = Math.ceil(scrollElement.scrollTop + window.innerHeight) >= scrollElement.scrollHeight - 1;
+          
+          if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+            window.parent.postMessage({
+              type: 'scrollParent',
+              deltaY: e.deltaY
+            }, '*');
+          }
+        }
+      }, { passive: true });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
